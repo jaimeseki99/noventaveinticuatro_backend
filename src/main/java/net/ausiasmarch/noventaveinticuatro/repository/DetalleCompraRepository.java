@@ -1,5 +1,7 @@
 package net.ausiasmarch.noventaveinticuatro.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +15,7 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompraEnti
 
     Page<DetalleCompraEntity> findByCamisetaId(Long camiseta_id, Pageable pageable);
 
-    Page<DetalleCompraEntity> findByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id, Pageable pageable);
+    Page<DetalleCompraEntity> findByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id, Pageable oPageable);
 
     @Query(value = "ALTER TABLE detalle_compra AUTO_INCREMENT = 1", nativeQuery = true)
     void resetAutoIncrement();
