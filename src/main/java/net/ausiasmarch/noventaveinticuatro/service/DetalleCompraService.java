@@ -49,16 +49,18 @@ public class DetalleCompraService {
         }
     }
 
-    public Page<DetalleCompraEntity> getPage(Long compra_id, Long camiseta_id, Pageable oPageable) {
-        if (compra_id != null && camiseta_id != null) {
-            return oDetalleCompraRepository.findByCompraIdAndCamisetaId(compra_id, camiseta_id, oPageable);
+   public Page<DetalleCompraEntity> getPage(Long camiseta_id, Long compra_id, Pageable oPageable) {
+        if (camiseta_id != null) {
+            return oDetalleCompraRepository.findByCamisetaId(camiseta_id, oPageable);
         } else if (compra_id != null) {
             return oDetalleCompraRepository.findByCompraId(compra_id, oPageable);
-        } else if (camiseta_id != null) {
-            return oDetalleCompraRepository.findByCamisetaId(camiseta_id, oPageable);
         } else {
             return oDetalleCompraRepository.findAll(oPageable);
         }
+    }
+
+    public Optional<DetalleCompraEntity> getOneByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id) {
+        return oDetalleCompraRepository.findByCompraIdAndCamisetaId(compra_id, camiseta_id);
     }
 
     @Transactional

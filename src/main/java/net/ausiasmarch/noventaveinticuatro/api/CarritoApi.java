@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,22 +30,22 @@ public class CarritoApi {
     CarritoService oCarritoService;
 
     @GetMapping("/{carritoId}")
-    public ResponseEntity<CarritoEntity> getCarrito(@PathVariable Long carritoId) {
+    public ResponseEntity<CarritoEntity> getCarrito(@PathVariable("carritoId") Long carritoId) {
         return ResponseEntity.ok(oCarritoService.get(carritoId));
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CarritoEntity>> getCarritoByUsuario(@PathVariable Long usuarioId) {
+    public ResponseEntity<List<CarritoEntity>> getCarritoByUsuario(@PathVariable("usuarioId") Long usuarioId) {
         return ResponseEntity.ok(oCarritoService.getCarritoByUsuario(usuarioId));
     }
 
     @GetMapping("/usuario/{usuarioId}/camiseta/{camisetaId}")
-    public ResponseEntity<CarritoEntity> getCarritoByUsuarioAndCamiseta(@PathVariable Long usuarioId, @PathVariable Long camisetaId) {
+    public ResponseEntity<CarritoEntity> getCarritoByUsuarioAndCamiseta(@PathVariable("usuarioId") Long usuarioId, @PathVariable("camisetaId") Long camisetaId) {
         return ResponseEntity.ok(oCarritoService.getCarritoByUsuarioAndCamiseta(usuarioId, camisetaId));
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<CarritoEntity>> getPage(Pageable oPageable)  {
+    public ResponseEntity<Page<CarritoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable)  {
         return ResponseEntity.ok(oCarritoService.getPage(oPageable));
     }
 
@@ -58,12 +60,12 @@ public class CarritoApi {
     }
 
     @DeleteMapping("/{carritoId}")
-    public ResponseEntity<Long> deleteCarrito(@PathVariable Long carritoId) {
+    public ResponseEntity<Long> deleteCarrito(@PathVariable("carritoId") Long carritoId) {
         return ResponseEntity.ok(oCarritoService.delete(carritoId));
     }
 
     @DeleteMapping("/usuario/{usuarioId}")
-    public ResponseEntity<Long> deleteCarritoByUsuario(@PathVariable Long usuarioId) {
+    public ResponseEntity<Long> deleteCarritoByUsuario(@PathVariable("usuarioId") Long usuarioId) {
         oCarritoService.deleteByUsuario(usuarioId);
         return ResponseEntity.ok(usuarioId);
     }

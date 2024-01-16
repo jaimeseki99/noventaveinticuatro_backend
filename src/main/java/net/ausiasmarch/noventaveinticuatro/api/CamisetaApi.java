@@ -31,7 +31,7 @@ public class CamisetaApi {
     CamisetaService oCamisetaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<CamisetaEntity> getCamisetaById(@PathVariable Long id) {
+    public ResponseEntity<CamisetaEntity> getCamisetaById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(oCamisetaService.get(id));
     }
 
@@ -46,7 +46,7 @@ public class CamisetaApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCamiseta(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteCamiseta(@PathVariable("id") Long id) {
         return ResponseEntity.ok(oCamisetaService.delete(id));
     }
 
@@ -70,7 +70,7 @@ public class CamisetaApi {
 
     @GetMapping("/equipo/{equipoId}")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasByEquipoId(
-            @PathVariable Long equipoId,
+            @PathVariable("equipoId") Long equipoId,
             @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
         Page<CamisetaEntity> camisetas = oCamisetaService.getPageByEquipoId(equipoId, pageable);
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
@@ -78,7 +78,7 @@ public class CamisetaApi {
 
     @GetMapping("/modalidad/{modalidadId}")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasByModalidadId(
-            @PathVariable Long modalidadId,
+            @PathVariable("modalidadId") Long modalidadId,
             @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
         Page<CamisetaEntity> camisetas = oCamisetaService.getPageByModalidadId(modalidadId, pageable);
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
@@ -86,7 +86,7 @@ public class CamisetaApi {
 
     @GetMapping("/liga/{ligaId}")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasByLigaId(
-            @PathVariable Long ligaId,
+            @PathVariable("ligaId") Long ligaId,
             @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
         Page<CamisetaEntity> camisetas = oCamisetaService.getPageByLigaId(ligaId, pageable);
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
@@ -109,7 +109,7 @@ public class CamisetaApi {
 
     @GetMapping("/descuento")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasConDescuento(
-            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = {"porcentaje_descuento"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<CamisetaEntity> camisetas = oCamisetaService.getPageCamisetasConDescuento(pageable);
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
     }
