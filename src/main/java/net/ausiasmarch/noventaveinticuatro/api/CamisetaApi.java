@@ -84,13 +84,7 @@ public class CamisetaApi {
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
     }
 
-    @GetMapping("/liga/{ligaId}")
-    public ResponseEntity<Page<CamisetaEntity>> getCamisetasByLigaId(
-            @PathVariable("ligaId") Long ligaId,
-            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<CamisetaEntity> camisetas = oCamisetaService.getPageByLigaId(ligaId, pageable);
-        return new ResponseEntity<>(camisetas, HttpStatus.OK);
-    }
+    
 
     @GetMapping("/mas-vendidas")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasMasVendidas(

@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -52,22 +53,22 @@ public class CamisetaEntity {
     @Lob
     private byte[] imagen;
 
-    @NotBlank
+    @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     private double precio;
 
-    @NotBlank
+    @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     private double iva;
 
-    @NotBlank
+    @NotNull
     private boolean descuento;
 
-    @NotBlank
+    @NotNull
     @Min(0)
     private double porcentajeDescuento;
 
-    @NotBlank
+    @NotNull
     @Min(0)
     private int stock;
 

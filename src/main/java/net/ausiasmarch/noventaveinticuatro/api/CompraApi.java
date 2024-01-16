@@ -125,12 +125,7 @@ public class CompraApi {
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<Page<CompraEntity>> getAllCompras(
-            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<CompraEntity> compras = oCompraService.getPage(pageable);
-        return new ResponseEntity<>(compras, HttpStatus.OK);
-    }
+   
 
     @DeleteMapping("/empty")
     public ResponseEntity<Long> emptyCompras() {

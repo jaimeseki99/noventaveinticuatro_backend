@@ -66,9 +66,9 @@ public class UsuarioService {
     public Long empty() {
         oUsuarioRepository.deleteAll();
         oUsuarioRepository.resetAutoIncrement();
-        UsuarioEntity oUsuarioEntity = new UsuarioEntity(1L, "Jaime", "Serrano", "jaimeseki99", "jaime99sq@gmail.com", "C/La Senyera, 24", "601148404", 1000000000.00, contrasenya, true);
+        UsuarioEntity oUsuarioEntity = new UsuarioEntity(1L, "Jaime", "Serrano", "jaimeseki99", "jaime99sq@gmail.com", "C/La Senyera, 24", "601148404", 1000000.00, contrasenya, true);
         oUsuarioRepository.save(oUsuarioEntity);
-        oUsuarioEntity = new UsuarioEntity(2L, "Seki", "Morten", "__sekimmortenn__", "mortensitojsk@gmail.com", "C/ La Piruleta, 666", "666666666", 1000000000.00, contrasenya, false);
+        oUsuarioEntity = new UsuarioEntity(2L, "Seki", "Morten", "sekimmortenn", "mortensitojsk@gmail.com", "C/ La Piruleta, 666", "666666666", 1000000.00, contrasenya, false);
         oUsuarioRepository.save(oUsuarioEntity);
         return oUsuarioRepository.count();
     }

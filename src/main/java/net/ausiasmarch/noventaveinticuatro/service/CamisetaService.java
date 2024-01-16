@@ -79,9 +79,7 @@ public class CamisetaService {
         return oCamisetaRepository.findByModalidadId(modalidad_id, oPageable);
     }
 
-    public Page<CamisetaEntity> getPageByLigaId(Long liga_id, Pageable oPageable) {
-        return oCamisetaRepository.findByLigaId(liga_id, oPageable);
-    }
+  
 
     public Page<CamisetaEntity> getPageCamisetasMasVendidas(Pageable oPageable) {
         return oCamisetaRepository.findCamisetasMasVendidas(oPageable);

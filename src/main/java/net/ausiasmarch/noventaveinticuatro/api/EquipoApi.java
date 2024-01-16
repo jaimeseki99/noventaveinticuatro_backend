@@ -33,7 +33,7 @@ public class EquipoApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = "{id}", direction = Sort.Direction.ASC) Pageable oPageable)  {
+    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable)  {
         return ResponseEntity.ok(oEquipoService.getPage(oPageable));
     }
 

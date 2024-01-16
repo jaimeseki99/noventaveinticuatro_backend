@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -58,7 +59,7 @@ public class UsuarioEntity {
 
     @NotBlank
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Pattern(regexp = "^[a-fA-F0-9]$", message = "La contraseña debe tener caracteres hexadecimales")
+    @Column(name = "contrasenya")
     private String contrasenya = "7fc01059913987bd360c1f37d2ae1ff5c4a055473ccb0a7a6ab4bf97967a3821";
 
     @NotNull
