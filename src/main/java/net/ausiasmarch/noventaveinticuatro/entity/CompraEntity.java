@@ -38,10 +38,6 @@ public class CompraEntity {
     private LocalDateTime fecha;
 
     @NotNull
-    @Min(1)
-    private int cantidadTotal;
-
-    @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     private double costeTotal;
 
@@ -82,17 +78,6 @@ public class CompraEntity {
         this.fecha = fecha;
     }
 
-
-    public int getCantidadTotal() {
-        return cantidadTotal;
-    }
-
-
-    public void setCantidadTotal(int cantidadTotal) {
-        this.cantidadTotal = cantidadTotal;
-    }
-
-
     public double getCosteTotal() {
         return costeTotal;
     }
@@ -115,21 +100,19 @@ public class CompraEntity {
         detallesCompra = new ArrayList<>();
     }
 
-    public CompraEntity(Long id, UsuarioEntity usuario, LocalDateTime fecha, int cantidadTotal, double costeTotal,
+    public CompraEntity(Long id, UsuarioEntity usuario, LocalDateTime fecha, double costeTotal,
             String codigoPedido) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
-        this.cantidadTotal = cantidadTotal;
         this.costeTotal = costeTotal;
         this.codigoPedido = codigoPedido;
     }
 
-    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, int cantidadTotal, double costeTotal,
+    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, double costeTotal,
             String codigoPedido) {
         this.usuario = usuario;
         this.fecha = fecha;
-        this.cantidadTotal = cantidadTotal;
         this.costeTotal = costeTotal;
         this.codigoPedido = codigoPedido;
     }
