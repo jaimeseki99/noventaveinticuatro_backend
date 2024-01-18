@@ -47,8 +47,6 @@ public class DetalleCompraEntity {
     @Min(0)
     private double porcentajeDescuento;
 
-    private double costeFinal;
-
     public Long getId() {
         return id;
     }
@@ -113,20 +111,12 @@ public class DetalleCompraEntity {
         this.porcentajeDescuento = porcentajeDescuento;
     }
 
-    public double getCosteFinal() {
-        return costeFinal;
-    }
-
-    public void setCosteFinal(double costeFinal) {
-        this.costeFinal = costeFinal;
-    }
-
     public DetalleCompraEntity() {
 
     }
 
     public DetalleCompraEntity(Long id, CompraEntity compra, CamisetaEntity camiseta, double precio, int cantidad,
-            double iva, boolean descuento, double porcentajeDescuento, double costeFinal) {
+            double iva, boolean descuento, double porcentajeDescuento) {
         this.id = id;
         this.compra = compra;
         this.camiseta = camiseta;
@@ -135,11 +125,10 @@ public class DetalleCompraEntity {
         this.iva = iva;
         this.descuento = descuento;
         this.porcentajeDescuento = porcentajeDescuento;
-        this.costeFinal = costeFinal;
     }
 
     public DetalleCompraEntity(CompraEntity compra, CamisetaEntity camiseta, double precio, int cantidad, double iva,
-            boolean descuento, double porcentajeDescuento, double costeFinal) {
+            boolean descuento, double porcentajeDescuento) {
         this.compra = compra;
         this.camiseta = camiseta;
         this.precio = precio;
@@ -147,7 +136,6 @@ public class DetalleCompraEntity {
         this.iva = iva;
         this.descuento = descuento;
         this.porcentajeDescuento = porcentajeDescuento;
-        this.costeFinal = costeFinal;
     }
 
 

@@ -66,9 +66,9 @@ public class UsuarioService {
     public Long empty() {
         oUsuarioRepository.deleteAll();
         oUsuarioRepository.resetAutoIncrement();
-        UsuarioEntity oUsuarioEntity = new UsuarioEntity(1L, "Jaime", "Serrano", "jaimeseki99", "jaime99sq@gmail.com", "C/La Senyera, 24", "601148404", 1000000.00, contrasenya, true);
+        UsuarioEntity oUsuarioEntity = new UsuarioEntity(1L, "Jaime", "Serrano", "jaimeseki99", "jaime99sq@gmail.com", "C/La Senyera, 24", "601148404", contrasenya, true);
         oUsuarioRepository.save(oUsuarioEntity);
-        oUsuarioEntity = new UsuarioEntity(2L, "Seki", "Morten", "sekimmortenn", "mortensitojsk@gmail.com", "C/ La Piruleta, 666", "666666666", 1000000.00, contrasenya, false);
+        oUsuarioEntity = new UsuarioEntity(2L, "Seki", "Morten", "sekimmortenn", "mortensitojsk@gmail.com", "C/ La Piruleta, 666", "666666666", contrasenya, false);
         oUsuarioRepository.save(oUsuarioEntity);
         return oUsuarioRepository.count();
     }
@@ -80,33 +80,5 @@ public class UsuarioService {
     public Page<UsuarioEntity> getUsuariosMasValoraciones(Pageable oPageable) {
         return oUsuarioRepository.findUsuariosMasValoraciones(oPageable);
     }
-
-    @Transactional
-    public void actualizarSaldoUsuario(UsuarioEntity oUsuarioEntity, double costeTotal) {
-        UsuarioEntity usuarioEncontrado = oUsuarioRepository.findById(oUsuarioEntity.getId()).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
-
-        if (usuarioEncontrado != null) {
-            double saldoActual = usuarioEncontrado.getSaldo();
-            double nuevoSaldo = saldoActual - costeTotal;
-            if (nuevoSaldo < 0) {
-                nuevoSaldo = 0;
-            }
-            usuarioEncontrado.setSaldo(nuevoSaldo);
-            oUsuarioRepository.save(usuarioEncontrado);
-        }
-    }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
+ 
 }

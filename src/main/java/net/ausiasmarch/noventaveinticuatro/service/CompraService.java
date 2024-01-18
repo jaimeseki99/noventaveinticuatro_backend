@@ -61,15 +61,11 @@ public class CompraService {
         oDetalleCompraEntity.setCamiseta(oCarritoEntity.getCamiseta());
         oDetalleCompraEntity.setCompra(oCompraEntity);
         oDetalleCompraEntity.setCantidad(oCarritoEntity.getCantidad());
-        oDetalleCompraEntity.setPrecio(oCarritoEntity.getPrecio());
+        oDetalleCompraEntity.setPrecio(oCarritoEntity.getCamiseta().getPrecio());
         oDetalleCompraEntity.setIva(oCarritoEntity.getCamiseta().getIva());
         oDetalleCompraEntity.setPorcentajeDescuento(oCarritoEntity.getCamiseta().getPorcentajeDescuento());
-        oDetalleCompraEntity.setCosteFinal(oCarritoEntity.getPrecio() * oCarritoEntity.getCantidad());
-
+       
         oDetalleCompraRepository.save(oDetalleCompraEntity);
-
-        double costeTotal = oCarritoEntity.getPrecio();
-        oUsuarioService.actualizarSaldoUsuario(oUsuarioEntity, costeTotal);
 
         CamisetaEntity camiseta = oCarritoEntity.getCamiseta();
         oCamisetaService.actualizarStock(camiseta, oCarritoEntity.getCantidad());
@@ -79,8 +75,7 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDateTime.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        oCompraEntity.setCosteTotal(costeTotal);
-
+        
         return oCompraRepository.save(oCompraEntity);
     }
 
@@ -97,16 +92,12 @@ public class CompraService {
             oDetalleCompraEntity.setCamiseta(carrito.getCamiseta());
             oDetalleCompraEntity.setCompra(oCompraEntity);
             oDetalleCompraEntity.setCantidad(carrito.getCantidad());
-            oDetalleCompraEntity.setPrecio(carrito.getPrecio());
+            oDetalleCompraEntity.setPrecio(carrito.getCamiseta().getPrecio());
             oDetalleCompraEntity.setIva(carrito.getCamiseta().getIva());
             oDetalleCompraEntity.setPorcentajeDescuento(carrito.getCamiseta().getPorcentajeDescuento());
-            oDetalleCompraEntity.setCosteFinal(carrito.getPrecio() * carrito.getCantidad());
-
+            
             oDetalleCompraRepository.save(oDetalleCompraEntity);
         }
-
-        double costeTotal = carritos.stream().mapToDouble(CarritoEntity::getPrecio).sum();
-        oUsuarioService.actualizarSaldoUsuario(oUsuarioEntity, costeTotal);
 
         for (CarritoEntity carrito : carritos) {
             CamisetaEntity camiseta = carrito.getCamiseta();
@@ -118,7 +109,7 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDateTime.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        oCompraEntity.setCosteTotal(costeTotal);
+        
 
         return oCompraRepository.save(oCompraEntity);
 
@@ -147,16 +138,6 @@ public class CompraService {
     public CompraEntity getOneRandom() {
         Pageable oPageable = PageRequest.of((int) (Math.random() * oCompraRepository.count()), 1);
         return oCompraRepository.findAll(oPageable).getContent().get(0);
-    }
-
-    // Encontrar a las compras más caras
-    public Page<CompraEntity> getComprasMasCaras(Pageable oPageable) {
-        return oCompraRepository.findComprasMasCaras(oPageable);
-    }
-
-    // Encontrar a las compras más baratas
-    public Page<CompraEntity> getComprasMasBaratas(Pageable oPageable) {
-        return oCompraRepository.findComprasMasBaratas(oPageable);
     }
 
     // Encontrar a las compras más recientes

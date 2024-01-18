@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -30,10 +29,6 @@ public class CarritoEntity {
     @NotNull
     @Min(1)
     private int cantidad;
-
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
-    private double precio;
 
     public Long getId() {
         return id;
@@ -67,31 +62,21 @@ public class CarritoEntity {
         this.cantidad = cantidad;
     }
 
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
     public CarritoEntity() {
 
     }
 
-    public CarritoEntity(Long id, UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad, double precio) {
+    public CarritoEntity(Long id, UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad) {
         this.id = id;
         this.usuario = usuario;
         this.camiseta = camiseta;
         this.cantidad = cantidad;
-        this.precio = precio;
     }
 
-    public CarritoEntity(UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad, double precio) {
+    public CarritoEntity(UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad) {
         this.usuario = usuario;
         this.camiseta = camiseta;
         this.cantidad = cantidad;
-        this.precio = precio;
     }
 
     

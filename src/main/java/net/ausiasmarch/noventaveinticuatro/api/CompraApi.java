@@ -81,20 +81,7 @@ public class CompraApi {
         return new ResponseEntity<>(cancelledCompraId, HttpStatus.OK);
     }
 
-    @GetMapping("/compras-mas-caras")
-    public ResponseEntity<Page<CompraEntity>> getComprasMasCaras(
-            @PageableDefault(size = 10, sort = {"costeTotal"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<CompraEntity> compras = oCompraService.getComprasMasCaras(pageable);
-        return new ResponseEntity<>(compras, HttpStatus.OK);
-    }
-
-    @GetMapping("/compras-mas-baratas")
-    public ResponseEntity<Page<CompraEntity>> getComprasMasBaratas(
-            @PageableDefault(size = 10, sort = {"costeTotal"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<CompraEntity> compras = oCompraService.getComprasMasBaratas(pageable);
-        return new ResponseEntity<>(compras, HttpStatus.OK);
-    }
-
+   
     @GetMapping("/compras-mas-recientes")
     public ResponseEntity<Page<CompraEntity>> getComprasMasRecientes(
             @PageableDefault(size = 10, sort = {"fecha"}, direction = Sort.Direction.DESC) Pageable pageable) {
@@ -124,8 +111,6 @@ public class CompraApi {
         Page<CompraEntity> compras = oCompraService.getComprasMasBaratasByUsuarioId(usuarioId, pageable);
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
-
-   
 
     @DeleteMapping("/empty")
     public ResponseEntity<Long> emptyCompras() {

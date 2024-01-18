@@ -17,7 +17,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -52,10 +51,6 @@ public class UsuarioEntity {
     @NotBlank
     @Pattern(regexp = "^[0-9]{9}$", message = "El teléfono debe tener 9 dígitos")
     private String telefono;
-
-    @NotNull
-    @PositiveOrZero
-    private double saldo;
 
     @NotBlank
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -121,13 +116,7 @@ public class UsuarioEntity {
         this.telefono = telefono;
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
+   
 
     public String getContrasenya() {
         return contrasenya;
@@ -173,7 +162,7 @@ public class UsuarioEntity {
     }
 
     public UsuarioEntity(Long id, String nombre, String apellido, String username, String email, String direccion,
-            String telefono, double saldo, String contrasenya, boolean tipo) {
+            String telefono, String contrasenya, boolean tipo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -181,20 +170,18 @@ public class UsuarioEntity {
         this.email = email;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.saldo = saldo;
         this.contrasenya = contrasenya;
         this.tipo = tipo;
     }
 
     public UsuarioEntity(String nombre, String apellido, String username, String email, String direccion,
-            String telefono, double saldo, String contrasenya, boolean tipo) {
+            String telefono, String contrasenya, boolean tipo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.username = username;
         this.email = email;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.saldo = saldo;
         this.contrasenya = contrasenya;
         this.tipo = tipo;
     }

@@ -15,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,15 +36,19 @@ public class CompraEntity {
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime fecha;
 
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
-    private double costeTotal;
-
     @NotBlank
     @Size(max = 10)
     private String codigoPedido;
 
-        @OneToMany(mappedBy = "compra")
+    @Min(0)
+    private Long factura_id;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime fechaFactura;
+
+   
+
+    @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
     
 
@@ -78,16 +81,6 @@ public class CompraEntity {
         this.fecha = fecha;
     }
 
-    public double getCosteTotal() {
-        return costeTotal;
-    }
-
-
-    public void setCosteTotal(double costeTotal) {
-        this.costeTotal = costeTotal;
-    }
-
-
     public String getCodigoPedido() {
         return codigoPedido;
     }
@@ -96,25 +89,43 @@ public class CompraEntity {
         this.codigoPedido = codigoPedido;
     }
 
+    public Long getFactura_id() {
+        return factura_id;
+    }
+
+    public void setFactura_id(Long factura_id) {
+        this.factura_id = factura_id;
+    }
+
+    public LocalDateTime getFechaFactura() {
+        return fechaFactura;
+    }
+
+    public void setFechaFactura(LocalDateTime fechaFactura) {
+        this.fechaFactura = fechaFactura;
+    }
+
     public CompraEntity() {
         detallesCompra = new ArrayList<>();
     }
 
-    public CompraEntity(Long id, UsuarioEntity usuario, LocalDateTime fecha, double costeTotal,
-            String codigoPedido) {
+    public CompraEntity(Long id, UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido, Long factura_id,
+            LocalDateTime fechaFactura) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
-        this.costeTotal = costeTotal;
         this.codigoPedido = codigoPedido;
+        this.factura_id = factura_id;
+        this.fechaFactura = fechaFactura;
     }
 
-    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, double costeTotal,
-            String codigoPedido) {
+    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido, Long factura_id,
+            LocalDateTime fechaFactura) {
         this.usuario = usuario;
         this.fecha = fecha;
-        this.costeTotal = costeTotal;
         this.codigoPedido = codigoPedido;
+        this.factura_id = factura_id;
+        this.fechaFactura = fechaFactura;
     }
 
 }

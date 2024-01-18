@@ -55,13 +55,11 @@ public class CarritoService {
          if (carritoBaseDatos.isPresent()) {
               CarritoEntity carrito = carritoBaseDatos.get();
               carrito.setCantidad(carrito.getCantidad() + oCarritoEntity.getCantidad());
-              carrito.setPrecio(carrito.getCantidad() * carrito.getCamiseta().getPrecio());
               return carrito.getId();
          } else {
               oCarritoEntity.setId(null);
               oCarritoEntity.setUsuario(oUsuarioEntity);
               oCarritoEntity.setCamiseta(oCamisetaEntity);
-              oCarritoEntity.setPrecio(oCarritoEntity.getCantidad() * oCarritoEntity.getCamiseta().getPrecio());
               return oCarritoRepository.save(oCarritoEntity).getId();
          }
    }
@@ -71,10 +69,6 @@ public class CarritoService {
         oCarritoEntity.setUsuario(carritoBaseDatos.getUsuario());
         oCarritoEntity.setCamiseta(carritoBaseDatos.getCamiseta());
 
-        int nuevaCantidad = oCarritoEntity.getCantidad();
-        double precioUnitario = oCarritoEntity.getCamiseta().getPrecio();
-        oCarritoEntity.setPrecio(nuevaCantidad * precioUnitario);
-       
         return oCarritoRepository.save(oCarritoEntity);
     }
 
