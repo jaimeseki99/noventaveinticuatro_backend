@@ -49,13 +49,20 @@ public class CompraService {
     public String generarCodigoPedido() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String fechaActual = LocalDateTime.now().format(formatter);
-        String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
+        String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
         return fechaActual + uuid;
     }
 
     @Transactional
     public CompraEntity realizarCompraUnicoCarrito(CarritoEntity oCarritoEntity, UsuarioEntity oUsuarioEntity) {
         CompraEntity oCompraEntity = new CompraEntity();
+
+        oCompraEntity.setUsuario(oUsuarioEntity);
+        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setCodigoPedido(generarCodigoPedido());
+
+        oCompraRepository.save(oCompraEntity);
+
         DetalleCompraEntity oDetalleCompraEntity = new DetalleCompraEntity();
         oDetalleCompraEntity.setId(null);
         oDetalleCompraEntity.setCamiseta(oCarritoEntity.getCamiseta());
@@ -72,11 +79,7 @@ public class CompraService {
 
         oCarritoService.delete(oCarritoEntity.getId());
 
-        oCompraEntity.setUsuario(oUsuarioEntity);
-        oCompraEntity.setFecha(LocalDateTime.now());
-        oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        
-        return oCompraRepository.save(oCompraEntity);
+        return oCompraEntity;
     }
 
 

@@ -40,11 +40,8 @@ public class DetalleCompraEntity {
     @DecimalMin(value = "0.0", inclusive = false)
     private double iva;
 
-    @NotBlank
     private boolean descuento;
 
-    @NotBlank
-    @Min(0)
     private double porcentajeDescuento;
 
     public Long getId() {

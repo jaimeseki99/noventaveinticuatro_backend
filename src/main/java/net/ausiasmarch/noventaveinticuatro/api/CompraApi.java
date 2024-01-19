@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import net.ausiasmarch.noventaveinticuatro.entity.CarritoEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.CompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
+import net.ausiasmarch.noventaveinticuatro.service.CarritoService;
 import net.ausiasmarch.noventaveinticuatro.service.CompraService;
+import net.ausiasmarch.noventaveinticuatro.service.UsuarioService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 @RestController
@@ -31,6 +33,12 @@ public class CompraApi {
 
     @Autowired
     CompraService oCompraService;
+
+    @Autowired
+    UsuarioService oUsuarioService;
+
+    @Autowired
+    CarritoService oCarritoService;
 
     @GetMapping("/{compraId}")
     public ResponseEntity<CompraEntity> getCompra(@PathVariable("compraId") Long compraId) {
@@ -53,14 +61,13 @@ public class CompraApi {
         return new ResponseEntity<>(compra, HttpStatus.OK);
     }
 
-    @PostMapping("/realizar-compra-unico-carrito")
-    public ResponseEntity<CompraEntity> realizarCompraUnicoCarrito(
-            @RequestBody CarritoEntity carrito,
-            @RequestParam Long usuarioId) {
-        UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setId(usuarioId);
+    @PostMapping("/realizar-compra-unico-carrito/{usuarioId}/{carritoId}")
+    public ResponseEntity<CompraEntity> realizarCompraUnicoCarrito(@PathVariable Long usuarioId, @PathVariable Long carritoId) {
+        UsuarioEntity usuario = oUsuarioService.get(usuarioId);
+        CarritoEntity carrito = oCarritoService.get(carritoId);
 
         CompraEntity compra = oCompraService.realizarCompraUnicoCarrito(carrito, usuario);
+
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }
 

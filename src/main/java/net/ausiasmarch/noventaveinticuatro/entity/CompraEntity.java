@@ -37,7 +37,7 @@ public class CompraEntity {
     private LocalDateTime fecha;
 
     @NotBlank
-    @Size(max = 10)
+    @Size(max = 100)
     private String codigoPedido;
 
     @Min(0)
@@ -45,8 +45,6 @@ public class CompraEntity {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime fechaFactura;
-
-   
 
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
