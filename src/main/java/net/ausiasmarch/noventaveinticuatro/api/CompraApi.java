@@ -71,13 +71,11 @@ public class CompraApi {
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }
 
-    @PostMapping("/realizar-compra-todos-carritos")
+    @PostMapping("/realizar-compra-todos-carritos/{usuarioId}")
     public ResponseEntity<CompraEntity> realizarCompraTodosCarritos(
-            @RequestBody List<CarritoEntity> carritos,
-            @RequestParam Long usuarioId) {
-        UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setId(usuarioId);
-
+            @PathVariable Long usuarioId) {
+        UsuarioEntity usuario = oUsuarioService.get(usuarioId);
+        List<CarritoEntity> carritos = oCarritoService.getCarritosUsuario(usuarioId);
         CompraEntity compra = oCompraService.realizarCompraTodosCarritos(carritos, usuario);
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }

@@ -86,6 +86,12 @@ public class CompraService {
     @Transactional
     public CompraEntity realizarCompraTodosCarritos(List<CarritoEntity> carritos, UsuarioEntity oUsuarioEntity) {
         CompraEntity oCompraEntity = new CompraEntity();
+
+        oCompraEntity.setUsuario(oUsuarioEntity);
+        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setCodigoPedido(generarCodigoPedido());
+
+        oCompraRepository.save(oCompraEntity);
         
         carritos = oCarritoService.getCarritoByUsuario(oUsuarioEntity.getId());
 
@@ -109,12 +115,7 @@ public class CompraService {
 
         oCarritoService.deleteByUsuario(oUsuarioEntity.getId());
 
-        oCompraEntity.setUsuario(oUsuarioEntity);
-        oCompraEntity.setFecha(LocalDateTime.now());
-        oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        
-
-        return oCompraRepository.save(oCompraEntity);
+        return oCompraEntity;
 
     }
 
