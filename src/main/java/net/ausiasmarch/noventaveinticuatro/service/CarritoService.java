@@ -55,6 +55,7 @@ public class CarritoService {
          if (carritoBaseDatos.isPresent()) {
               CarritoEntity carrito = carritoBaseDatos.get();
               carrito.setCantidad(carrito.getCantidad() + oCarritoEntity.getCantidad());
+              oCarritoRepository.save(carrito);
               return carrito.getId();
          } else {
               oCarritoEntity.setId(null);
