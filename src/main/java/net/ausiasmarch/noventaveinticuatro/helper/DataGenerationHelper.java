@@ -114,6 +114,12 @@ public class DataGenerationHelper {
 
     private static final String[] mangasCamiseta = {"Manga Corta", "Manga Larga"};
 
+    // Array de Strings que contengan diferentes adjetivos que puedan describir a una camiseta de fútbol o de baloncesto
+    private static final String[] adjetivosCamiseta = {"Retro", "Clásica", "Moderna", "Original", "Alternativa", "Ajustada", "Ancha", "Cómoda", "Corta", "Larga", "Deportiva", "Elegante", "Femenina", "Masculina", "Infantil", "Juvenil", "Adulto", "Unisex", "Buen Estado", "Mal estado", "Nueva", "Usada", "Barata", "Cara", "Cortesía", "Descuento", "Oferta", "Rebaja", "Regalo", "Gratis", "Envío Gratis", "Envío Rápido", "Envío Urgente", "Envío Normal", "Envío Lento", "Envío Gratis"};
+    
+    private static final String[] adjetivosPersona = {"La recomiendo", "No la recomiendo", "Me encanta", "Tremenda decepción", "No me gusta", "Me gusta", "Me encanta", "Me flipa", "Me flipa mucho", "Me flipa un montón", "Me flipa un huevo", "Me flipa un huevo y la yema del otro", "Me flipa un huevo y la yema del otro y la clara del otro", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó y el tendero que la vendió", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó y el tendero que la vendió y el cliente que la compró"};
+
+
      public static String getNombreRandom() {
         return nombres[(int) (Math.random() * nombres.length)];
     }
@@ -196,6 +202,71 @@ public class DataGenerationHelper {
         long diaRandom = ThreadLocalRandom.current().nextLong(diaMinimo, diaMaximo);
         return LocalDate.ofEpochDay(diaRandom).atTime(getRandomInt(0, 23), getRandomInt(0, 59), getRandomInt(0, 59));
     }
+
+    public static String getEquipoRandom() {
+        return equipos[(int) (Math.random() * equipos.length)];
+    }
+
+    public static String getTipoCamisetaRandom() {
+        return tiposCamiseta[(int) (Math.random() * tiposCamiseta.length)];
+    }
+
+    public static String getVersionCamisetaRandom() {
+        return versionCamiseta[(int) (Math.random() * versionCamiseta.length)];
+    }
+
+    public static String getTallaCamisetaRandom() {
+        return tallasCamiseta[(int) (Math.random() * tallasCamiseta.length)];
+    }
+
+    public static String getMangaCamisetaRandom() {
+        return mangasCamiseta[(int) (Math.random() * mangasCamiseta.length)];
+    }
+
+    //Método para generar un título de camiseta aleatorio
+    public static String generarTituloCamisetaRandom() {
+        
+        StringBuilder tituloCamiseta = new StringBuilder();
+
+        tituloCamiseta.append("Camiseta ");
+        tituloCamiseta.append(getTipoCamisetaRandom());
+        tituloCamiseta.append(" ");
+        tituloCamiseta.append(getEquipoRandom());
+        tituloCamiseta.append(" ");
+        tituloCamiseta.append(getVersionCamisetaRandom());
+        tituloCamiseta.append(" ");
+        tituloCamiseta.append(getMangaCamisetaRandom());
+        tituloCamiseta.append(" ");
+        tituloCamiseta.append(getTallaCamisetaRandom());
+        
+        return tituloCamiseta.toString();
+    }
+
+    //Método para obtener un adjetivo de la camiseta random
+    public static String getAdjetivoCamisetaRandom() {
+        return adjetivosCamiseta[(int) (Math.random() * adjetivosCamiseta.length)];
+    }
+
+    //Método para obtener un adjetivo de la persona aleatorio
+    public static String getAdjetivoPersonaRandom() {
+        return adjetivosPersona[(int) (Math.random() * adjetivosPersona.length)];
+    }
+
+    //Método para generar un comentario aleatorio
+    public static String generarComentarioRandom() {
+        StringBuilder comentario = new StringBuilder();
+        comentario.append("La camiseta que me ha llegado me parece ");
+        comentario.append(getAdjetivoCamisetaRandom());
+        comentario.append(". ");
+        comentario.append("Sinceramente ");
+        comentario.append(getAdjetivoPersonaRandom());
+        comentario.append(".");
+
+        return comentario.toString();
+    }
+
+
+      
 
 
     public static String getSHA256(String strToHash) {
