@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.ValoracionEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.ValoracionRepository;
 
 @Service
@@ -23,6 +26,12 @@ public class ValoracionService {
 
     @Autowired
     HttpServletRequest oHttpServletRequest;
+
+    @Autowired
+    UsuarioService oUsuarioService;
+
+    @Autowired
+    CamisetaService oCamisetaService;
 
     public ValoracionEntity get(Long id) {
         return oValoracionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Valoracion no encontrado."));
@@ -94,6 +103,17 @@ public class ValoracionService {
 
     public Page<ValoracionEntity> getPageMasAntiguasByUsuarioId(Long usuario_id, Pageable oPageable) {
         return oValoracionRepository.getValoracionesMasAntiguasByUsuarioId(usuario_id, oPageable);
+    }
+
+    public Long populate(int amount) {
+        for (int i = 0; i<amount; i++) {
+            String comentario = DataGenerationHelper.generarComentarioRandom();
+            LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
+            UsuarioEntity usuario = oUsuarioService.getOneRandom();
+            CamisetaEntity camiseta = oCamisetaService.getOneRandom();
+            oValoracionRepository.save(new ValoracionEntity(comentario, fecha, usuario, camiseta));
+        }
+        return oValoracionRepository.count();
     }
 
     @Transactional

@@ -254,4 +254,17 @@ public class CamisetaEntity {
         this.modalidad = modalidad;
     }
 
+    public CamisetaEntity(String titulo, String talla, String manga, String temporada, double precio, double iva,
+            int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
+        this.titulo = titulo;
+        this.talla = talla;
+        this.manga = manga;
+        this.temporada = temporada;
+        this.precio = precio;
+        this.iva = iva;
+        this.stock = stock;
+        this.equipo = equipo;
+        this.modalidad = modalidad;
+    }
+
 }

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.CompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.DetalleCompraEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.DetalleCompraRepository;
 
 @Service
@@ -22,6 +25,12 @@ public class DetalleCompraService {
 
     @Autowired
     HttpServletRequest oHttpServletRequest;
+
+    @Autowired
+    CompraService oCompraService;
+
+    @Autowired
+    CamisetaService oCamisetaService;
 
     public DetalleCompraEntity get(Long id) {
         return oDetalleCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: DetalleCompra no encontrado."));
@@ -61,6 +70,23 @@ public class DetalleCompraService {
 
     public Optional<DetalleCompraEntity> getOneByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id) {
         return oDetalleCompraRepository.findByCompraIdAndCamisetaId(compra_id, camiseta_id);
+    }
+
+    public DetalleCompraEntity getOneRandom() {
+        Pageable oPageable = Pageable.ofSize(1);
+        return oDetalleCompraRepository.findAll(oPageable).getContent().get(0);
+    }
+
+    public Long populate(int amount) {
+        for (int i=0; i<amount; i++) {
+            CompraEntity compra = oCompraService.getOneRandom();
+            CamisetaEntity camiseta = oCamisetaService.getOneRandom();
+            double precio = camiseta.getPrecio();
+            int cantidad = DataGenerationHelper.generarIntRandom();
+            double iva = camiseta.getIva();
+            oDetalleCompraRepository.save(new DetalleCompraEntity(compra, camiseta, precio, cantidad, iva));
+        }
+        return oDetalleCompraRepository.count();
     }
 
     @Transactional

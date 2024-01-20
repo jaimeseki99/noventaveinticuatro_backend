@@ -52,6 +52,11 @@ public class UsuarioApi {
         return ResponseEntity.ok(oUsuarioService.create(oUsuarioEntity));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oUsuarioService.populate(amount));
+    }
+
     @PutMapping("")
     public ResponseEntity<UsuarioEntity> update(@RequestBody UsuarioEntity oUsuarioEntity) {
         return ResponseEntity.ok(oUsuarioService.update(oUsuarioEntity));

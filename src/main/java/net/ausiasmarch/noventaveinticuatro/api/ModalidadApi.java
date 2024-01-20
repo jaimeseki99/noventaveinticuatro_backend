@@ -58,6 +58,11 @@ public class ModalidadApi {
         return ResponseEntity.ok(oModalidadService.delete(id));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oModalidadService.populate(amount));
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oModalidadService.empty());

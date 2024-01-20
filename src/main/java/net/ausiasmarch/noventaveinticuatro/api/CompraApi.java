@@ -117,6 +117,12 @@ public class CompraApi {
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populateCompras(@PathVariable("amount") int amount) {
+        Long totalCompras = oCompraService.populate(amount);
+        return new ResponseEntity<>(totalCompras, HttpStatus.OK);
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> emptyCompras() {
         Long deletedCount = oCompraService.empty();

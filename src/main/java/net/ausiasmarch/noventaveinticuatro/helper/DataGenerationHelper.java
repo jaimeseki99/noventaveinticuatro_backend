@@ -92,11 +92,15 @@ public class DataGenerationHelper {
         "Real Betis Balompié", "RC Celta de Vigo", "Getafe CF", "Rayo Vallecano", 
         "Girona FC", "Deportivo Alavés", "RCD Mallorca", "Cádiz CF", 
         "CA Osasuna", "Granada CF", "UD Almería", "UD Las Palmas", 
+        "Levante UD", "RCD Espanyol", "Real Zaragoza", "Real Sporting de Gijón",
         "Chelsea FC", "Manchester United", "Manchester City", "Arsenal FC", 
         "Liverpool FC", "Tottenham Hotspur", "West Ham United", "Aston Villa", 
+        "Crystal Palace", "Everton FC", "Leicester City", "Newcastle United",
         "FC Bayern München", "Borussia Dortmund", "RB Leipzig", "Bayer Leverkusen", 
+        "Borussia Mönchengladbach", "VfL Wolfsburg", "Eintracht Frankfurt", "Werder Bremen",
         "Juventus", "Inter Milan", "AC Milan", "AS Roma", 
-        "Lazio", "Fiorentina", "Paris Saint Germain", "Olympique Lyon", 
+        "SSC Napoli", "Atalanta BC", "Lazio", "Fiorentina",
+        "Paris Saint Germain", "Olympique Lyon", "Montpellier", "LOSC Lille",
         "Olympique Marsella", "AS Monaco", "Denver Nuggets", "Los Angeles Lakers", 
         "Los Angeles Clippers", "Golden State Warriors", "Boston Celtics", "New York Knicks", 
         "Chicago Bulls", "Miami Heat", "Houston Rockets", "Dallas Mavericks", 
@@ -119,6 +123,11 @@ public class DataGenerationHelper {
     
     private static final String[] adjetivosPersona = {"La recomiendo", "No la recomiendo", "Me encanta", "Tremenda decepción", "No me gusta", "Me gusta", "Me encanta", "Me flipa", "Me flipa mucho", "Me flipa un montón", "Me flipa un huevo", "Me flipa un huevo y la yema del otro", "Me flipa un huevo y la yema del otro y la clara del otro", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó y el tendero que la vendió", "Me flipa un huevo y la yema del otro y la clara del otro y la cáscara del otro y la gallina que lo puso y el granjero que la cuidó y el camionero que la transportó y el tendero que la vendió y el cliente que la compró"};
 
+    private static final String[] paises = {"España", "Portugal", "Francia", "Estados Unidos", "Inglaterra", "Italia", "Alemania", "Países Bajos", "Rusia"};
+
+    private static final String[] ligas = {"La Liga", "Premier League", "Serie A", "Bundesliga", "Ligue 1", "Eredivisie", "MLS", "Liga Portuguesa", "Liga Rusa", "NBA", "Liga ACB Endesa"};
+
+    private static final String[] deportes = {"Fútbol", "Baloncesto"};
 
      public static String getNombreRandom() {
         return nombres[(int) (Math.random() * nombres.length)];
@@ -196,6 +205,12 @@ public class DataGenerationHelper {
         return numeroRandom;
     }
 
+    public static double getRandomDouble(int min, int max) {
+        Random random = new Random();
+        double numeroRandom = min + (max - min) * random.nextDouble();
+        return numeroRandom;
+    }
+
     public static LocalDateTime getFechaRandom() {
         long diaMinimo = LocalDate.of(2020, 1, 1).toEpochDay();
         long diaMaximo = LocalDate.of(2023, 11, 1).toEpochDay();
@@ -265,9 +280,17 @@ public class DataGenerationHelper {
         return comentario.toString();
     }
 
+    public static String getPaisRandom() {
+        return paises[(int) (Math.random() * paises.length)];
+    }
 
-      
+    public static String getLigaRandom() {
+        return ligas[(int) (Math.random() * ligas.length)];
+    }
 
+    public static String getDeporteRandom() {
+        return deportes[(int) (Math.random() * deportes.length)];
+    }
 
     public static String getSHA256(String strToHash) {
         try {

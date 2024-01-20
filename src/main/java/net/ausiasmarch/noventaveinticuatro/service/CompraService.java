@@ -18,6 +18,7 @@ import net.ausiasmarch.noventaveinticuatro.entity.CompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.DetalleCompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.CompraRepository;
 import net.ausiasmarch.noventaveinticuatro.repository.DetalleCompraRepository;
 
@@ -171,6 +172,16 @@ public class CompraService {
 
     public Page<CompraEntity> getCompraPorCodigoPedido(String codigo_pedido, Pageable oPageable) {
         return oCompraRepository.findByCodigoPedido(codigo_pedido, oPageable);
+    }
+
+    public Long populate(int amount) {
+        for (int i = 0; i < amount; i++) {
+            UsuarioEntity usuario = oUsuarioService.getOneRandom();
+            LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
+            String codigoPedido = generarCodigoPedido();
+            oCompraRepository.save(new CompraEntity(usuario, fecha, codigoPedido));
+        }
+        return oCompraRepository.count();
     }
 
     @Transactional

@@ -90,6 +90,16 @@ public class CarritoService {
         return oCarritoRepository.findByUsuarioId(usuario_id);
     }
 
+    public Long populate(int amount) {
+        for (int i = 0; i < amount; i++) {
+            UsuarioEntity usuario = oUsuarioService.getOneRandom();
+            CamisetaEntity camiseta = oCamisetaService.getOneRandom();
+            int cantidad = (int) (Math.random() * 10) + 1;
+            oCarritoRepository.save(new CarritoEntity(usuario, camiseta, cantidad));
+        }
+        return oCarritoRepository.count();
+    }
+
     @Transactional
     public Long empty() {
         oCarritoRepository.deleteAll();

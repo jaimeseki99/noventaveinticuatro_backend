@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.entity.EquipoEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.LigaEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.EquipoRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class EquipoService {
 
     @Autowired
     HttpServletRequest oHttpServletRequest;
+
+    @Autowired
+    LigaService oLigaService;
 
     public EquipoEntity get(Long id) {
         return oEquipoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Equipo no encontrado."));
@@ -54,6 +59,15 @@ public class EquipoService {
 
     public Page<EquipoEntity> getPage(Pageable oPageable) {
         return oEquipoRepository.findAll(oPageable);
+    }
+
+    public Long populate(int amount) {
+        for (int i = 0; i < amount; i++) {
+            String nombre = DataGenerationHelper.getEquipoRandom();
+            LigaEntity liga = oLigaService.getOneRandom();
+            oEquipoRepository.save(new EquipoEntity(nombre, liga));
+        }
+        return oEquipoRepository.count();
     }
 
 

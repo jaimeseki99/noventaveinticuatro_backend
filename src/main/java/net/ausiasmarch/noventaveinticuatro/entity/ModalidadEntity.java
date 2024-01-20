@@ -57,4 +57,8 @@ public class ModalidadEntity {
         this.camisetas = camisetas;
     }
 
+    public ModalidadEntity(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

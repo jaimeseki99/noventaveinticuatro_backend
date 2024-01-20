@@ -61,6 +61,12 @@ public class CamisetaApi {
         return new ResponseEntity<>(randomCamiseta, HttpStatus.OK);
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populateCamisetas(@PathVariable("amount") int amount) {
+        Long totalCamisetas = oCamisetaService.populate(amount);
+        return new ResponseEntity<>(totalCamisetas, HttpStatus.OK);
+    }
+
     @Transactional
     @PostMapping("/empty")
     public ResponseEntity<Long> emptyCamisetas() {
@@ -83,8 +89,6 @@ public class CamisetaApi {
         Page<CamisetaEntity> camisetas = oCamisetaService.getPageByModalidadId(modalidadId, pageable);
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
     }
-
-    
 
     @GetMapping("/mas-vendidas")
     public ResponseEntity<Page<CamisetaEntity>> getCamisetasMasVendidas(

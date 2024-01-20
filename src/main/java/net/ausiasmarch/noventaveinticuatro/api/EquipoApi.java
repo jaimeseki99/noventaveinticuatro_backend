@@ -58,6 +58,11 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.delete(id));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oEquipoService.populate(amount));
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oEquipoService.empty());

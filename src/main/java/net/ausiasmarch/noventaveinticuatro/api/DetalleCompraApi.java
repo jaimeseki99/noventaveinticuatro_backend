@@ -53,6 +53,11 @@ public class DetalleCompraApi {
         return ResponseEntity.ok(oDetalleCompraService.getPage(camiseta_id, compra_id, pageable));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oDetalleCompraService.populate(amount));
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oDetalleCompraService.empty());

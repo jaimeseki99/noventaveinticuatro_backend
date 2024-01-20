@@ -85,6 +85,11 @@ public class ValoracionApi {
         return ResponseEntity.ok(oValoracionService.create(oValoracionEntity));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oValoracionService.populate(amount));
+    }
+
     @PutMapping("")
     public ResponseEntity<ValoracionEntity> update(@RequestBody ValoracionEntity oValoracionEntity) {
         return ResponseEntity.ok(oValoracionService.update(oValoracionEntity));

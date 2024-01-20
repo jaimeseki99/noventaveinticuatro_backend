@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletRequest;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.UsuarioRepository;
 
 @Service
@@ -60,6 +61,19 @@ public class UsuarioService {
     public UsuarioEntity getOneRandom() {
         Pageable oPageable = PageRequest.of((int) (Math.random() * oUsuarioRepository.count()), 1);
         return oUsuarioRepository.findAll(oPageable).getContent().get(0);
+    }
+
+    public Long populate(Integer amount) {
+        for (int i=0; i<amount; i++) {
+            String nombre = DataGenerationHelper.getNombreRandom();
+            String apellido = DataGenerationHelper.getApellidoRandom();
+            String username = DataGenerationHelper.doNormalizeString(nombre.substring(0,4) + apellido.substring(0, 3).toLowerCase());
+            String email = DataGenerationHelper.doNormalizeString(nombre.substring(0,4) + apellido.substring(0, 3).toLowerCase()) + "@gmail.com";
+            String direccion = DataGenerationHelper.generarDireccionRandom();
+            String telefono = DataGenerationHelper.generarNumeroTelefono();
+            oUsuarioRepository.save(new UsuarioEntity(nombre, apellido, username, email, direccion, telefono, contrasenya, false));
+        }
+        return oUsuarioRepository.count();
     }
 
     @Transactional

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.entity.ModalidadEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.ModalidadRepository;
 
 @Service
@@ -61,6 +62,14 @@ public class ModalidadService {
         return oModalidadRepository.findByNombre(nombre);
     }
 
+    public Long populate(int amount) {
+        for (int i=0; i<amount; i++) {
+            String nombreModalidad = DataGenerationHelper.getTipoCamisetaRandom() + " " + DataGenerationHelper.getVersionCamisetaRandom();
+            oModalidadRepository.save(new ModalidadEntity(nombreModalidad));
+        }
+        return oModalidadRepository.count();
+    }
+    
     @Transactional
     public Long empty() {
         oModalidadRepository.deleteAll();

@@ -135,6 +135,14 @@ public class DetalleCompraEntity {
         this.porcentajeDescuento = porcentajeDescuento;
     }
 
+    public DetalleCompraEntity(CompraEntity compra, CamisetaEntity camiseta, double precio, int cantidad, double iva) {
+        this.compra = compra;
+        this.camiseta = camiseta;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.iva = iva;
+    }
+
 
 
 

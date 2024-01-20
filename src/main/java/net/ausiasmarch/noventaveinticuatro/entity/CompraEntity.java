@@ -126,4 +126,10 @@ public class CompraEntity {
         this.fechaFactura = fechaFactura;
     }
 
+    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido) {
+        this.usuario = usuario;
+        this.fecha = fecha;
+        this.codigoPedido = codigoPedido;
+    }
+
 }

@@ -1,5 +1,7 @@
 package net.ausiasmarch.noventaveinticuatro.service;
 
+import javax.xml.crypto.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +11,10 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.EquipoEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.ModalidadEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.CamisetaRepository;
 
 @Service
@@ -20,6 +25,12 @@ public class CamisetaService {
 
     @Autowired
     HttpServletRequest oHttpServletRequest;
+
+    @Autowired
+    EquipoService oEquipoService;
+
+    @Autowired
+    ModalidadService oModalidadService;
 
     public CamisetaEntity get(Long id) {
         return oCamisetaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Camiseta no encontrada."));
@@ -79,8 +90,6 @@ public class CamisetaService {
         return oCamisetaRepository.findByModalidadId(modalidad_id, oPageable);
     }
 
-  
-
     public Page<CamisetaEntity> getPageCamisetasMasVendidas(Pageable oPageable) {
         return oCamisetaRepository.findCamisetasMasVendidas(oPageable);
     }
@@ -91,6 +100,22 @@ public class CamisetaService {
 
     public Page<CamisetaEntity> getPageCamisetasConDescuento(Pageable oPageable) {
         return oCamisetaRepository.findCamisetasConDescuento(oPageable);
+    }
+
+    public Long populate(int amount) {
+        for (int i = 0; i<amount; i++) {
+            String titulo = DataGenerationHelper.generarTituloCamisetaRandom();
+            String talla = DataGenerationHelper.getTallaCamisetaRandom();
+            String manga = DataGenerationHelper.getMangaCamisetaRandom();
+            String temporada = "2023/2024";
+            Double precio = DataGenerationHelper.getRandomDouble(50, 100);
+            Double iva = DataGenerationHelper.getRandomDouble(0, 21);
+            int stock = DataGenerationHelper.getRandomInt(0, 100);
+            EquipoEntity equipo = oEquipoService.getOneRandom();
+            ModalidadEntity modalidad = oModalidadService.getOneRandom();
+            oCamisetaRepository.save(new CamisetaEntity(titulo, talla, manga, temporada, precio, iva, stock, equipo, modalidad));
+        }
+        return oCamisetaRepository.count();
     }
 
     @Transactional

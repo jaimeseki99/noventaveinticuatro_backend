@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.entity.LigaEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
+import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.LigaRepository;
 
 @Service
@@ -55,6 +56,16 @@ public class LigaService {
         Pageable oPageable = PageRequest.of((int) (Math.random() * oLigaRepository.count()), 1);
         return oLigaRepository.findAll(oPageable).getContent().get(0);
     }
+
+    public Long populate(int amount) {
+        for (int i=0; i<amount; i++) {
+            String nombreLiga = DataGenerationHelper.getLigaRandom();
+            String pais = DataGenerationHelper.getPaisRandom();
+            String deporte = DataGenerationHelper.getDeporteRandom();
+            oLigaRepository.save(new LigaEntity(nombreLiga, pais, deporte));
+        }
+        return oLigaRepository.count();
+    } 
 
     @Transactional
     public Long empty() {

@@ -113,4 +113,11 @@ public class ValoracionEntity {
         this.camiseta = camiseta;
     }
 
+    public ValoracionEntity(String comentario, LocalDateTime fecha, UsuarioEntity usuario, CamisetaEntity camiseta) {
+        this.comentario = comentario;
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.camiseta = camiseta;
+    }
+
 }

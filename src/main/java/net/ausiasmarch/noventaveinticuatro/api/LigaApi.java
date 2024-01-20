@@ -58,6 +58,11 @@ public class LigaApi {
         return ResponseEntity.ok(oLigaService.delete(id));
     }
 
+    @PostMapping("/populate/{amount}")
+    public ResponseEntity<Long> populate(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oLigaService.populate(amount));
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oLigaService.empty());

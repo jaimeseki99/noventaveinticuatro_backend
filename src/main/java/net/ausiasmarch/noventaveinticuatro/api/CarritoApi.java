@@ -54,6 +54,11 @@ public class CarritoApi {
         return ResponseEntity.ok(oCarritoService.create(oCarritoEntity));
     }
 
+    @PostMapping("populate/{amount}")
+    public ResponseEntity<Long> populateCarrito(@PathVariable("amount") int amount) {
+        return ResponseEntity.ok(oCarritoService.populate(amount));
+    }
+
     @PutMapping("")
     public ResponseEntity<CarritoEntity> updateCarrito(@RequestBody CarritoEntity oCarritoEntity) {
         return ResponseEntity.ok(oCarritoService.update(oCarritoEntity));
