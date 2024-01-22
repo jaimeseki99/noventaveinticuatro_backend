@@ -101,17 +101,16 @@ public class CompraApi {
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
-    @GetMapping("/compras-usuario-mas-caras")
-    public ResponseEntity<Page<CompraEntity>> getComprasMasCarasByUsuario(
-            @RequestParam Long usuarioId,
+    @GetMapping("/compras-usuario-mas-caras/{usuarioId}")
+    public ResponseEntity<Page<CompraEntity>> getComprasMasCarasByUsuario( @PathVariable Long usuarioId,
             @PageableDefault(size = 10, sort = {"costeTotal"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<CompraEntity> compras = oCompraService.getComprasMasCarasByUsuarioId(usuarioId, pageable);
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
-    @GetMapping("/compras-usuario-mas-baratas")
+    @GetMapping("/compras-usuario-mas-baratas/{usuarioId}}")
     public ResponseEntity<Page<CompraEntity>> getComprasMasBaratasByUsuario(
-            @RequestParam Long usuarioId,
+            @PathVariable Long usuarioId,
             @PageableDefault(size = 10, sort = {"costeTotal"}, direction = Sort.Direction.ASC) Pageable pageable) {
         Page<CompraEntity> compras = oCompraService.getComprasMasBaratasByUsuarioId(usuarioId, pageable);
         return new ResponseEntity<>(compras, HttpStatus.OK);

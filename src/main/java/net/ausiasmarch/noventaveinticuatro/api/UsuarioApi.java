@@ -47,6 +47,18 @@ public class UsuarioApi {
         return ResponseEntity.ok(oUsuarioService.getByUsername(username));
     }
 
+    @GetMapping("/mas-compras")
+    public ResponseEntity<Page<UsuarioEntity>> getUsuariosMasCompras(Pageable pageable) {
+        Page<UsuarioEntity> usuariosMasCompras = oUsuarioService.getUsuariosMasCompras(pageable);
+        return ResponseEntity.ok(usuariosMasCompras);
+    }
+
+    @GetMapping("/mas-valoraciones")
+    public ResponseEntity<Page<UsuarioEntity>> getUsuariosMasValoraciones(Pageable pageable) {
+        Page<UsuarioEntity> usuariosMasValoraciones = oUsuarioService.getUsuariosMasValoraciones(pageable);
+        return ResponseEntity.ok(usuariosMasValoraciones);
+    }
+
     @PostMapping("")
     public ResponseEntity<Long> create(@RequestBody UsuarioEntity oUsuarioEntity) {
         return ResponseEntity.ok(oUsuarioService.create(oUsuarioEntity));
