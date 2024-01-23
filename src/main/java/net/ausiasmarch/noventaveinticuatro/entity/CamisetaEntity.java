@@ -32,6 +32,9 @@ public class CamisetaEntity {
     @Size(max = 250)
     private String titulo;
 
+    @NotNull
+    private String imagen;
+
     @NotBlank
     @Size(max = 10)
     private String talla;
@@ -50,8 +53,7 @@ public class CamisetaEntity {
     @Size(max = 100)
     private String temporada;
 
-    @Lob
-    private byte[] imagen;
+    
 
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
@@ -136,11 +138,11 @@ public class CamisetaEntity {
         this.temporada = temporada;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -215,17 +217,17 @@ public class CamisetaEntity {
         detalleCompras = new ArrayList<>();
     }
 
-    public CamisetaEntity(Long id, String titulo, String talla, String manga, String nombre, int dorsal,
-            String temporada, byte[] imagen, double precio, double iva, boolean descuento,
+    public CamisetaEntity(Long id, String titulo, String imagen,String talla, String manga, String nombre, int dorsal,
+            String temporada,  double precio, double iva, boolean descuento,
             double porcentajeDescuento, int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
         this.id = id;
         this.titulo = titulo;
+        this.imagen = imagen;
         this.talla = talla;
         this.manga = manga;
         this.nombre = nombre;
         this.dorsal = dorsal;
         this.temporada = temporada;
-        this.imagen = imagen;
         this.precio = precio;
         this.iva = iva;
         this.descuento = descuento;
@@ -235,16 +237,16 @@ public class CamisetaEntity {
         this.modalidad = modalidad;
     }
 
-    public CamisetaEntity(String titulo, String talla, String manga, String nombre, int dorsal, String temporada,
-            byte[] imagen, double precio, double iva, boolean descuento, double porcentajeDescuento, int stock,
+    public CamisetaEntity(String titulo, String imagen, String talla, String manga, String nombre, int dorsal, String temporada,
+             double precio, double iva, boolean descuento, double porcentajeDescuento, int stock,
             EquipoEntity equipo, ModalidadEntity modalidad) {
         this.titulo = titulo;
+        this.imagen = imagen;
         this.talla = talla;
         this.manga = manga;
         this.nombre = nombre;
         this.dorsal = dorsal;
         this.temporada = temporada;
-        this.imagen = imagen;
         this.precio = precio;
         this.iva = iva;
         this.descuento = descuento;
@@ -257,6 +259,20 @@ public class CamisetaEntity {
     public CamisetaEntity(String titulo, String talla, String manga, String temporada, double precio, double iva,
             int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
         this.titulo = titulo;
+        this.talla = talla;
+        this.manga = manga;
+        this.temporada = temporada;
+        this.precio = precio;
+        this.iva = iva;
+        this.stock = stock;
+        this.equipo = equipo;
+        this.modalidad = modalidad;
+    }
+
+    public CamisetaEntity(String titulo, String imagen, String talla, String manga, String temporada, double precio, double iva,
+            int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
+        this.titulo = titulo;
+        this.imagen = imagen;
         this.talla = talla;
         this.manga = manga;
         this.temporada = temporada;

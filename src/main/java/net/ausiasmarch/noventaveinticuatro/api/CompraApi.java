@@ -108,7 +108,7 @@ public class CompraApi {
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
-    @GetMapping("/compras-usuario-mas-baratas/{usuarioId}}")
+    @GetMapping("/compras-usuario-mas-baratas/{usuarioId}")
     public ResponseEntity<Page<CompraEntity>> getComprasMasBaratasByUsuario(
             @PathVariable Long usuarioId,
             @PageableDefault(size = 10, sort = {"costeTotal"}, direction = Sort.Direction.ASC) Pageable pageable) {

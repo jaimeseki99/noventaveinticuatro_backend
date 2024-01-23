@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/media")
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class MediaController {
     private final StorageService storageService;
     private final HttpServletRequest request;
 
-    @PostMapping("/")
+    @PostMapping("/upload")
     public Map<String, String> uploadFile (@RequestParam("file") MultipartFile multipartFile) {
         String path = storageService.store(multipartFile);
         String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
