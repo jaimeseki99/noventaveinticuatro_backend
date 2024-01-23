@@ -34,10 +34,11 @@ public class LigaEntity {
     @Size(max = 100)
     private String deporte;
 
-    
-
     @OneToMany(mappedBy = "liga", fetch = FetchType.LAZY)
     private List<EquipoEntity> equipos;
+
+    @OneToMany(mappedBy = "liga", fetch = FetchType.LAZY)
+    private List<CamisetaEntity> camisetas;
     
     public Long getId() {
         return id;
@@ -72,6 +73,7 @@ public class LigaEntity {
     }
     public LigaEntity() {
         equipos = new ArrayList<>();
+        camisetas = new ArrayList<>();
     }
 
     public LigaEntity(Long id, String nombre, String pais, String deporte) {

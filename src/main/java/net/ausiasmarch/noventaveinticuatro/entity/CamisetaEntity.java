@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -81,6 +80,10 @@ public class CamisetaEntity {
     @ManyToOne
     @JoinColumn(name = "modalidad_id", nullable = false)
     private ModalidadEntity modalidad;
+
+    @ManyToOne
+    @JoinColumn(name = "liga_id", nullable = false)
+    private LigaEntity liga;
 
     public Long getId() {
         return id;
@@ -202,6 +205,14 @@ public class CamisetaEntity {
         this.modalidad = modalidad;
     }
 
+    public LigaEntity getLiga() {
+        return liga;
+    }
+
+    public void setLiga(LigaEntity liga) {
+        this.liga = liga;
+    }
+
     @OneToMany(mappedBy = "camiseta", fetch = FetchType.LAZY)
     private List<CarritoEntity> carritos;
 
@@ -219,7 +230,7 @@ public class CamisetaEntity {
 
     public CamisetaEntity(Long id, String titulo, String imagen,String talla, String manga, String nombre, int dorsal,
             String temporada,  double precio, double iva, boolean descuento,
-            double porcentajeDescuento, int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
+            double porcentajeDescuento, int stock, EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.id = id;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -235,11 +246,12 @@ public class CamisetaEntity {
         this.stock = stock;
         this.equipo = equipo;
         this.modalidad = modalidad;
+        this.liga = liga;
     }
 
     public CamisetaEntity(String titulo, String imagen, String talla, String manga, String nombre, int dorsal, String temporada,
              double precio, double iva, boolean descuento, double porcentajeDescuento, int stock,
-            EquipoEntity equipo, ModalidadEntity modalidad) {
+            EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.talla = talla;
@@ -254,10 +266,11 @@ public class CamisetaEntity {
         this.stock = stock;
         this.equipo = equipo;
         this.modalidad = modalidad;
+        this.liga = liga;
     }
 
     public CamisetaEntity(String titulo, String talla, String manga, String temporada, double precio, double iva,
-            int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
+            int stock, EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.titulo = titulo;
         this.talla = talla;
         this.manga = manga;
@@ -267,10 +280,11 @@ public class CamisetaEntity {
         this.stock = stock;
         this.equipo = equipo;
         this.modalidad = modalidad;
+        this.liga = liga;
     }
 
     public CamisetaEntity(String titulo, String imagen, String talla, String manga, String temporada, double precio, double iva,
-            int stock, EquipoEntity equipo, ModalidadEntity modalidad) {
+            int stock, EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.talla = talla;
@@ -281,6 +295,7 @@ public class CamisetaEntity {
         this.stock = stock;
         this.equipo = equipo;
         this.modalidad = modalidad;
+        this.liga = liga;
     }
 
 }

@@ -49,6 +49,16 @@ public class CarritoApi {
         return ResponseEntity.ok(oCarritoService.getPage(oPageable));
     }
 
+    @GetMapping("/coste/{carritoId}")
+    public ResponseEntity<Double> getCosteCarrito(@PathVariable("carritoId") Long carritoId) {
+        return ResponseEntity.ok(oCarritoService.calcularCosteCarrito(carritoId));
+    }
+
+    @GetMapping("/costetotal/{usuarioId}")
+    public ResponseEntity<Double> getCosteTotalCarrito(@PathVariable("usuarioId") Long usuarioId) {
+        return ResponseEntity.ok(oCarritoService.calcularCosteTotalCarrito(usuarioId));
+    }
+
     @PostMapping("")
     public ResponseEntity<Long> createCarrito(@RequestBody CarritoEntity oCarritoEntity) {
         return ResponseEntity.ok(oCarritoService.create(oCarritoEntity));

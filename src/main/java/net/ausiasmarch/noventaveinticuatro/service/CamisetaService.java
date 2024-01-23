@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.EquipoEntity;
+import net.ausiasmarch.noventaveinticuatro.entity.LigaEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.ModalidadEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
 import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
@@ -31,6 +32,9 @@ public class CamisetaService {
 
     @Autowired
     ModalidadService oModalidadService;
+
+    @Autowired
+    LigaService oLigaService;
 
     public CamisetaEntity get(Long id) {
         return oCamisetaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Camiseta no encontrada."));
@@ -102,6 +106,10 @@ public class CamisetaService {
         return oCamisetaRepository.findCamisetasConDescuento(oPageable);
     }
 
+    public Double getPrecioConDescuento(Long id) {
+        return oCamisetaRepository.getPrecioConDescuento(id);
+    }
+
     public Long populate(int amount) {
         for (int i = 0; i<amount; i++) {
             String titulo = DataGenerationHelper.generarTituloCamisetaRandom();
@@ -113,7 +121,8 @@ public class CamisetaService {
             int stock = DataGenerationHelper.getRandomInt(0, 100);
             EquipoEntity equipo = oEquipoService.getOneRandom();
             ModalidadEntity modalidad = oModalidadService.getOneRandom();
-            oCamisetaRepository.save(new CamisetaEntity(titulo, talla, manga, temporada, precio, iva, stock, equipo, modalidad));
+            LigaEntity liga = oLigaService.getOneRandom();
+            oCamisetaRepository.save(new CamisetaEntity(titulo, talla, manga, temporada, precio, iva, stock, equipo, modalidad, liga));
         }
         return oCamisetaRepository.count();
     }

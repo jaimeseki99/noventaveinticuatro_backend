@@ -100,6 +100,14 @@ public class CarritoService {
         return oCarritoRepository.count();
     }
 
+    public Double calcularCosteCarrito(Long id) {
+        return oCarritoRepository.calcularCosteCarrito(id);
+    }
+
+    public Double calcularCosteTotalCarrito(Long usuario_id) {
+        return oCarritoRepository.calcularCosteTotalCarrito(usuario_id);
+    }
+
     @Transactional
     public Long empty() {
         oCarritoRepository.deleteAll();
