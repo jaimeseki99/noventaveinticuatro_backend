@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: db
--- Tiempo de generación: 18-01-2024 a las 13:20:22
--- Versión del servidor: 5.7.43
+-- Servidor: database:3306
+-- Tiempo de generación: 24-01-2024 a las 08:43:52
+-- Versión del servidor: 8.1.0
 -- Versión de PHP: 8.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,29 +28,23 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `camiseta` (
-  `id` bigint(20) NOT NULL,
-  `titulo` text COLLATE utf16_bin NOT NULL,
-  `talla` varchar(10) COLLATE utf16_bin NOT NULL,
-  `manga` varchar(10) COLLATE utf16_bin NOT NULL,
-  `nombre` varchar(100) COLLATE utf16_bin DEFAULT NULL,
-  `dorsal` int(3) DEFAULT NULL,
-  `temporada` varchar(10) COLLATE utf16_bin NOT NULL,
+  `id` bigint NOT NULL,
+  `titulo` text CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `talla` varchar(10) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `manga` varchar(10) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `nombre` varchar(100) CHARACTER SET utf16 COLLATE utf16_bin DEFAULT NULL,
+  `dorsal` int DEFAULT NULL,
+  `temporada` varchar(10) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
   `imagen` longblob,
   `precio` decimal(10,2) NOT NULL,
   `iva` decimal(10,2) NOT NULL,
   `descuento` tinyint(1) NOT NULL,
   `porcentaje_descuento` decimal(10,2) DEFAULT NULL,
-  `stock` int(11) NOT NULL,
-  `equipo_id` bigint(20) NOT NULL,
-  `modalidad_id` bigint(20) NOT NULL
+  `stock` int NOT NULL,
+  `equipo_id` bigint NOT NULL,
+  `modalidad_id` bigint NOT NULL,
+  `liga_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
-
---
--- Volcado de datos para la tabla `camiseta`
---
-
-INSERT INTO `camiseta` (`id`, `titulo`, `talla`, `manga`, `nombre`, `dorsal`, `temporada`, `imagen`, `precio`, `iva`, `descuento`, `porcentaje_descuento`, `stock`, `equipo_id`, `modalidad_id`) VALUES
-(1, 'Camiseta Local FC Barcelona Temporada 2023/24 Fan', 'M', 'corta', NULL, 0, '2023/24', NULL, 59.99, 21.00, 0, 0.00, 100, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -59,8 +53,8 @@ INSERT INTO `camiseta` (`id`, `titulo`, `talla`, `manga`, `nombre`, `dorsal`, `t
 --
 
 CREATE TABLE `captcha` (
-  `id` bigint(20) NOT NULL,
-  `text` varchar(255) COLLATE utf16_bin NOT NULL,
+  `id` bigint NOT NULL,
+  `text` varchar(255) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
   `image` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
@@ -96,10 +90,10 @@ INSERT INTO `captcha` (`id`, `text`, `image`) VALUES
 --
 
 CREATE TABLE `carrito` (
-  `id` bigint(20) NOT NULL,
-  `usuario_id` bigint(20) NOT NULL,
-  `camiseta_id` bigint(20) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `id` bigint NOT NULL,
+  `usuario_id` bigint NOT NULL,
+  `camiseta_id` bigint NOT NULL,
+  `cantidad` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 -- --------------------------------------------------------
@@ -109,11 +103,11 @@ CREATE TABLE `carrito` (
 --
 
 CREATE TABLE `compra` (
-  `id` bigint(20) NOT NULL,
-  `usuario_id` bigint(20) NOT NULL,
+  `id` bigint NOT NULL,
+  `usuario_id` bigint NOT NULL,
   `fecha` datetime NOT NULL,
-  `codigo_pedido` varchar(10) COLLATE utf16_bin NOT NULL,
-  `factura_id` bigint(20) DEFAULT NULL,
+  `codigo_pedido` varchar(10) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `factura_id` bigint DEFAULT NULL,
   `fecha_factura` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
@@ -124,11 +118,11 @@ CREATE TABLE `compra` (
 --
 
 CREATE TABLE `detalle_compra` (
-  `id` bigint(20) NOT NULL,
-  `compra_id` bigint(20) NOT NULL,
-  `camiseta_id` bigint(20) NOT NULL,
+  `id` bigint NOT NULL,
+  `compra_id` bigint NOT NULL,
+  `camiseta_id` bigint NOT NULL,
   `precio` decimal(10,2) NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `cantidad` int NOT NULL,
   `iva` decimal(10,2) NOT NULL,
   `descuento` tinyint(1) NOT NULL,
   `porcentaje_descuento` decimal(10,2) NOT NULL
@@ -141,9 +135,9 @@ CREATE TABLE `detalle_compra` (
 --
 
 CREATE TABLE `equipo` (
-  `id` bigint(20) NOT NULL,
-  `nombre` varchar(512) COLLATE utf16_bin NOT NULL,
-  `liga_id` bigint(20) NOT NULL
+  `id` bigint NOT NULL,
+  `nombre` varchar(512) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `liga_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
@@ -209,10 +203,10 @@ INSERT INTO `equipo` (`id`, `nombre`, `liga_id`) VALUES
 --
 
 CREATE TABLE `liga` (
-  `id` bigint(20) NOT NULL,
-  `nombre` varchar(1000) COLLATE utf16_bin NOT NULL,
-  `pais` varchar(250) COLLATE utf16_bin NOT NULL,
-  `deporte` varchar(250) COLLATE utf16_bin NOT NULL
+  `id` bigint NOT NULL,
+  `nombre` varchar(1000) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `pais` varchar(250) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `deporte` varchar(250) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
@@ -235,8 +229,8 @@ INSERT INTO `liga` (`id`, `nombre`, `pais`, `deporte`) VALUES
 --
 
 CREATE TABLE `modalidad` (
-  `id` bigint(20) NOT NULL,
-  `nombre` varchar(1000) COLLATE utf16_bin NOT NULL
+  `id` bigint NOT NULL,
+  `nombre` varchar(1000) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
@@ -255,10 +249,10 @@ INSERT INTO `modalidad` (`id`, `nombre`) VALUES
 --
 
 CREATE TABLE `pendent` (
-  `id` bigint(20) NOT NULL,
-  `id_captcha` bigint(20) NOT NULL,
+  `id` bigint NOT NULL,
+  `id_captcha` bigint NOT NULL,
   `timecode` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `token` varchar(512) COLLATE utf16_bin DEFAULT NULL
+  `token` varchar(512) CHARACTER SET utf16 COLLATE utf16_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 -- --------------------------------------------------------
@@ -268,14 +262,14 @@ CREATE TABLE `pendent` (
 --
 
 CREATE TABLE `usuario` (
-  `id` bigint(20) NOT NULL,
-  `nombre` varchar(500) COLLATE utf16_bin NOT NULL,
-  `apellido` varchar(1000) COLLATE utf16_bin NOT NULL,
-  `username` varchar(100) COLLATE utf16_bin NOT NULL,
-  `email` varchar(100) COLLATE utf16_bin NOT NULL,
-  `direccion` text COLLATE utf16_bin NOT NULL,
-  `telefono` varchar(10) COLLATE utf16_bin NOT NULL,
-  `contrasenya` varchar(100) COLLATE utf16_bin NOT NULL,
+  `id` bigint NOT NULL,
+  `nombre` varchar(500) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `apellido` varchar(1000) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `username` varchar(100) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `email` varchar(100) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `direccion` text CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `telefono` varchar(10) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
+  `contrasenya` varchar(100) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
   `tipo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
@@ -294,12 +288,12 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `username`, `email`, `direcci
 --
 
 CREATE TABLE `valoracion` (
-  `id` bigint(20) NOT NULL,
-  `comentario` text COLLATE utf16_bin NOT NULL,
+  `id` bigint NOT NULL,
+  `comentario` text CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
   `imagen` longblob,
   `fecha` datetime NOT NULL,
-  `usuario_id` bigint(20) NOT NULL,
-  `camiseta_id` bigint(20) NOT NULL
+  `usuario_id` bigint NOT NULL,
+  `camiseta_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
@@ -312,7 +306,8 @@ CREATE TABLE `valoracion` (
 ALTER TABLE `camiseta`
   ADD PRIMARY KEY (`id`),
   ADD KEY `equipo_id` (`equipo_id`),
-  ADD KEY `modalidad_id` (`modalidad_id`);
+  ADD KEY `modalidad_id` (`modalidad_id`),
+  ADD KEY `liga_id` (`liga_id`);
 
 --
 -- Indices de la tabla `captcha`
@@ -392,67 +387,67 @@ ALTER TABLE `valoracion`
 -- AUTO_INCREMENT de la tabla `camiseta`
 --
 ALTER TABLE `camiseta`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `captcha`
 --
 ALTER TABLE `captcha`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `liga`
 --
 ALTER TABLE `liga`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `modalidad`
 --
 ALTER TABLE `modalidad`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pendent`
 --
 ALTER TABLE `pendent`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `valoracion`
 --
 ALTER TABLE `valoracion`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -463,7 +458,8 @@ ALTER TABLE `valoracion`
 --
 ALTER TABLE `camiseta`
   ADD CONSTRAINT `camiseta_ibfk_1` FOREIGN KEY (`equipo_id`) REFERENCES `equipo` (`id`),
-  ADD CONSTRAINT `camiseta_ibfk_2` FOREIGN KEY (`modalidad_id`) REFERENCES `modalidad` (`id`);
+  ADD CONSTRAINT `camiseta_ibfk_2` FOREIGN KEY (`modalidad_id`) REFERENCES `modalidad` (`id`),
+  ADD CONSTRAINT `camiseta_ibfk_3` FOREIGN KEY (`liga_id`) REFERENCES `liga` (`id`);
 
 --
 -- Filtros para la tabla `carrito`
