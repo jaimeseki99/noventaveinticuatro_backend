@@ -1,0 +1,51 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Colección Compra",
+    "dateExported": "2024-01-24T18:34:00.185Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "84374529-996f-4d7e-9746-b43fdcd02a0f",
+            "colId": "10063f9d-38c1-4733-9a08-9cce271f3963",
+            "containerId": "",
+            "name": "Compra Único Carrito",
+            "url": "http://localhost:8085/compra/realizar-compra-unico-carrito/1/4",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-24T18:22:50.737Z",
+            "modified": "2024-01-24T18:22:50.737Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8294bbcc-7a34-4692-931e-6a018642d02b",
+            "colId": "10063f9d-38c1-4733-9a08-9cce271f3963",
+            "containerId": "",
+            "name": "Realizar compras todos los carritos",
+            "url": "http://localhost:8085/compra/realizar-compra-todos-carritos/1",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-24T18:24:44.852Z",
+            "modified": "2024-01-24T18:24:44.852Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "251ba1fe-f3d0-4507-8f26-5cc2ba88f5ea",
+            "colId": "10063f9d-38c1-4733-9a08-9cce271f3963",
+            "containerId": "",
+            "name": "delete de compra",
+            "url": "http://localhost:8085/compra/6",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-01-24T18:31:28.323Z",
+            "modified": "2024-01-24T18:31:28.323Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

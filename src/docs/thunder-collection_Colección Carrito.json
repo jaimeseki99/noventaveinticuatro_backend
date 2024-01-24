@@ -1,0 +1,47 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Colección Carrito",
+    "dateExported": "2024-01-24T18:25:07.732Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "0cd53b31-c2ae-4a38-9346-46b1de9bd9ee",
+            "colId": "7514c345-2485-4c52-ad07-228323b52fd3",
+            "containerId": "",
+            "name": "POST CARRITO",
+            "url": "http://localhost:8085/carrito",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-24T18:19:56.036Z",
+            "modified": "2024-01-24T18:19:56.036Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usuario\": {\n    \"id\": 1\n  },\n  \"camiseta\": {\n    \"id\": 1\n  },\n  \"cantidad\": 2\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "14d78dae-500d-4657-8964-37923e5a2e4e",
+            "colId": "7514c345-2485-4c52-ad07-228323b52fd3",
+            "containerId": "",
+            "name": "PUT Carrito",
+            "url": "http://localhost:8085/carrito",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-01-24T18:21:09.257Z",
+            "modified": "2024-01-24T18:21:09.257Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 4,\n  \"usuario\": {\n    \"id\": 1\n  },\n  \"camiseta\": {\n    \"id\": 1\n  },\n  \"cantidad\": 3\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
