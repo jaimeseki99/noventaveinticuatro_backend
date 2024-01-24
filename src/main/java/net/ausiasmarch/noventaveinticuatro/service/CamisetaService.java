@@ -36,16 +36,21 @@ public class CamisetaService {
     @Autowired
     LigaService oLigaService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public CamisetaEntity get(Long id) {
         return oCamisetaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Camiseta no encontrada."));
     }
 
     public Long create(CamisetaEntity oCamisetaEntity) {
+        oSessionService.onlyAdmins();
         oCamisetaEntity.setId(null);
         return oCamisetaRepository.save(oCamisetaEntity).getId();
     }
 
     public CamisetaEntity update(CamisetaEntity oCamisetaEntity) {
+        oSessionService.onlyAdmins();
         if (oCamisetaEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: La camiseta no existe.");
         } else {
@@ -54,6 +59,7 @@ public class CamisetaService {
     }
 
     public Long delete(Long id) {
+        oSessionService.onlyAdmins();
         if (oCamisetaRepository.existsById(id)) {
             oCamisetaRepository.deleteById(id);
             return id;
@@ -115,6 +121,7 @@ public class CamisetaService {
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i = 0; i<amount; i++) {
             String titulo = DataGenerationHelper.generarTituloCamisetaRandom();
             String talla = DataGenerationHelper.getTallaCamisetaRandom();
@@ -133,6 +140,7 @@ public class CamisetaService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oCamisetaRepository.deleteAll();
         oCamisetaRepository.resetAutoIncrement();
         oCamisetaRepository.flush();

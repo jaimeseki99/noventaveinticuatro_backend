@@ -68,7 +68,7 @@ public class CamisetaApi {
     }
 
     @Transactional
-    @PostMapping("/empty")
+    @DeleteMapping("/empty")
     public ResponseEntity<Long> emptyCamisetas() {
         Long totalCamisetas = oCamisetaService.empty();
         return new ResponseEntity<>(totalCamisetas, HttpStatus.OK);

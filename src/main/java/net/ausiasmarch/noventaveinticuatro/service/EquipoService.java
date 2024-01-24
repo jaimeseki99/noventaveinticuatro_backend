@@ -26,16 +26,21 @@ public class EquipoService {
     @Autowired
     LigaService oLigaService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public EquipoEntity get(Long id) {
         return oEquipoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Equipo no encontrado."));
     }
 
     public Long create(EquipoEntity oEquipoEntity) {
+        oSessionService.onlyAdmins();
         oEquipoEntity.setId(null);
         return oEquipoRepository.save(oEquipoEntity).getId();
     }
 
     public EquipoEntity update(EquipoEntity oEquipoEntity) {
+        oSessionService.onlyAdmins();
         if (oEquipoEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: El equipo no existe.");
         } else {
@@ -44,6 +49,7 @@ public class EquipoService {
     }
 
     public Long delete(Long id) {
+        oSessionService.onlyAdmins();
         if (oEquipoRepository.existsById(id)) {
             oEquipoRepository.deleteById(id);
             return id;
@@ -58,10 +64,12 @@ public class EquipoService {
     }
 
     public Page<EquipoEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oEquipoRepository.findAll(oPageable);
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             String nombre = DataGenerationHelper.getEquipoRandom();
             LigaEntity liga = oLigaService.getOneRandom();
@@ -73,6 +81,7 @@ public class EquipoService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oEquipoRepository.deleteAll();
         oEquipoRepository.resetAutoIncrement();
         oEquipoRepository.flush();

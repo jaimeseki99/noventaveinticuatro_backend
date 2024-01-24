@@ -31,23 +31,30 @@ public class CarritoService {
     @Autowired
     UsuarioService oUsuarioService;
 
+    @Autowired
+    SessionService oSessionService;
+
    public CarritoEntity get(Long id) {
         return oCarritoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Carrito no encontrado."));
    }
 
    public List<CarritoEntity> getCarritoByUsuario(Long usuario_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCarritoRepository.findByUsuarioId(usuario_id);
    }
 
    public CarritoEntity getCarritoByUsuarioAndCamiseta(Long usuario_id, Long camiseta_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCarritoRepository.findByUsuarioIdAndCamisetaId(usuario_id, camiseta_id).orElseThrow(() -> new ResourceNotFoundException("Error: Carrito no encontrado."));
    }
 
    public Page<CarritoEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oCarritoRepository.findAll(oPageable);
    }
 
    public Long create(CarritoEntity oCarritoEntity) {
+       oSessionService.onlyAdminsOUsuariosConSusDatos(oCarritoEntity.getUsuario().getId());
        UsuarioEntity oUsuarioEntity = oUsuarioService.get(oCarritoEntity.getUsuario().getId());
        CamisetaEntity oCamisetaEntity = oCamisetaService.get(oCarritoEntity.getCamiseta().getId());
 
@@ -67,6 +74,7 @@ public class CarritoService {
 
     public CarritoEntity update(CarritoEntity oCarritoEntity) {
         CarritoEntity carritoBaseDatos = this.get(oCarritoEntity.getId());
+        oSessionService.onlyAdminsOUsuariosConSusDatos(carritoBaseDatos.getUsuario().getId());
         oCarritoEntity.setUsuario(carritoBaseDatos.getUsuario());
         oCarritoEntity.setCamiseta(carritoBaseDatos.getCamiseta());
 
@@ -74,6 +82,8 @@ public class CarritoService {
     }
 
     public Long delete(Long id) {
+        CarritoEntity carritoBaseDatos = this.get(id);
+        oSessionService.onlyAdminsOUsuariosConSusDatos(carritoBaseDatos.getUsuario().getId());
         if (oCarritoRepository.existsById(id)) {
             oCarritoRepository.deleteById(id);
             return id;
@@ -82,15 +92,19 @@ public class CarritoService {
         }
     }
 
+    @Transactional
     public void deleteByUsuario(Long usuario_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         oCarritoRepository.deleteByUsuarioId(usuario_id);
     }
 
     public List<CarritoEntity> getCarritosUsuario(Long usuario_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCarritoRepository.findByUsuarioId(usuario_id);
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
             CamisetaEntity camiseta = oCamisetaService.getOneRandom();
@@ -110,6 +124,7 @@ public class CarritoService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oCarritoRepository.deleteAll();
         oCarritoRepository.resetAutoIncrement();
         oCarritoRepository.flush();

@@ -116,7 +116,7 @@ public class DataGenerationHelper {
 
     private static final String[] tallasCamiseta = {"S", "M", "L", "XL", "XXL"};
 
-    private static final String[] mangasCamiseta = {"Manga Corta", "Manga Larga"};
+    private static final String[] mangasCamiseta = {"Corta", "Larga"};
 
     // Array de Strings que contengan diferentes adjetivos que puedan describir a una camiseta de fútbol o de baloncesto
     private static final String[] adjetivosCamiseta = {"Retro", "Clásica", "Moderna", "Original", "Alternativa", "Ajustada", "Ancha", "Cómoda", "Corta", "Larga", "Deportiva", "Elegante", "Femenina", "Masculina", "Infantil", "Juvenil", "Adulto", "Unisex", "Buen Estado", "Mal estado", "Nueva", "Usada", "Barata", "Cara", "Cortesía", "Descuento", "Oferta", "Rebaja", "Regalo", "Gratis", "Envío Gratis", "Envío Rápido", "Envío Urgente", "Envío Normal", "Envío Lento", "Envío Gratis"};

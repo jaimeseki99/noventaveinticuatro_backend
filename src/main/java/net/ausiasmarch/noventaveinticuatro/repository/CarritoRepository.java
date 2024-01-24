@@ -21,6 +21,7 @@ public interface CarritoRepository extends JpaRepository<CarritoEntity, Long> {
     @Query(value = "SELECT SUM(c.cantidad * (c.camiseta.precio - (c.camiseta.precio * c.camiseta.porcentaje_descuento / 100.0)) FROM carrito c WHERE c.usuario_id = ?1", nativeQuery = true)
     Double calcularCosteTotalCarrito(Long usuario_id);
 
+    @Modifying
     @Query(value = "DELETE FROM carrito WHERE usuario_id = ?1", nativeQuery = true)
     void deleteByUsuarioId(Long usuario_id);
 

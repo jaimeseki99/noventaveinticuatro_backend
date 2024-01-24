@@ -33,11 +33,15 @@ public class ValoracionService {
     @Autowired
     CamisetaService oCamisetaService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public ValoracionEntity get(Long id) {
         return oValoracionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Valoracion no encontrado."));
     }
 
     public Long create(ValoracionEntity oValoracionEntity) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oValoracionEntity.getUsuario().getId());
         Optional<ValoracionEntity> valoracionBaseDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oValoracionEntity.getCamiseta().getId(), oValoracionEntity.getUsuario().getId());
         if (valoracionBaseDatos.isPresent()) {
             ValoracionEntity valoracion = valoracionBaseDatos.get();
@@ -52,6 +56,7 @@ public class ValoracionService {
     }
 
     public ValoracionEntity update(ValoracionEntity oValoracionEntity) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oValoracionEntity.getUsuario().getId());
         if (oValoracionEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: La valoracion no existe.");
         } else {
@@ -60,6 +65,8 @@ public class ValoracionService {
     }
 
     public Long delete(Long id) {
+        ValoracionEntity oValoracionEntity = this.get(id);
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oValoracionEntity.getUsuario().getId());
         if (oValoracionRepository.existsById(id)) {
             oValoracionRepository.deleteById(id);
             return id;
@@ -74,38 +81,47 @@ public class ValoracionService {
     }
 
     public Optional<ValoracionEntity> getValoracionByUsuarioAndCamiseta(Long camiseta_id, Long usuario_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oValoracionRepository.findByCamisetaIdAndUsuarioId(camiseta_id, usuario_id);
     }
 
     public Page<ValoracionEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oValoracionRepository.findAll(oPageable);
     }
 
     public Page<ValoracionEntity> getPageByCamisetaId(Long camiseta_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oValoracionRepository.findByCamisetaId(camiseta_id, oPageable);
     }
 
     public Page<ValoracionEntity> getPageByUsuarioId(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oValoracionRepository.findByUsuarioId(usuario_id, oPageable);
     }
 
     public Page<ValoracionEntity> getPageMasRecientes(Long camiseta_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oValoracionRepository.getValoracionesMasRecientes(camiseta_id, oPageable);
     }
 
     public Page<ValoracionEntity> getPageMasAntiguas(Long camiseta_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oValoracionRepository.getValoracionesMasAntiguas(camiseta_id, oPageable);
     }
 
     public Page<ValoracionEntity> getPageMasRecientesByUsuarioId(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oValoracionRepository.getValoracionesMasRecientesByUsuarioId(usuario_id, oPageable);
     }
 
     public Page<ValoracionEntity> getPageMasAntiguasByUsuarioId(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oValoracionRepository.getValoracionesMasAntiguasByUsuarioId(usuario_id, oPageable);
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i = 0; i<amount; i++) {
             String comentario = DataGenerationHelper.generarComentarioRandom();
             LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
@@ -118,6 +134,7 @@ public class ValoracionService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oValoracionRepository.deleteAll();
         oValoracionRepository.resetAutoIncrement();
         oValoracionRepository.flush();

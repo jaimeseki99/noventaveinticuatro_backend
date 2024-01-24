@@ -22,20 +22,26 @@ public class LigaService {
     @Autowired
     HttpServletRequest oHttpServletRequest;
 
+    @Autowired
+    SessionService oSessionService;
+
     public LigaEntity get(Long id) {
         return oLigaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Liga no encontrada."));
     }
 
     public Page<LigaEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oLigaRepository.findAll(oPageable);
     }
 
     public Long create(LigaEntity oLigaEntity) {
+        oSessionService.onlyAdmins();
         oLigaEntity.setId(null);
         return oLigaRepository.save(oLigaEntity).getId();
     }
 
     public LigaEntity update(LigaEntity oLigaEntity) {
+        oSessionService.onlyAdmins();
         if (oLigaEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: La liga no existe.");
         } else {
@@ -44,6 +50,7 @@ public class LigaService {
     }
 
     public Long delete(Long id) {
+        oSessionService.onlyAdmins();
         if (oLigaRepository.existsById(id)) {
             oLigaRepository.deleteById(id);
             return id;
@@ -58,6 +65,7 @@ public class LigaService {
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i=0; i<amount; i++) {
             String nombreLiga = DataGenerationHelper.getLigaRandom();
             String pais = DataGenerationHelper.getPaisRandom();
@@ -69,6 +77,7 @@ public class LigaService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oLigaRepository.deleteAll();
         oLigaRepository.resetAutoIncrement();
         oLigaRepository.flush();

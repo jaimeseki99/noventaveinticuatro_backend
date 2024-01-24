@@ -43,6 +43,9 @@ public class CompraService {
     @Autowired
     UsuarioService oUsuarioService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public CompraEntity get(Long id) {
         return oCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Compra no encontrada."));
     }
@@ -56,6 +59,9 @@ public class CompraService {
 
     @Transactional
     public CompraEntity realizarCompraUnicoCarrito(CarritoEntity oCarritoEntity, UsuarioEntity oUsuarioEntity) {
+
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
+
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
@@ -86,6 +92,9 @@ public class CompraService {
 
     @Transactional
     public CompraEntity realizarCompraTodosCarritos(List<CarritoEntity> carritos, UsuarioEntity oUsuarioEntity) {
+
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
+
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
@@ -121,6 +130,8 @@ public class CompraService {
     }
 
     public Long cancelarCompra(Long id) {
+        CompraEntity compra = oCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Compra no encontrada."));
+        oSessionService.onlyAdminsOUsuariosConSusDatos(compra.getUsuario().getId());
         if (oCompraRepository.existsById(id)) {
             Page<DetalleCompraEntity> detallesCompra = oDetalleCompraRepository.findByCompraId(id, PageRequest.of(0, 1000));
             for (DetalleCompraEntity detalleCompra : detallesCompra) {
@@ -137,6 +148,7 @@ public class CompraService {
     }
 
     public Page<CompraEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oCompraRepository.findAll(oPageable);
     }
 
@@ -147,34 +159,41 @@ public class CompraService {
 
     // Encontrar a las compras más recientes
     public Page<CompraEntity> getComprasMasRecientes(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oCompraRepository.findComprasMasRecientes(oPageable);
     }
 
     // Encontrar a las compras más antiguas
     public Page<CompraEntity> getComprasMasAntiguas(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oCompraRepository.findComprasMasAntiguas(oPageable);
     }
 
     // Encontrar a las compras de un usuario
     public Page<CompraEntity> getComprasUsuario(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCompraRepository.findByUsuarioId(usuario_id, oPageable);
     }
 
     // Encontrar a las compras más caras de un usuario
     public Page<CompraEntity> getComprasMasCarasByUsuarioId(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCompraRepository.findComprasMasCarasByUsuarioId(usuario_id, oPageable);
     }
 
     // Encontrar a las compras más baratas de un usuario
     public Page<CompraEntity> getComprasMasBaratasByUsuarioId(Long usuario_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCompraRepository.findComprasMasBaratasByUsuarioId(usuario_id, oPageable);
     }
 
     public Page<CompraEntity> getCompraPorCodigoPedido(String codigo_pedido, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oCompraRepository.findByCodigoPedido(codigo_pedido, oPageable);
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
             LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
@@ -186,6 +205,7 @@ public class CompraService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oCompraRepository.deleteAll();
         oCompraRepository.resetAutoIncrement();
         oCompraRepository.flush();

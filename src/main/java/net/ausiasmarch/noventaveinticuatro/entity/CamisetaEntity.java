@@ -31,7 +31,6 @@ public class CamisetaEntity {
     @Size(max = 250)
     private String titulo;
 
-    @NotNull
     private String imagen;
 
     @NotBlank
@@ -62,10 +61,10 @@ public class CamisetaEntity {
     @DecimalMin(value = "0.0", inclusive = false)
     private double iva;
 
-    @NotNull
+    
     private boolean descuento;
 
-    @NotNull
+    
     @Min(0)
     private double porcentajeDescuento;
 

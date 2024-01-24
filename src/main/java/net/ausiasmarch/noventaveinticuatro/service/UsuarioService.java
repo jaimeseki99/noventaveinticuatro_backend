@@ -24,6 +24,9 @@ public class UsuarioService {
     @Autowired
     HttpServletRequest oHttpServletRequest;
 
+    @Autowired
+    SessionService oSessionService;
+
     public UsuarioEntity get(Long id) {
         return oUsuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
     }
@@ -33,19 +36,23 @@ public class UsuarioService {
     }
 
     public Long create (UsuarioEntity oUsuarioEntity) {
+        oSessionService.onlyAdmins();
         oUsuarioEntity.setId(null);
         oUsuarioEntity.setContrasenya(contrasenya);
         return oUsuarioRepository.save(oUsuarioEntity).getId();
     }
 
     public UsuarioEntity update(UsuarioEntity oUsuarioEntity) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
         UsuarioEntity usuarioBaseDatos = this.get(oUsuarioEntity.getId());
+        
         oUsuarioEntity.setContrasenya(usuarioBaseDatos.getContrasenya());
         oUsuarioEntity.setTipo(usuarioBaseDatos.isTipo());
         return oUsuarioRepository.save(oUsuarioEntity);
     }
 
     public Long delete(Long id) {
+        oSessionService.onlyAdmins();
         if (oUsuarioRepository.existsById(id)) {
             oUsuarioRepository.deleteById(id);
             return id;
@@ -55,6 +62,7 @@ public class UsuarioService {
     }
 
     public Page<UsuarioEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oUsuarioRepository.findAll(oPageable);
     }
 
@@ -64,6 +72,7 @@ public class UsuarioService {
     }
 
     public Long populate(Integer amount) {
+        oSessionService.onlyAdmins();
         for (int i=0; i<amount; i++) {
             String nombre = DataGenerationHelper.getNombreRandom();
             String apellido = DataGenerationHelper.getApellidoRandom();
@@ -78,6 +87,7 @@ public class UsuarioService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oUsuarioRepository.deleteAll();
         oUsuarioRepository.resetAutoIncrement();
         UsuarioEntity oUsuarioEntity = new UsuarioEntity(1L, "Jaime", "Serrano", "jaimeseki99", "jaime99sq@gmail.com", "C/La Senyera, 24", "601148404", contrasenya, true);
@@ -88,10 +98,12 @@ public class UsuarioService {
     }
 
     public Page<UsuarioEntity> getUsuariosMasCompras(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oUsuarioRepository.findUsuariosMasCompras(oPageable);
     }
 
     public Page<UsuarioEntity> getUsuariosMasValoraciones(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oUsuarioRepository.findUsuariosMasValoraciones(oPageable);
     }
  

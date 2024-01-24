@@ -22,16 +22,21 @@ public class ModalidadService {
     @Autowired
     HttpServletRequest oHttpServletRequest;
 
+    @Autowired
+    SessionService oSessionService;
+
     public ModalidadEntity get(Long id) {
         return oModalidadRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Modalidad no encontrado."));
     }
 
     public Long create(ModalidadEntity oModalidadEntity) {
+        oSessionService.onlyAdmins();
         oModalidadEntity.setId(null);
         return oModalidadRepository.save(oModalidadEntity).getId();
     }
 
     public ModalidadEntity update(ModalidadEntity oModalidadEntity) {
+        oSessionService.onlyAdmins();
         if (oModalidadEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: La modalidad no existe.");
         } else {
@@ -40,6 +45,7 @@ public class ModalidadService {
     }
 
     public Long delete(Long id) {
+        oSessionService.onlyAdmins();
         if (oModalidadRepository.existsById(id)) {
             oModalidadRepository.deleteById(id);
             return id;
@@ -54,15 +60,18 @@ public class ModalidadService {
     }
 
     public Page<ModalidadEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
         return oModalidadRepository.findAll(oPageable);
     }
 
     //Encontrar modalidad por nombre
     public ModalidadEntity findByNombre(String nombre) {
+        oSessionService.onlyAdminsOUsuarios();
         return oModalidadRepository.findByNombre(nombre);
     }
 
     public Long populate(int amount) {
+        oSessionService.onlyAdmins();
         for (int i=0; i<amount; i++) {
             String nombreModalidad = DataGenerationHelper.getTipoCamisetaRandom() + " " + DataGenerationHelper.getVersionCamisetaRandom();
             oModalidadRepository.save(new ModalidadEntity(nombreModalidad));
@@ -72,6 +81,7 @@ public class ModalidadService {
     
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oModalidadRepository.deleteAll();
         oModalidadRepository.resetAutoIncrement();
         oModalidadRepository.flush();
