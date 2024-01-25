@@ -13,7 +13,7 @@ import io.jsonwebtoken.security.Keys;
 
 public class JWTHelper {
 
-    private static final String SECRET = "noventaveinticuatro_9024_jsq_12345678900987654321@#%&/()=?¿¡!";
+    private static final String SECRET = "noventaveinticuatro_9024_jsq_12345678900987654321@#%&";
     private static final String ISSUER = "NOVENTAVEINTICUATRO BY JAIME SERRANO";
 
     private static SecretKey secretKey() {

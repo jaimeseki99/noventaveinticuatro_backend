@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import net.ausiasmarch.noventaveinticuatro.bean.CaptchaBean;
 import net.ausiasmarch.noventaveinticuatro.bean.CaptchaResponseBean;
+import net.ausiasmarch.noventaveinticuatro.bean.UsuarioBean;
 import net.ausiasmarch.noventaveinticuatro.entity.CaptchaEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.PendentEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
@@ -41,7 +42,7 @@ public class SessionService {
 
     @Transactional
     public CaptchaResponseBean prelogin() {
-        CaptchaEntity oCaptchaEntity = oCaptchaService.createCaptcha();
+        CaptchaEntity oCaptchaEntity = oCaptchaService.getRandomCaptcha();
 
         PendentEntity oPendentEntity = new PendentEntity();
         oPendentEntity.setCaptcha(oCaptchaEntity);
@@ -77,6 +78,7 @@ public class SessionService {
                 }
 
                 if (oPendentEntity.getCaptcha().getText().equals(oCaptchaBean.getAnswer())) {
+                    oPendentRepository.delete(oPendentEntity);
                     return JWTHelper.generateJWT(oCaptchaBean.getUsername());
                 } else {
                     throw new UnauthorizedException("Captcha incorrecto");
@@ -86,6 +88,11 @@ public class SessionService {
             }
         } else {
             throw new UnauthorizedException("Usuario no encontrado");}
+    }
+
+    public String login(UsuarioBean oUsuarioBean) {
+        oUsuarioRepository.findByUsernameAndContrasenya(oUsuarioBean.getUsername(), oUsuarioBean.getContrasenya()).orElseThrow(() -> new ResourceNotFoundException("Usuario o contraseña incorrectos"));
+        return JWTHelper.generateJWT(oUsuarioBean.getUsername());
     }
 
     public String getSessionUsername() {
