@@ -30,7 +30,7 @@ public class ValoracionEntity {
     @Lob
     private byte[] imagen;
 
-    @NotBlank
+    
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime fecha;
 

@@ -120,9 +120,9 @@ public class CamisetaApi {
         return new ResponseEntity<>(camisetas, HttpStatus.OK);
     }
 
-    @GetMapping("/precio-descuento/{id}")
+    @GetMapping("/precio/{id}")
     public ResponseEntity<Double> getPrecioConDescuento(@PathVariable("id") Long id) {
-        Double precioConDescuento = oCamisetaService.getPrecioConDescuento(id);
+        Double precioConDescuento = oCamisetaService.getPrecioTotal(id);
         return new ResponseEntity<>(precioConDescuento, HttpStatus.OK);
     }
 

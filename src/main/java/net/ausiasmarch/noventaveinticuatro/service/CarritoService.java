@@ -104,7 +104,7 @@ public class CarritoService {
     }
 
     public Long populate(int amount) {
-        oSessionService.onlyAdmins();
+       // oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
             CamisetaEntity camiseta = oCamisetaService.getOneRandom();

@@ -116,8 +116,8 @@ public class CamisetaService {
         return oCamisetaRepository.findCamisetasConDescuento(oPageable);
     }
 
-    public Double getPrecioConDescuento(Long id) {
-        return oCamisetaRepository.getPrecioConDescuento(id);
+    public Double getPrecioTotal(Long id) {
+        return oCamisetaRepository.getPrecioTotal(id);
     }
 
     public Long populate(int amount) {

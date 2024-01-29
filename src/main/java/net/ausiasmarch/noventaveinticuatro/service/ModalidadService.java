@@ -71,7 +71,7 @@ public class ModalidadService {
     }
 
     public Long populate(int amount) {
-        oSessionService.onlyAdmins();
+       oSessionService.onlyAdmins();
         for (int i=0; i<amount; i++) {
             String nombreModalidad = DataGenerationHelper.getTipoCamisetaRandom() + " " + DataGenerationHelper.getVersionCamisetaRandom();
             oModalidadRepository.save(new ModalidadEntity(nombreModalidad));

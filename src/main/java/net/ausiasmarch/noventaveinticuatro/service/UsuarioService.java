@@ -72,7 +72,7 @@ public class UsuarioService {
     }
 
     public Long populate(Integer amount) {
-        //oSessionService.onlyAdmins();
+        oSessionService.onlyAdmins();
         for (int i=0; i<amount; i++) {
             String nombre = DataGenerationHelper.getNombreRandom();
             String apellido = DataGenerationHelper.getApellidoRandom();

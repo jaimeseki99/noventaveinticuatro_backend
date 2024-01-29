@@ -27,8 +27,8 @@ public interface CamisetaRepository extends JpaRepository<CamisetaEntity, Long> 
     @Query(value = "SELECT * FROM camiseta WHERE descuento = true ORDER BY porcentaje_descuento DESC", nativeQuery = true)
     Page<CamisetaEntity> findCamisetasConDescuento(Pageable pageable);  
 
-    @Query(value = "SELECT c.precio - (c.precio * c.porcentaje_descuento / 100) FROM camiseta c WHERE c.id = ?1", nativeQuery = true)
-    Double getPrecioConDescuento(Long id);
+    @Query(value = "SELECT c.precio + (c.precio * c.iva / 100) - (c.precio * c.porcentaje_descuento / 100) FROM camiseta c WHERE c.id = ?1", nativeQuery = true)
+    Double getPrecioTotal(Long id);
 
     @Modifying
     @Query(value ="ALTER TABLE camiseta AUTO_INCREMENT = 1", nativeQuery = true)
