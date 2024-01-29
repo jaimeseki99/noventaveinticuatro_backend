@@ -37,6 +37,11 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.getPage(oPageable));
     }
 
+    @GetMapping("/liga/{ligaId}")
+    public ResponseEntity<Page<EquipoEntity>> getPageByLiga(@PathVariable Long liga_id, @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable)  {
+        return ResponseEntity.ok(oEquipoService.getPageByLigaId(liga_id, oPageable));
+    }
+
     @GetMapping("/random")
     public ResponseEntity<EquipoEntity> getRandomEquipo() {
         EquipoEntity equipo = oEquipoService.getOneRandom();

@@ -68,6 +68,11 @@ public class EquipoService {
         return oEquipoRepository.findAll(oPageable);
     }
 
+    public Page<EquipoEntity> getPageByLigaId(Long liga_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
+        return oEquipoRepository.findByLigaId(liga_id, oPageable);
+    }
+
     public Long populate(int amount) {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
@@ -77,6 +82,7 @@ public class EquipoService {
         }
         return oEquipoRepository.count();
     }
+
 
 
     @Transactional
