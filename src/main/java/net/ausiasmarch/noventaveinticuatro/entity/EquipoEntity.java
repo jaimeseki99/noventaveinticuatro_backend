@@ -1,11 +1,15 @@
 package net.ausiasmarch.noventaveinticuatro.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,6 +29,9 @@ public class EquipoEntity {
     @ManyToOne
     @JoinColumn(name = "liga_id", nullable = false)
     private LigaEntity liga;
+
+    @OneToMany(mappedBy = "equipo", fetch = jakarta.persistence.FetchType.LAZY)
+    private List<CamisetaEntity> camisetas = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -50,7 +57,12 @@ public class EquipoEntity {
         this.liga = liga;
     }
 
+    public int getCamisetas() {
+        return camisetas.size();
+    }
+
     public EquipoEntity() {
+        camisetas = new ArrayList<>();
     }
 
     public EquipoEntity(Long id, String nombre, LigaEntity liga) {

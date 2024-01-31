@@ -71,6 +71,15 @@ public class LigaEntity {
     public void setDeporte(String deporte) {
         this.deporte = deporte;
     }
+
+    public int getEquipos() {
+        return equipos.size();
+    }
+
+    public int getCamisetas() {
+        return camisetas.size();
+    }
+
     public LigaEntity() {
         equipos = new ArrayList<>();
         camisetas = new ArrayList<>();

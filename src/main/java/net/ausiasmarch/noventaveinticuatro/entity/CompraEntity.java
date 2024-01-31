@@ -48,8 +48,8 @@ public class CompraEntity {
 
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
-    
 
+    
     public Long getId() {
         return id;
     }
@@ -101,6 +101,10 @@ public class CompraEntity {
 
     public void setFechaFactura(LocalDateTime fechaFactura) {
         this.fechaFactura = fechaFactura;
+    }
+
+    public int getDetalleCompras() {
+        return detallesCompra.size();
     }
 
     public CompraEntity() {

@@ -227,6 +227,18 @@ public class CamisetaEntity {
         detalleCompras = new ArrayList<>();
     }
 
+    public int getCarritos() {
+        return carritos.size();
+    }
+
+    public int getValoraciones() {
+        return valoraciones.size();
+    }
+
+    public int getDetalleCompras() {
+        return detalleCompras.size();
+    }
+
     public CamisetaEntity(Long id, String titulo, String imagen,String talla, String manga, String nombre, int dorsal,
             String temporada,  double precio, double iva, boolean descuento,
             double porcentajeDescuento, int stock, EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {

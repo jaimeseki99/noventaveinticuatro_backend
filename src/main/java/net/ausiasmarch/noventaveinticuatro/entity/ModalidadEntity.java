@@ -42,6 +42,10 @@ public class ModalidadEntity {
         this.nombre = nombre;
     }
 
+    public int getCamisetas() {
+        return camisetas.size();
+    }
+
     public ModalidadEntity() {
         camisetas = new ArrayList<>();
     }
