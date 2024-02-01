@@ -211,12 +211,7 @@ public class DataGenerationHelper {
         return numeroRandom;
     }
 
-    public static LocalDateTime getFechaRandom() {
-        long diaMinimo = LocalDate.of(2020, 1, 1).toEpochDay();
-        long diaMaximo = LocalDate.of(2023, 11, 1).toEpochDay();
-        long diaRandom = ThreadLocalRandom.current().nextLong(diaMinimo, diaMaximo);
-        return LocalDate.ofEpochDay(diaRandom).atTime(getRandomInt(0, 23), getRandomInt(0, 59), getRandomInt(0, 59));
-    }
+   
 
     public static String getEquipoRandom() {
         return equipos[(int) (Math.random() * equipos.length)];

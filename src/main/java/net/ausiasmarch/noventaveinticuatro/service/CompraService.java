@@ -196,7 +196,7 @@ public class CompraService {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
-            LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
+            LocalDateTime fecha = LocalDateTime.now();
             String codigoPedido = generarCodigoPedido();
             oCompraRepository.save(new CompraEntity(usuario, fecha, codigoPedido));
         }

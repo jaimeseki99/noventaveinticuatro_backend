@@ -1,5 +1,6 @@
 package net.ausiasmarch.noventaveinticuatro.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,11 +29,11 @@ public class ValoracionEntity {
     private String comentario;
 
     @Lob
-    private byte[] imagen;
+    private String imagen;
 
     
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime fecha;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fecha;
 
   
     @ManyToOne
@@ -59,19 +60,19 @@ public class ValoracionEntity {
         this.comentario = comentario;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
-    public LocalDateTime getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -94,7 +95,7 @@ public class ValoracionEntity {
     public ValoracionEntity() {
     }
 
-    public ValoracionEntity(Long id, String comentario, byte[] imagen, LocalDateTime fecha, UsuarioEntity usuario,
+    public ValoracionEntity(Long id, String comentario, String imagen, LocalDate fecha, UsuarioEntity usuario,
             CamisetaEntity camiseta) {
         this.id = id;
         this.comentario = comentario;
@@ -104,7 +105,7 @@ public class ValoracionEntity {
         this.camiseta = camiseta;
     }
 
-    public ValoracionEntity(String comentario, byte[] imagen, LocalDateTime fecha, UsuarioEntity usuario,
+    public ValoracionEntity(String comentario, String imagen, LocalDate fecha, UsuarioEntity usuario,
             CamisetaEntity camiseta) {
         this.comentario = comentario;
         this.imagen = imagen;
@@ -113,7 +114,7 @@ public class ValoracionEntity {
         this.camiseta = camiseta;
     }
 
-    public ValoracionEntity(String comentario, LocalDateTime fecha, UsuarioEntity usuario, CamisetaEntity camiseta) {
+    public ValoracionEntity(String comentario, LocalDate fecha, UsuarioEntity usuario, CamisetaEntity camiseta) {
         this.comentario = comentario;
         this.fecha = fecha;
         this.usuario = usuario;

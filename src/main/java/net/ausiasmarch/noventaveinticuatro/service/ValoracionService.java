@@ -1,9 +1,11 @@
 package net.ausiasmarch.noventaveinticuatro.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,11 +48,11 @@ public class ValoracionService {
         if (valoracionBaseDatos.isPresent()) {
             ValoracionEntity valoracion = valoracionBaseDatos.get();
             valoracion.setComentario(oValoracionEntity.getComentario());
-            valoracion.setFecha(LocalDateTime.now());
+            valoracion.setFecha(LocalDate.now());
             return oValoracionRepository.save(valoracion).getId();
         } else {
             oValoracionEntity.setId(null);
-            oValoracionEntity.setFecha(LocalDateTime.now());
+            oValoracionEntity.setFecha(LocalDate.now());
             return oValoracionRepository.save(oValoracionEntity).getId();
         }
     }
@@ -60,6 +62,7 @@ public class ValoracionService {
         if (oValoracionEntity.getId() == null) {
             throw new ResourceNotFoundException("Error: La valoracion no existe.");
         } else {
+            oValoracionEntity.setFecha(LocalDate.now());
             return oValoracionRepository.save(oValoracionEntity);
         }
     }
@@ -124,7 +127,7 @@ public class ValoracionService {
         oSessionService.onlyAdmins();
         for (int i = 0; i<amount; i++) {
             String comentario = DataGenerationHelper.generarComentarioRandom();
-            LocalDateTime fecha = DataGenerationHelper.getFechaRandom();
+            LocalDate fecha = LocalDate.now();
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
             CamisetaEntity camiseta = oCamisetaService.getOneRandom();
             oValoracionRepository.save(new ValoracionEntity(comentario, fecha, usuario, camiseta));
