@@ -18,7 +18,6 @@ import net.ausiasmarch.noventaveinticuatro.entity.CompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.DetalleCompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
-import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
 import net.ausiasmarch.noventaveinticuatro.repository.CompraRepository;
 import net.ausiasmarch.noventaveinticuatro.repository.DetalleCompraRepository;
 
@@ -55,6 +54,35 @@ public class CompraService {
         String fechaActual = LocalDateTime.now().format(formatter);
         String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
         return fechaActual + uuid;
+    }
+
+    @Transactional
+    public CompraEntity realizarCompraProducto(CamisetaEntity oCamisetaEntity, UsuarioEntity oUsuarioEntity) {
+
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
+
+        CompraEntity oCompraEntity = new CompraEntity();
+
+        oCompraEntity.setUsuario(oUsuarioEntity);
+        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setCodigoPedido(generarCodigoPedido());
+
+        oCompraRepository.save(oCompraEntity);
+
+        DetalleCompraEntity oDetalleCompraEntity = new DetalleCompraEntity();
+        oDetalleCompraEntity.setId(null);
+        oDetalleCompraEntity.setCamiseta(oCamisetaEntity);
+        oDetalleCompraEntity.setCompra(oCompraEntity);
+        oDetalleCompraEntity.setCantidad(1);
+        oDetalleCompraEntity.setPrecio(oCamisetaEntity.getPrecio());
+        oDetalleCompraEntity.setIva(oCamisetaEntity.getIva());
+        oDetalleCompraEntity.setPorcentajeDescuento(oCamisetaEntity.getPorcentajeDescuento());
+        
+        oDetalleCompraRepository.save(oDetalleCompraEntity);
+
+        oCamisetaService.actualizarStock(oCamisetaEntity, 1);
+
+        return oCompraEntity;
     }
 
     @Transactional

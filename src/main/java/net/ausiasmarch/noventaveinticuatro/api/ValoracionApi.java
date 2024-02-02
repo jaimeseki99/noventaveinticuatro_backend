@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.noventaveinticuatro.entity.ValoracionEntity;
@@ -41,8 +42,8 @@ public class ValoracionApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<ValoracionEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok(oValoracionService.getPage(pageable));
+    public ResponseEntity<Page<ValoracionEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(value = "usuario", defaultValue = "0", required = false) Long usuario_id, @RequestParam(value = "camiseta", defaultValue = "0", required = false) Long camiseta_id) {
+        return ResponseEntity.ok(oValoracionService.getPage(pageable, usuario_id, camiseta_id));
     }
 
     @GetMapping("/usuario/{usuario_id}")

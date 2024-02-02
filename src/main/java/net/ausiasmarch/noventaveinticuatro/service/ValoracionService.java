@@ -88,9 +88,18 @@ public class ValoracionService {
         return oValoracionRepository.findByCamisetaIdAndUsuarioId(camiseta_id, usuario_id);
     }
 
-    public Page<ValoracionEntity> getPage(Pageable oPageable) {
+    public Page<ValoracionEntity> getPage(Pageable oPageable, Long camiseta_id, Long usuario_id) {
         oSessionService.onlyAdminsOUsuarios();
-        return oValoracionRepository.findAll(oPageable);
+        if (usuario_id == 0) {
+            if ( camiseta_id == 0) {
+                return oValoracionRepository.findAll(oPageable);
+            } else {
+                return oValoracionRepository.findByCamisetaId(camiseta_id, oPageable);
+            }
+        } else {
+            return oValoracionRepository.findByUsuarioId(usuario_id, oPageable);
+        }
+
     }
 
     public Page<ValoracionEntity> getPageByCamisetaId(Long camiseta_id, Pageable oPageable) {

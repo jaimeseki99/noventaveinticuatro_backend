@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.CarritoEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.CompraEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
+import net.ausiasmarch.noventaveinticuatro.service.CamisetaService;
 import net.ausiasmarch.noventaveinticuatro.service.CarritoService;
 import net.ausiasmarch.noventaveinticuatro.service.CompraService;
 import net.ausiasmarch.noventaveinticuatro.service.UsuarioService;
@@ -39,6 +41,9 @@ public class CompraApi {
 
     @Autowired
     CarritoService oCarritoService;
+
+    @Autowired
+    CamisetaService oCamisetaService;
 
     @GetMapping("/{compraId}")
     public ResponseEntity<CompraEntity> getCompra(@PathVariable("compraId") Long compraId) {
@@ -77,6 +82,14 @@ public class CompraApi {
         UsuarioEntity usuario = oUsuarioService.get(usuarioId);
         List<CarritoEntity> carritos = oCarritoService.getCarritosUsuario(usuarioId);
         CompraEntity compra = oCompraService.realizarCompraTodosCarritos(carritos, usuario);
+        return new ResponseEntity<>(compra, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/realizar-compra-camiseta/{usuarioId}/{camisetaId}")
+    public ResponseEntity<CompraEntity> realizarCompraProducto(@PathVariable Long usuarioId, @PathVariable Long camisetaId) {
+        UsuarioEntity usuario = oUsuarioService.get(usuarioId);
+        CamisetaEntity camiseta = oCamisetaService.get(camisetaId);
+        CompraEntity compra = oCompraService.realizarCompraProducto(camiseta, usuario);
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }
 

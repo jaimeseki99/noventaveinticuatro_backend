@@ -63,9 +63,13 @@ public class EquipoService {
         return oEquipoRepository.findAll(oPageable).getContent().get(0);
     }
 
-    public Page<EquipoEntity> getPage(Pageable oPageable) {
+    public Page<EquipoEntity> getPage(Pageable oPageable, Long liga_id) {
         oSessionService.onlyAdminsOUsuarios();
-        return oEquipoRepository.findAll(oPageable);
+        if (liga_id != 0) {
+            return oEquipoRepository.findByLigaId(liga_id, oPageable);
+        } else {
+            return oEquipoRepository.findAll(oPageable);
+        }
     }
 
     public Page<EquipoEntity> getPageByLigaId(Long liga_id, Pageable oPageable) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.noventaveinticuatro.entity.EquipoEntity;
@@ -33,8 +34,8 @@ public class EquipoApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable)  {
-        return ResponseEntity.ok(oEquipoService.getPage(oPageable));
+    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable, @RequestParam(value = "liga", defaultValue = "0", required = false) Long liga_id)  {
+        return ResponseEntity.ok(oEquipoService.getPage(oPageable, liga_id));
     }
 
     @GetMapping("/liga/{ligaId}")

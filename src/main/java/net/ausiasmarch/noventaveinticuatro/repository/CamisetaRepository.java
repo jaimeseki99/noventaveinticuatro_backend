@@ -16,6 +16,12 @@ public interface CamisetaRepository extends JpaRepository<CamisetaEntity, Long> 
 
     Page<CamisetaEntity> findByEquipoIdAndModalidadId(Long equipo_id, Long modalidad_id, Pageable pageable);
 
+    Page<CamisetaEntity> findByEquipoIdAndLigaId(Long equipo_id, Long liga_id, Pageable pageable);
+
+    Page<CamisetaEntity> findByModalidadIdAndLigaId(Long modalidad_id, Long liga_id, Pageable pageable);
+
+    Page<CamisetaEntity> findByEquipoIdAndModalidadIdAndLigaId(Long equipo_id, Long modalidad_id, Long liga_id, Pageable pageable);
+
     Page<CamisetaEntity> findByLigaId(Long liga_id, Pageable pageable);
 
     @Query(value = "SELECT c.* FROM camiseta c INNER JOIN detalle_compra dc ON c.id = dc.camiseta_id INNER JOIN compra co ON dc.compra_id = co.id GROUP BY c.id ORDER BY SUM(dc.cantidad) DESC", nativeQuery = true)

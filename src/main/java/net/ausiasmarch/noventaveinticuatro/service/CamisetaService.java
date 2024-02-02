@@ -68,8 +68,42 @@ public class CamisetaService {
         }
     }
 
-    public Page<CamisetaEntity> getPage(Pageable oPageable) {
-        return oCamisetaRepository.findAll(oPageable);
+    // public Page<CamisetaEntity> getPage(Pageable oPageable) {
+    //     return oCamisetaRepository.findAll(oPageable);
+    // }
+
+    
+
+    public Page<CamisetaEntity> getPage(Pageable oPageable, Long equipo_id, Long modalidad_id, Long liga_id ) {
+        if (equipo_id == 0) {
+            if (modalidad_id == 0) {
+                if (liga_id == 0) {
+                    return oCamisetaRepository.findAll(oPageable);
+                } else {
+                    return oCamisetaRepository.findByLigaId(liga_id, oPageable);
+                }
+            } else {
+                if (liga_id == 0) {
+                    return oCamisetaRepository.findByModalidadId(modalidad_id, oPageable);
+                } else {
+                    return oCamisetaRepository.findByModalidadIdAndLigaId(modalidad_id, liga_id, oPageable);
+                }
+            }
+        } else {
+            if (modalidad_id == 0) {
+                if (liga_id == 0) {
+                    return oCamisetaRepository.findByEquipoId(equipo_id, oPageable);
+                } else {
+                    return oCamisetaRepository.findByEquipoIdAndLigaId(equipo_id, liga_id, oPageable);
+                }
+            } else {
+                if (liga_id == 0) {
+                    return oCamisetaRepository.findByEquipoIdAndModalidadId(equipo_id, modalidad_id, oPageable);
+                } else {
+                    return oCamisetaRepository.findByEquipoIdAndModalidadIdAndLigaId(equipo_id, modalidad_id, liga_id, oPageable);
+                }
+            }
+        }
     }
 
     public CamisetaEntity getOneRandom() {
