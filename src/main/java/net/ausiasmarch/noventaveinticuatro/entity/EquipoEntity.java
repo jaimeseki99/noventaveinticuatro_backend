@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,6 +26,9 @@ public class EquipoEntity {
     @NotBlank
     @Size(max = 250)
     private String nombre;
+
+    
+    private String imagen;
 
     @ManyToOne
     @JoinColumn(name = "liga_id", nullable = false)
@@ -49,6 +53,15 @@ public class EquipoEntity {
         this.nombre = nombre;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+
+    }
+
     public LigaEntity getLiga() {
         return liga;
     }
@@ -65,15 +78,22 @@ public class EquipoEntity {
         camisetas = new ArrayList<>();
     }
 
-    public EquipoEntity(Long id, String nombre, LigaEntity liga) {
+    public EquipoEntity(Long id, String nombre, String imagen, LigaEntity liga) {
         this.id = id;
         this.nombre = nombre;
+        this.imagen = imagen;
         this.liga = liga;
     }
 
     public EquipoEntity(String nombre, LigaEntity liga) {
         this.nombre = nombre;
         this.liga = liga;
+    }
+
+    public EquipoEntity(String nombre, LigaEntity liga, String imagen) {
+        this.nombre = nombre;
+        this.liga = liga;
+        this.imagen = imagen;
     }
 
 }

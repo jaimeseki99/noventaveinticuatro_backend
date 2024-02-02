@@ -78,17 +78,7 @@ public class DetalleCompraService {
         return oDetalleCompraRepository.findAll(oPageable).getContent().get(0);
     }
 
-   // public Long populate(int amount) {
-   //     for (int i=0; i<amount; i++) {
-   //         CompraEntity compra = oCompraService.getOneRandom();
-   //         CamisetaEntity camiseta = oCamisetaService.getOneRandom();
-   //         double precio = camiseta.getPrecio();
-   //         int cantidad = DataGenerationHelper.generarIntRandom();
-   //         double iva = camiseta.getIva();
-   //         oDetalleCompraRepository.save(new DetalleCompraEntity(compra, camiseta, precio, cantidad, iva));
-   //     }
-   //     return oDetalleCompraRepository.count();
-   // }
+
 
     @Transactional
     public Long empty() {

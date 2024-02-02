@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -22,6 +23,9 @@ public class ModalidadEntity {
 
     @NotBlank
     private String nombre;
+
+    
+    private String imagen;
 
     @OneToMany(mappedBy = "modalidad", fetch = FetchType.LAZY)
     private List<CamisetaEntity> camisetas;
@@ -42,6 +46,14 @@ public class ModalidadEntity {
         this.nombre = nombre;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     public int getCamisetas() {
         return camisetas.size();
     }
@@ -50,15 +62,15 @@ public class ModalidadEntity {
         camisetas = new ArrayList<>();
     }
 
-    public ModalidadEntity(Long id, String nombre, List<CamisetaEntity> camisetas) {
+    public ModalidadEntity(Long id, String nombre, String imagen) {
         this.id = id;
         this.nombre = nombre;
-        this.camisetas = camisetas;
+        this.imagen = imagen;
     }
 
-    public ModalidadEntity(String nombre, List<CamisetaEntity> camisetas) {
+    public ModalidadEntity(String nombre, String imagen) {
         this.nombre = nombre;
-        this.camisetas = camisetas;
+        this.imagen = imagen;
     }
 
     public ModalidadEntity(String nombre) {

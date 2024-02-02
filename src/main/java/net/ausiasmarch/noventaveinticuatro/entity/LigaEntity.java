@@ -9,6 +9,7 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,9 @@ public class LigaEntity {
     @NotBlank
     @Size(max = 100)
     private String deporte;
+
+    
+    private String imagen;
 
     @OneToMany(mappedBy = "liga", fetch = FetchType.LAZY)
     private List<EquipoEntity> equipos;
@@ -72,6 +76,14 @@ public class LigaEntity {
         this.deporte = deporte;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     public int getEquipos() {
         return equipos.size();
     }
@@ -85,17 +97,25 @@ public class LigaEntity {
         camisetas = new ArrayList<>();
     }
 
-    public LigaEntity(Long id, String nombre, String pais, String deporte) {
+    public LigaEntity(Long id, String nombre, String pais, String deporte, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.pais = pais;
         this.deporte = deporte;
+        this.imagen = imagen;
     }
 
     public LigaEntity(String nombre, String pais, String deporte) {
         this.nombre = nombre;
         this.pais = pais;
         this.deporte = deporte;
+    }
+
+    public LigaEntity(String nombre, String pais, String deporte, String imagen) {
+        this.nombre = nombre;
+        this.pais = pais;
+        this.deporte = deporte;
+        this.imagen = imagen;
     }
 
     
