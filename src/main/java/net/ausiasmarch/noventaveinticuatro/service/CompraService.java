@@ -57,7 +57,7 @@ public class CompraService {
     }
 
     @Transactional
-    public CompraEntity realizarCompraProducto(CamisetaEntity oCamisetaEntity, UsuarioEntity oUsuarioEntity) {
+    public CompraEntity realizarCompraProducto(CamisetaEntity oCamisetaEntity, UsuarioEntity oUsuarioEntity, int cantidad) {
 
         oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
 
@@ -73,14 +73,14 @@ public class CompraService {
         oDetalleCompraEntity.setId(null);
         oDetalleCompraEntity.setCamiseta(oCamisetaEntity);
         oDetalleCompraEntity.setCompra(oCompraEntity);
-        oDetalleCompraEntity.setCantidad(1);
+        oDetalleCompraEntity.setCantidad(cantidad);
         oDetalleCompraEntity.setPrecio(oCamisetaEntity.getPrecio());
         oDetalleCompraEntity.setIva(oCamisetaEntity.getIva());
         oDetalleCompraEntity.setPorcentajeDescuento(oCamisetaEntity.getPorcentajeDescuento());
         
         oDetalleCompraRepository.save(oDetalleCompraEntity);
 
-        oCamisetaService.actualizarStock(oCamisetaEntity, 1);
+        oCamisetaService.actualizarStock(oCamisetaEntity, cantidad);
 
         return oCompraEntity;
     }
