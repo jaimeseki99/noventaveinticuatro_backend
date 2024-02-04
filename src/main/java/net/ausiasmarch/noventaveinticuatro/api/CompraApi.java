@@ -85,8 +85,8 @@ public class CompraApi {
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }
 
-    @PostMapping("/realizar-compra-camiseta/{usuarioId}/{camisetaId}")
-    public ResponseEntity<CompraEntity> realizarCompraProducto(@PathVariable Long usuarioId, @PathVariable Long camisetaId) {
+    @PostMapping("/realizar-compra-camiseta/{camisetaId}/{usuarioId}")
+    public ResponseEntity<CompraEntity> realizarCompraProducto(@PathVariable Long camisetaId, @PathVariable Long usuarioId) {
         UsuarioEntity usuario = oUsuarioService.get(usuarioId);
         CamisetaEntity camiseta = oCamisetaService.get(camisetaId);
         CompraEntity compra = oCompraService.realizarCompraProducto(camiseta, usuario);
