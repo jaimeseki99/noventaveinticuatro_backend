@@ -88,8 +88,8 @@ public class ValoracionService {
         return oValoracionRepository.findByCamisetaIdAndUsuarioId(camiseta_id, usuario_id);
     }
 
-    public Page<ValoracionEntity> getPage(Pageable oPageable, Long camiseta_id, Long usuario_id) {
-        oSessionService.onlyAdminsOUsuarios();
+    public Page<ValoracionEntity> getPage(Pageable oPageable, Long usuario_id, Long camiseta_id) {
+        //oSessionService.onlyAdminsOUsuarios();
         if (usuario_id == 0) {
             if ( camiseta_id == 0) {
                 return oValoracionRepository.findAll(oPageable);
