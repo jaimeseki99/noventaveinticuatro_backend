@@ -68,6 +68,11 @@ public class DetalleCompraService {
         }
     }
 
+    public Page<DetalleCompraEntity> getPageByCompra(Long compra_id, Pageable oPageable) {
+        oSessionService.onlyAdminsOUsuarios();
+        return oDetalleCompraRepository.findByCompra(compra_id, oPageable);
+    }
+
     public Optional<DetalleCompraEntity> getOneByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id) {
         oSessionService.onlyAdminsOUsuarios();
         return oDetalleCompraRepository.findByCompraIdAndCamisetaId(compra_id, camiseta_id);

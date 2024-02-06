@@ -51,8 +51,8 @@ public class CompraApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<CompraEntity>> getPage(Pageable oPageable)  {
-        return ResponseEntity.ok(oCompraService.getPage(oPageable));
+    public ResponseEntity<Page<CompraEntity>> getPage(Pageable oPageable, @RequestParam(value = "usuario", defaultValue = "0", required = false) Long usuarioId)  {
+        return ResponseEntity.ok(oCompraService.getPage(usuarioId, oPageable));
     }
 
     @GetMapping("/usuario/{usuarioId}")

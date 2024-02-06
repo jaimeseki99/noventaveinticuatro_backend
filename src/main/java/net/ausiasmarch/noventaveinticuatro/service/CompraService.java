@@ -176,9 +176,13 @@ public class CompraService {
         }
     }
 
-    public Page<CompraEntity> getPage(Pageable oPageable) {
+    public Page<CompraEntity> getPage(Long usuario_id, Pageable oPageable) {
         oSessionService.onlyAdminsOUsuarios();
-        return oCompraRepository.findAll(oPageable);
+        if (usuario_id != null) {
+            return oCompraRepository.findByUsuarioId(usuario_id, oPageable);
+        } else {
+            return oCompraRepository.findAll(oPageable);
+        }
     }
 
     public CompraEntity getOneRandom() {

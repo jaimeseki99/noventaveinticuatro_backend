@@ -18,6 +18,9 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompraEnti
 
     Optional<DetalleCompraEntity> findByCompraIdAndCamisetaId(Long compra_id, Long camiseta_id);
 
+    @Query(value = "SELECT * FROM detalle_compra WHERE compra_id = ?1", nativeQuery = true)
+    Page<DetalleCompraEntity> findByCompra(Long compra_id, Pageable pageable);
+
     @Modifying
     @Query(value = "ALTER TABLE detalle_compra AUTO_INCREMENT = 1", nativeQuery = true)
     void resetAutoIncrement();

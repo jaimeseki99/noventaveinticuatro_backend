@@ -53,6 +53,11 @@ public class DetalleCompraApi {
         return ResponseEntity.ok(oDetalleCompraService.getPage(camiseta_id, compra_id, pageable));
     }
 
+    @GetMapping("/byCompra/{compraId}")
+    public ResponseEntity<Page<DetalleCompraEntity>> getByCompra(@PathVariable Long compraId, @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
+        return ResponseEntity.ok(oDetalleCompraService.getPageByCompra(compraId, pageable));
+    }
+
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oDetalleCompraService.empty());
