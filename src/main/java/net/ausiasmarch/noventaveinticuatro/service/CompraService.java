@@ -1,5 +1,6 @@
 package net.ausiasmarch.noventaveinticuatro.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -50,7 +51,7 @@ public class CompraService {
     }
 
     public String generarCodigoPedido() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHH");
         String fechaActual = LocalDateTime.now().format(formatter);
         String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
         return fechaActual + uuid;
@@ -64,7 +65,7 @@ public class CompraService {
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
-        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
 
         oCompraRepository.save(oCompraEntity);
@@ -93,7 +94,7 @@ public class CompraService {
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
-        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
 
         oCompraRepository.save(oCompraEntity);
@@ -126,7 +127,7 @@ public class CompraService {
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
-        oCompraEntity.setFecha(LocalDateTime.now());
+        oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
 
         oCompraRepository.save(oCompraEntity);
@@ -224,7 +225,7 @@ public class CompraService {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
-            LocalDateTime fecha = LocalDateTime.now();
+            LocalDate fecha = LocalDate.now();
             String codigoPedido = generarCodigoPedido();
             oCompraRepository.save(new CompraEntity(usuario, fecha, codigoPedido));
         }

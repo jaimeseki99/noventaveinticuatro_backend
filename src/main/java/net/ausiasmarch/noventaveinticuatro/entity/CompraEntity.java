@@ -1,7 +1,7 @@
 package net.ausiasmarch.noventaveinticuatro.entity;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +33,8 @@ public class CompraEntity {
     private UsuarioEntity usuario;
 
     @NotNull
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime fecha;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fecha;
 
     @NotBlank
     @Size(max = 100)
@@ -43,8 +43,8 @@ public class CompraEntity {
     @Min(0)
     private Long factura_id;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime fechaFactura;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaFactura;
 
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
@@ -70,12 +70,12 @@ public class CompraEntity {
     }
 
 
-    public LocalDateTime getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -95,11 +95,11 @@ public class CompraEntity {
         this.factura_id = factura_id;
     }
 
-    public LocalDateTime getFechaFactura() {
+    public LocalDate getFechaFactura() {
         return fechaFactura;
     }
 
-    public void setFechaFactura(LocalDateTime fechaFactura) {
+    public void setFechaFactura(LocalDate fechaFactura) {
         this.fechaFactura = fechaFactura;
     }
 
@@ -111,8 +111,8 @@ public class CompraEntity {
         detallesCompra = new ArrayList<>();
     }
 
-    public CompraEntity(Long id, UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido, Long factura_id,
-            LocalDateTime fechaFactura) {
+    public CompraEntity(Long id, UsuarioEntity usuario, LocalDate fecha, String codigoPedido, Long factura_id,
+            LocalDate fechaFactura) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
@@ -121,8 +121,8 @@ public class CompraEntity {
         this.fechaFactura = fechaFactura;
     }
 
-    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido, Long factura_id,
-            LocalDateTime fechaFactura) {
+    public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido, Long factura_id,
+            LocalDate fechaFactura) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.codigoPedido = codigoPedido;
@@ -130,7 +130,7 @@ public class CompraEntity {
         this.fechaFactura = fechaFactura;
     }
 
-    public CompraEntity(UsuarioEntity usuario, LocalDateTime fecha, String codigoPedido) {
+    public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.codigoPedido = codigoPedido;

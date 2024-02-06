@@ -1,7 +1,6 @@
 package net.ausiasmarch.noventaveinticuatro.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,14 +27,11 @@ public class ValoracionEntity {
     @Size(max = 1000)
     private String comentario;
 
-    @Lob
     private String imagen;
 
-    
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fecha;
 
-  
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioEntity usuario;

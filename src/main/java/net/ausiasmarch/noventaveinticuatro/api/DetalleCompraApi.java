@@ -53,8 +53,6 @@ public class DetalleCompraApi {
         return ResponseEntity.ok(oDetalleCompraService.getPage(camiseta_id, compra_id, pageable));
     }
 
-    
-
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oDetalleCompraService.empty());
