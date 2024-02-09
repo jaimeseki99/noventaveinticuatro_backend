@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,11 +33,11 @@ public class ValoracionEntity {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fecha;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioEntity usuario;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "camiseta_id", nullable = false)
     private CamisetaEntity camiseta;
 

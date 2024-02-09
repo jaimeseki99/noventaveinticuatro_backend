@@ -120,7 +120,7 @@ public class CompraService {
 
 
     @Transactional
-    public CompraEntity realizarCompraTodosCarritos(List<CarritoEntity> carritos, UsuarioEntity oUsuarioEntity) {
+    public CompraEntity realizarCompraTodosCarritos(Page<CarritoEntity> carritos, UsuarioEntity oUsuarioEntity) {
 
         oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
 
@@ -132,9 +132,9 @@ public class CompraService {
 
         oCompraRepository.save(oCompraEntity);
         
-        carritos = oCarritoService.getCarritoByUsuario(oUsuarioEntity.getId());
+        carritos = oCarritoService.getCarritoByUsuario(oUsuarioEntity.getId(), PageRequest.of(0, 1000));
 
-        for (CarritoEntity carrito : carritos) {
+        carritos.forEach(carrito -> {
             DetalleCompraEntity oDetalleCompraEntity = new DetalleCompraEntity();
             oDetalleCompraEntity.setId(null);
             oDetalleCompraEntity.setCamiseta(carrito.getCamiseta());
@@ -143,14 +143,10 @@ public class CompraService {
             oDetalleCompraEntity.setPrecio(carrito.getCamiseta().getPrecio());
             oDetalleCompraEntity.setIva(carrito.getCamiseta().getIva());
             oDetalleCompraEntity.setPorcentajeDescuento(carrito.getCamiseta().getPorcentajeDescuento());
-            
             oDetalleCompraRepository.save(oDetalleCompraEntity);
-        }
-
-        for (CarritoEntity carrito : carritos) {
             CamisetaEntity camiseta = carrito.getCamiseta();
             oCamisetaService.actualizarStock(camiseta, carrito.getCantidad());
-        }
+        });
 
         oCarritoService.deleteByUsuario(oUsuarioEntity.getId());
 

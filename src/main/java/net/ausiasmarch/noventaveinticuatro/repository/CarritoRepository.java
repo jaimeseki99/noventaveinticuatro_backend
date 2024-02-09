@@ -3,6 +3,8 @@ package net.ausiasmarch.noventaveinticuatro.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +13,7 @@ import net.ausiasmarch.noventaveinticuatro.entity.CarritoEntity;
 
 public interface CarritoRepository extends JpaRepository<CarritoEntity, Long> {
 
-    List<CarritoEntity> findByUsuarioId(Long usuario_id);
+    Page<CarritoEntity> findByUsuarioId(Long usuario_id, Pageable pageable);
 
     Optional<CarritoEntity> findByUsuarioIdAndCamisetaId(Long usuario_id, Long camiseta_id);
 

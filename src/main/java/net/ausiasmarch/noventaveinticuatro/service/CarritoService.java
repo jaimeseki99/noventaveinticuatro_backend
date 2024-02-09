@@ -39,9 +39,9 @@ public class CarritoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Error: Carrito no encontrado."));
     }
 
-    public List<CarritoEntity> getCarritoByUsuario(Long usuario_id) {
+    public Page<CarritoEntity> getCarritoByUsuario(Long usuario_id, Pageable oPageable) {
         oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
-        return oCarritoRepository.findByUsuarioId(usuario_id);
+        return oCarritoRepository.findByUsuarioId(usuario_id, oPageable);
     }
 
     public CarritoEntity getCarritoByUsuarioAndCamiseta(Long usuario_id, Long camiseta_id) {
@@ -56,7 +56,7 @@ public class CarritoService {
     }
 
     public Long create(CarritoEntity oCarritoEntity) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(oCarritoEntity.getUsuario().getId());
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
        
             UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
 
@@ -106,10 +106,7 @@ public class CarritoService {
         oCarritoRepository.deleteByUsuarioId(usuario_id);
     }
 
-    public List<CarritoEntity> getCarritosUsuario(Long usuario_id) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
-        return oCarritoRepository.findByUsuarioId(usuario_id);
-    }
+    
 
     public Long populate(int amount) {
         // oSessionService.onlyAdmins();

@@ -43,7 +43,7 @@ public class ValoracionService {
     }
 
     public Long create(ValoracionEntity oValoracionEntity) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(oValoracionEntity.getUsuario().getId());
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
         Optional<ValoracionEntity> valoracionBaseDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oValoracionEntity.getCamiseta().getId(), oValoracionEntity.getUsuario().getId());
         if (valoracionBaseDatos.isPresent()) {
             ValoracionEntity valoracion = valoracionBaseDatos.get();

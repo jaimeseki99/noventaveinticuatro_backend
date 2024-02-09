@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Sort;
@@ -78,9 +79,9 @@ public class CompraApi {
 
     @PostMapping("/realizar-compra-todos-carritos/{usuarioId}")
     public ResponseEntity<CompraEntity> realizarCompraTodosCarritos(
-            @PathVariable Long usuarioId) {
+            @PathVariable Long usuarioId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         UsuarioEntity usuario = oUsuarioService.get(usuarioId);
-        List<CarritoEntity> carritos = oCarritoService.getCarritosUsuario(usuarioId);
+        Page<CarritoEntity> carritos = oCarritoService.getCarritoByUsuario(usuarioId, PageRequest.of(page, size));
         CompraEntity compra = oCompraService.realizarCompraTodosCarritos(carritos, usuario);
         return new ResponseEntity<>(compra, HttpStatus.CREATED);
     }

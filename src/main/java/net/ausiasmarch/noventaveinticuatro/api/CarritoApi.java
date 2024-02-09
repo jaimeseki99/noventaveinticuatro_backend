@@ -2,6 +2,7 @@ package net.ausiasmarch.noventaveinticuatro.api;
 
 import java.util.List;
 
+import org.hibernate.query.SortDirection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,8 +36,8 @@ public class CarritoApi {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CarritoEntity>> getCarritoByUsuario(@PathVariable("usuarioId") Long usuarioId) {
-        return ResponseEntity.ok(oCarritoService.getCarritoByUsuario(usuarioId));
+    public ResponseEntity<Page<CarritoEntity>> getCarritoByUsuario(@PathVariable("usuarioId") Long usuarioId, @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable) {
+        return ResponseEntity.ok(oCarritoService.getCarritoByUsuario(usuarioId, oPageable));
     }
 
     @GetMapping("/usuario/{usuarioId}/camiseta/{camisetaId}")
