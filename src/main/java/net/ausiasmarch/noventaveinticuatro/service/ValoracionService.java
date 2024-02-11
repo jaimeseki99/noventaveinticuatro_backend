@@ -44,17 +44,9 @@ public class ValoracionService {
 
     public Long create(ValoracionEntity oValoracionEntity) {
         oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
-        Optional<ValoracionEntity> valoracionBaseDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oValoracionEntity.getCamiseta().getId(), oValoracionEntity.getUsuario().getId());
-        if (valoracionBaseDatos.isPresent()) {
-            ValoracionEntity valoracion = valoracionBaseDatos.get();
-            valoracion.setComentario(oValoracionEntity.getComentario());
-            valoracion.setFecha(LocalDate.now());
-            return oValoracionRepository.save(valoracion).getId();
-        } else {
-            oValoracionEntity.setId(null);
-            oValoracionEntity.setFecha(LocalDate.now());
-            return oValoracionRepository.save(oValoracionEntity).getId();
-        }
+        oValoracionEntity.setId(null);
+        oValoracionEntity.setFecha(LocalDate.now());
+        return oValoracionRepository.save(oValoracionEntity).getId();
     }
 
     public ValoracionEntity update(ValoracionEntity oValoracionEntity) {
