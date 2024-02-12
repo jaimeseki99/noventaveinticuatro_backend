@@ -130,6 +130,12 @@ public class CompraApi {
         return new ResponseEntity<>(compras, HttpStatus.OK);
     }
 
+    @GetMapping("/coste-compra/{compraId}")
+    public ResponseEntity<Double> getCosteCompra(@PathVariable Long compraId) {
+        Double costeCompra = oCompraService.getPrecioCompra(compraId);
+        return new ResponseEntity<>(costeCompra, HttpStatus.OK);
+    }
+
     @PostMapping("/populate/{amount}")
     public ResponseEntity<Long> populateCompras(@PathVariable("amount") int amount) {
         Long totalCompras = oCompraService.populate(amount);

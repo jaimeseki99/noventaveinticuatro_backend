@@ -221,6 +221,10 @@ public class CompraService {
         return oCompraRepository.findByCodigoPedido(codigo_pedido, oPageable);
     }
 
+    public Double getPrecioCompra(Long compra_id) {
+        return oCompraRepository.findTotalCompraById(compra_id);
+    }
+
     public Long populate(int amount) {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
