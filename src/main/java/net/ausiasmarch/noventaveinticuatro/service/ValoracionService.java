@@ -42,11 +42,23 @@ public class ValoracionService {
         return oValoracionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Valoracion no encontrado."));
     }
 
-    public Long create(ValoracionEntity oValoracionEntity) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
-        oValoracionEntity.setId(null);
-        oValoracionEntity.setFecha(LocalDate.now());
-        return oValoracionRepository.save(oValoracionEntity).getId();
+    public Long create(ValoracionEntity oValoracionEntity) throws Exception {
+         oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
+         UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
+         CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
+         Optional<ValoracionEntity> valoracionBaseDeDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oCamisetaEntity.getId(), oUsuarioEntity.getId());
+         if (valoracionBaseDeDatos.isPresent()) {
+            throw new Exception("Error: Ya has valorado esta camiseta.");
+         } else {
+            oValoracionEntity.setId(null);
+            oValoracionEntity.setFecha(LocalDate.now());
+            return oValoracionRepository.save(oValoracionEntity).getId();
+         }
+        // oValoracionEntity.setId(null);
+        // oValoracionEntity.setFecha(LocalDate.now());
+        // return oValoracionRepository.save(oValoracionEntity).getId();
+
+
     }
 
     public ValoracionEntity update(ValoracionEntity oValoracionEntity) {

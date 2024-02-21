@@ -82,7 +82,7 @@ public class ValoracionApi {
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> create(@RequestBody ValoracionEntity oValoracionEntity) {
+    public ResponseEntity<Long> create(@RequestBody ValoracionEntity oValoracionEntity) throws Exception {
         return ResponseEntity.ok(oValoracionService.create(oValoracionEntity));
     }
 
