@@ -75,6 +75,7 @@ public class CamisetaService {
     
 
     public Page<CamisetaEntity> getPage(Pageable oPageable, Long equipo_id, Long modalidad_id, Long liga_id ) {
+        oSessionService.onlyAdminsOUsuarios();
         if (equipo_id == 0) {
             if (modalidad_id == 0) {
                 if (liga_id == 0) {
