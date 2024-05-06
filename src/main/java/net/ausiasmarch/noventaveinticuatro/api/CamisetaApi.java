@@ -51,8 +51,8 @@ public class CamisetaApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<CamisetaEntity>> getPage(Pageable oPageable, @RequestParam(value = "equipo", defaultValue = "0", required = false) Long equipo_id, @RequestParam(value = "modalidad", defaultValue = "0", required = false) Long modalidad_id, @RequestParam(value = "liga", defaultValue = "0", required = false) Long liga_id) { 
-        return ResponseEntity.ok(oCamisetaService.getPage(oPageable, equipo_id, modalidad_id, liga_id));
+    public ResponseEntity<Page<CamisetaEntity>> getPage(Pageable oPageable, @RequestParam(value = "equipo", defaultValue = "0", required = false) Long equipo_id, @RequestParam(value = "modalidad", defaultValue = "0", required = false) Long modalidad_id, @RequestParam(value = "liga", defaultValue = "0", required = false) Long liga_id, @RequestParam(value = "filtro", required = false) String filtro) { 
+        return ResponseEntity.ok(oCamisetaService.getPage(oPageable, equipo_id, modalidad_id, liga_id, filtro));
     }
 
     @GetMapping("/random")
