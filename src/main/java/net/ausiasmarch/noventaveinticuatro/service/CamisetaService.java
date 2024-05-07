@@ -75,9 +75,9 @@ public class CamisetaService {
     
 
     public Page<CamisetaEntity> getPage(Pageable oPageable, Long equipo_id, Long modalidad_id, Long liga_id, String filtro) {
-        oSessionService.onlyAdminsOUsuarios();
-        if (filtro != null && !filtro.isEmpty()) {
-            return oCamisetaRepository.findBySearchIgnoreCase(filtro, oPageable);
+       // oSessionService.onlyAdminsOUsuarios();
+        if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
+            return oCamisetaRepository.findByTituloContainingIgnoreCase(filtro, oPageable);
         } else {
             if (equipo_id == 0) {
                 if (modalidad_id == 0) {
@@ -148,7 +148,7 @@ public class CamisetaService {
     }
 
     public Page<CamisetaEntity> getPageBySearchIgnoreCase(String searchText, Pageable oPageable) {
-        return oCamisetaRepository.findBySearchIgnoreCase(searchText, oPageable);
+        return oCamisetaRepository.findByTituloContainingIgnoreCase(searchText, oPageable);
     }
 
     public Page<CamisetaEntity> getPageCamisetasConDescuento(Pageable oPageable) {

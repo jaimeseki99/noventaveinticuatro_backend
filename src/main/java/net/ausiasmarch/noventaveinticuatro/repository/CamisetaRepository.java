@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
 
@@ -27,8 +28,8 @@ public interface CamisetaRepository extends JpaRepository<CamisetaEntity, Long> 
     @Query(value = "SELECT c.* FROM camiseta c INNER JOIN detalle_compra dc ON c.id = dc.camiseta_id INNER JOIN compra co ON dc.compra_id = co.id GROUP BY c.id ORDER BY SUM(dc.cantidad) DESC", nativeQuery = true)
     Page<CamisetaEntity> findCamisetasMasVendidas(Pageable pageable);
 
-    @Query(value = "SELECT * FROM camiseta WHERE LENGTH(?1) >=3 AND titulo LIKE %?1%", nativeQuery = true)
-    Page<CamisetaEntity> findBySearchIgnoreCase(String searchText, Pageable pageable);
+    
+    Page<CamisetaEntity> findByTituloContainingIgnoreCase(String titulo, Pageable pageable);
 
     @Query(value = "SELECT * FROM camiseta WHERE descuento = true ORDER BY porcentaje_descuento DESC", nativeQuery = true)
     Page<CamisetaEntity> findCamisetasConDescuento(Pageable pageable);  
