@@ -16,7 +16,7 @@ public interface ValoracionRepository extends JpaRepository<ValoracionEntity, Lo
 
     Page<ValoracionEntity> findByUsuarioId(Long usuario_id, Pageable pageable);
 
-    Optional<ValoracionEntity> findByCamisetaIdAndUsuarioId(Long camiseta_id, Long usuario_id);
+    Optional<ValoracionEntity> findByUsuarioIdAndCamisetaId(Long usuario_id, Long camiseta_id);
     
     @Query(value = "SELECT * FROM valoracion WHERE camiseta_id = ?1 ORDER BY fecha DESC", nativeQuery = true)
     Page<ValoracionEntity> getValoracionesMasRecientes(Long camiseta_id, Pageable pageable);

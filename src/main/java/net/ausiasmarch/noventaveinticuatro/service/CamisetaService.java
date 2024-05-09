@@ -155,6 +155,10 @@ public class CamisetaService {
         return oCamisetaRepository.findCamisetasConDescuento(oPageable);
     }
 
+    public Page<CamisetaEntity> getPageCamisetasCompradasByUsuario(Long usuario_id, Pageable oPageable) {
+        return oCamisetaRepository.findCamisetasCompradasByUsuario(usuario_id, oPageable);
+    }
+
     public Double getPrecioTotal(Long id) {
         return oCamisetaRepository.getPrecioTotal(id);
     }

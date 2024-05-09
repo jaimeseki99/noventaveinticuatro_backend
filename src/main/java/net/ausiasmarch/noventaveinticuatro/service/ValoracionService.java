@@ -18,6 +18,7 @@ import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.entity.ValoracionEntity;
 import net.ausiasmarch.noventaveinticuatro.exception.ResourceNotFoundException;
 import net.ausiasmarch.noventaveinticuatro.helper.DataGenerationHelper;
+import net.ausiasmarch.noventaveinticuatro.repository.CamisetaRepository;
 import net.ausiasmarch.noventaveinticuatro.repository.ValoracionRepository;
 
 @Service
@@ -38,22 +39,50 @@ public class ValoracionService {
     @Autowired
     SessionService oSessionService;
 
+    @Autowired
+    CamisetaRepository oCamisetaRepository;
+
     public ValoracionEntity get(Long id) {
         return oValoracionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Valoracion no encontrado."));
     }
 
     public Long create(ValoracionEntity oValoracionEntity) throws Exception {
-         oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
-         UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
-         CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
-         Optional<ValoracionEntity> valoracionBaseDeDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oCamisetaEntity.getId(), oUsuarioEntity.getId());
-         if (valoracionBaseDeDatos.isPresent()) {
-            throw new Exception("Error: Ya has valorado esta camiseta.");
-         } else {
-            oValoracionEntity.setId(null);
-            oValoracionEntity.setFecha(LocalDate.now());
-            return oValoracionRepository.save(oValoracionEntity).getId();
-         }
+
+        // oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
+
+        UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
+        CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
+
+        Page<CamisetaEntity> camisetasCompradas = oCamisetaService.getPageCamisetasCompradasByUsuario(oUsuarioEntity.getId(), PageRequest.of(0, Integer.MAX_VALUE));
+
+        // Page<CamisetaEntity> camisetasCompradas = oCamisetaRepository.findCamisetasCompradasByUsuario(oUsuarioEntity.getId(), PageRequest.of(0, Integer.MAX_VALUE));
+
+        boolean haCompradoCamiseta = camisetasCompradas.stream().anyMatch(camiseta -> camiseta.getId().equals(oCamisetaEntity.getId()));
+
+        if (!haCompradoCamiseta) {
+            throw new Exception("Para poder valorar la camiseta primero has de comprarla");
+        } else {
+            Optional<ValoracionEntity> valoracionBaseDeDatos = oValoracionRepository.findByUsuarioIdAndCamisetaId(oUsuarioEntity.getId(), oCamisetaEntity.getId());
+            if (valoracionBaseDeDatos.isPresent()) {
+                throw new Exception("Error: ya has valorado la camiseta");
+            } else {
+                oValoracionEntity.setId(null);
+                oValoracionEntity.setFecha(LocalDate.now());
+                return oValoracionRepository.save(oValoracionEntity).getId();
+            }
+        }
+        //  oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
+        //  UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
+        //  CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
+        //  Optional<ValoracionEntity> valoracionBaseDeDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oCamisetaEntity.getId(), oUsuarioEntity.getId());
+        //  if (valoracionBaseDeDatos.isPresent()) {
+        //     throw new Exception("Error: Ya has valorado esta camiseta.");
+        //  } else {
+        //     oValoracionEntity.setId(null);
+        //     oValoracionEntity.setFecha(LocalDate.now());
+        //     return oValoracionRepository.save(oValoracionEntity).getId();
+        //  }
+
         // oValoracionEntity.setId(null);
         // oValoracionEntity.setFecha(LocalDate.now());
         // return oValoracionRepository.save(oValoracionEntity).getId();
@@ -88,8 +117,8 @@ public class ValoracionService {
     }
 
     public Optional<ValoracionEntity> getValoracionByUsuarioAndCamiseta(Long camiseta_id, Long usuario_id) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
-        return oValoracionRepository.findByCamisetaIdAndUsuarioId(camiseta_id, usuario_id);
+       // oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
+        return oValoracionRepository.findByUsuarioIdAndCamisetaId(camiseta_id, usuario_id);
     }
 
     public Page<ValoracionEntity> getPage(Pageable oPageable, Long usuario_id, Long camiseta_id) {

@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import net.ausiasmarch.noventaveinticuatro.entity.CamisetaEntity;
 
@@ -37,7 +36,7 @@ public interface CamisetaRepository extends JpaRepository<CamisetaEntity, Long> 
     @Query(value = "SELECT c.precio + (c.precio * c.iva / 100) - (c.precio * c.porcentaje_descuento / 100) FROM camiseta c WHERE c.id = ?1", nativeQuery = true)
     Double getPrecioTotal(Long id);
 
-    @Query(value = "SELECT c.* FROM camiseta c WHERE c.id IN (SELECT dc.camiseta_id FROM detalle_compra dc WHERE dc.compra_id IN (SELECT co.id FROM compra co WHERE co.usuario_id = ?1))", nativeQuery = true)
+    @Query(value = "SELECT * FROM camiseta c WHERE c.id IN (SELECT dc.camiseta_id FROM detalle_compra dc WHERE dc.compra_id IN (SELECT co.id FROM compra co WHERE co.usuario_id = ?1))", nativeQuery = true)
     Page<CamisetaEntity> findCamisetasCompradasByUsuario(Long usuario_id, Pageable pageable);
 
     @Modifying
