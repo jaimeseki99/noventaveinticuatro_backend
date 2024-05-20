@@ -48,14 +48,12 @@ public class ValoracionService {
 
     public Long create(ValoracionEntity oValoracionEntity) throws Exception {
 
-        // oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
+        oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
 
         UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
         CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
 
         Page<CamisetaEntity> camisetasCompradas = oCamisetaService.getPageCamisetasCompradasByUsuario(oUsuarioEntity.getId(), PageRequest.of(0, Integer.MAX_VALUE));
-
-        // Page<CamisetaEntity> camisetasCompradas = oCamisetaRepository.findCamisetasCompradasByUsuario(oUsuarioEntity.getId(), PageRequest.of(0, Integer.MAX_VALUE));
 
         boolean haCompradoCamiseta = camisetasCompradas.stream().anyMatch(camiseta -> camiseta.getId().equals(oCamisetaEntity.getId()));
 
@@ -71,22 +69,6 @@ public class ValoracionService {
                 return oValoracionRepository.save(oValoracionEntity).getId();
             }
         }
-        //  oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
-        //  UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
-        //  CamisetaEntity oCamisetaEntity = oCamisetaService.get(oValoracionEntity.getCamiseta().getId());
-        //  Optional<ValoracionEntity> valoracionBaseDeDatos = oValoracionRepository.findByCamisetaIdAndUsuarioId(oCamisetaEntity.getId(), oUsuarioEntity.getId());
-        //  if (valoracionBaseDeDatos.isPresent()) {
-        //     throw new Exception("Error: Ya has valorado esta camiseta.");
-        //  } else {
-        //     oValoracionEntity.setId(null);
-        //     oValoracionEntity.setFecha(LocalDate.now());
-        //     return oValoracionRepository.save(oValoracionEntity).getId();
-        //  }
-
-        // oValoracionEntity.setId(null);
-        // oValoracionEntity.setFecha(LocalDate.now());
-        // return oValoracionRepository.save(oValoracionEntity).getId();
-
 
     }
 

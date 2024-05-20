@@ -154,6 +154,7 @@ public class CompraService {
 
     }
 
+    @Transactional
     public Long cancelarCompra(Long id) {
         CompraEntity compra = oCompraRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Compra no encontrada."));
         oSessionService.onlyAdminsOUsuariosConSusDatos(compra.getUsuario().getId());
