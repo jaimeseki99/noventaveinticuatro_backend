@@ -110,8 +110,8 @@ public class CompraService {
        
         oDetalleCompraRepository.save(oDetalleCompraEntity);
 
-        CamisetaEntity camiseta = oCarritoEntity.getCamiseta();
-        oCamisetaService.actualizarStock(camiseta, oCarritoEntity.getCantidad());
+        // CamisetaEntity camiseta = oCarritoEntity.getCamiseta();
+        // oCamisetaService.actualizarStock(camiseta, oCarritoEntity.getCantidad());
 
         oCarritoService.delete(oCarritoEntity.getId());
 
@@ -144,8 +144,9 @@ public class CompraService {
             oDetalleCompraEntity.setIva(carrito.getCamiseta().getIva());
             oDetalleCompraEntity.setPorcentajeDescuento(carrito.getCamiseta().getPorcentajeDescuento());
             oDetalleCompraRepository.save(oDetalleCompraEntity);
-            CamisetaEntity camiseta = carrito.getCamiseta();
-            oCamisetaService.actualizarStock(camiseta, carrito.getCantidad());
+
+            // CamisetaEntity camiseta = carrito.getCamiseta();
+            // oCamisetaService.actualizarStock(camiseta, carrito.getCantidad());
         });
 
         oCarritoService.deleteByUsuario(oUsuarioEntity.getId());

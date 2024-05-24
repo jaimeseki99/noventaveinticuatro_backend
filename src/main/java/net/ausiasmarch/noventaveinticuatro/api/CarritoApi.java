@@ -80,9 +80,20 @@ public class CarritoApi {
         return ResponseEntity.ok(oCarritoService.delete(carritoId));
     }
 
+    @DeleteMapping("/eliminarCamisetaCarrito/{carritoId}")
+    public ResponseEntity<Long> eliminarCamisetaCarrito(@PathVariable("carritoId") Long carritoId) {
+        return ResponseEntity.ok(oCarritoService.eliminarCamisetaCarrito(carritoId));
+    }
+
     @DeleteMapping("/usuario/{usuarioId}")
     public ResponseEntity<Long> deleteCarritoByUsuario(@PathVariable("usuarioId") Long usuarioId) {
         oCarritoService.deleteByUsuario(usuarioId);
+        return ResponseEntity.ok(usuarioId);
+    }
+
+    @DeleteMapping("/eliminarCarritoUsuario/{usuarioId}")
+    public ResponseEntity<Long> eliminarCamisetasCarritoUsuario(@PathVariable("usuarioId") Long usuarioId) {
+        oCarritoService.eliminarTodasCamisetasCarrito(usuarioId);
         return ResponseEntity.ok(usuarioId);
     }
 

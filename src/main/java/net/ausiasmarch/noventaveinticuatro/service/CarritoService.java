@@ -55,6 +55,7 @@ public class CarritoService {
         return oCarritoRepository.findAll(oPageable);
     }
 
+    @Transactional
     public Long create(CarritoEntity oCarritoEntity) {
         oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
        
@@ -70,23 +71,33 @@ public class CarritoService {
                 CarritoEntity carrito = carritoBaseDatos.get();
                 carrito.setCantidad(carrito.getCantidad() + oCarritoEntity.getCantidad());
                 oCarritoRepository.save(carrito);
+                oCamisetaService.actualizarStock(oCamisetaEntity, carrito.getCantidad());
                 return carrito.getId();
             } else {
                 oCarritoEntity.setId(null);
                 oCarritoEntity.setUsuario(oUsuarioEntity);
                 oCarritoEntity.setCamiseta(oCamisetaEntity);
+                oCamisetaService.actualizarStock(oCamisetaEntity, oCarritoEntity.getCantidad());
                 return oCarritoRepository.save(oCarritoEntity).getId();
             }
         
     }
 
+   @Transactional
     public CarritoEntity update(CarritoEntity oCarritoEntity) {
         CarritoEntity carritoBaseDatos = this.get(oCarritoEntity.getId());
         oSessionService.onlyAdminsOUsuariosConSusDatos(carritoBaseDatos.getUsuario().getId());
+
+        int diferenciaCantidad = oCarritoEntity.getCantidad() - carritoBaseDatos.getCantidad();
+
         oCarritoEntity.setUsuario(carritoBaseDatos.getUsuario());
         oCarritoEntity.setCamiseta(carritoBaseDatos.getCamiseta());
 
-        return oCarritoRepository.save(oCarritoEntity);
+        CarritoEntity carritoActualizado = oCarritoRepository.save(oCarritoEntity);
+
+        oCamisetaService.actualizarStock(carritoBaseDatos.getCamiseta(), diferenciaCantidad);
+
+        return oCarritoRepository.save(carritoActualizado);
     }
 
     public Long delete(Long id) {
@@ -100,10 +111,33 @@ public class CarritoService {
         }
     }
 
+    public Long eliminarCamisetaCarrito(Long id) {
+        CarritoEntity carritoBaseDatos = this.get(id);
+        oSessionService.onlyAdminsOUsuariosConSusDatos(carritoBaseDatos.getUsuario().getId());
+
+        if (oCarritoRepository.existsById(id)) {
+            oCarritoRepository.deleteById(id);
+            oCamisetaService.actualizarStock(carritoBaseDatos.getCamiseta(), -(carritoBaseDatos.getCantidad()));
+            return id;
+        } else {
+            throw new ResourceNotFoundException("Error: El carrito no existe.");
+        }
+    }
+
     @Transactional
     public void deleteByUsuario(Long usuario_id) {
         oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         oCarritoRepository.deleteByUsuarioId(usuario_id);
+    }
+
+    @Transactional
+    public void eliminarTodasCamisetasCarrito(Long usuario_id) {
+        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
+        List<CarritoEntity> carritos = oCarritoRepository.findByUsuarioId(usuario_id, Pageable.unpaged()).getContent();
+        for (CarritoEntity carrito: carritos) {
+            oCamisetaService.actualizarStock(carrito.getCamiseta(), -(carrito.getCantidad()));
+            oCarritoRepository.delete(carrito);
+        }
     }
 
     
