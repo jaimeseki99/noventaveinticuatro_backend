@@ -34,8 +34,8 @@ public class EquipoApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable, @RequestParam(value = "liga", defaultValue = "0", required = false) Long liga_id)  {
-        return ResponseEntity.ok(oEquipoService.getPage(oPageable, liga_id));
+    public ResponseEntity<Page<EquipoEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable, @RequestParam(value = "liga", defaultValue = "0", required = false) Long liga_id, @RequestParam(name = "filtro", required = false) String filtro)  {
+        return ResponseEntity.ok(oEquipoService.getPage(oPageable, liga_id, filtro));
     }
 
     @GetMapping("/liga/{ligaId}")

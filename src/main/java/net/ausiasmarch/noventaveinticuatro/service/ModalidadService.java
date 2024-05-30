@@ -59,9 +59,13 @@ public class ModalidadService {
         return oModalidadRepository.findAll(oPageable).getContent().get(0);
     }
 
-    public Page<ModalidadEntity> getPage(Pageable oPageable) {
+    public Page<ModalidadEntity> getPage(Pageable oPageable, String filtro) {
         oSessionService.onlyAdminsOUsuarios();
-        return oModalidadRepository.findAll(oPageable);
+        if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
+            return oModalidadRepository.findByNombreContainingIgnoreCase(filtro, oPageable);
+        } else {
+            return oModalidadRepository.findAll(oPageable);
+        }
     }
 
     //Encontrar modalidad por nombre

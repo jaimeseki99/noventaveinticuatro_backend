@@ -63,13 +63,25 @@ public class EquipoService {
         return oEquipoRepository.findAll(oPageable).getContent().get(0);
     }
 
-    public Page<EquipoEntity> getPage(Pageable oPageable, Long liga_id) {
+    public Page<EquipoEntity> getPage(Pageable oPageable, Long liga_id, String filtro) {
         oSessionService.onlyAdminsOUsuarios();
-        if (liga_id != 0) {
-            return oEquipoRepository.findByLigaId(liga_id, oPageable);
+
+        if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
+            return oEquipoRepository.findByNombreContainingIgnoreCase(filtro, oPageable);
         } else {
-            return oEquipoRepository.findAll(oPageable);
+            if (liga_id != 0) {
+                return oEquipoRepository.findByLigaId(liga_id, oPageable);
+            } else {
+                return oEquipoRepository.findAll(oPageable);
+            }
         }
+
+        
+        // if (liga_id != 0) {
+        //     return oEquipoRepository.findByLigaId(liga_id, oPageable);
+        // } else {
+        //     return oEquipoRepository.findAll(oPageable);
+        // }
     }
 
     public Page<EquipoEntity> getPageByLigaId(Long liga_id, Pageable oPageable) {

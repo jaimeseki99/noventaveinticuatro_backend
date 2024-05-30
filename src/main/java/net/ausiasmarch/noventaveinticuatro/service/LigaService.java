@@ -29,9 +29,13 @@ public class LigaService {
         return oLigaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Error: Liga no encontrada."));
     }
 
-    public Page<LigaEntity> getPage(Pageable oPageable) {
+    public Page<LigaEntity> getPage(Pageable oPageable, String filtro) {
         oSessionService.onlyAdminsOUsuarios();
-        return oLigaRepository.findAll(oPageable);
+        if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
+           return oLigaRepository.findByNombreContainingIgnoreCase(filtro, oPageable);
+        } else {
+            return oLigaRepository.findAll(oPageable);
+        }   
     }
 
     public Long create(LigaEntity oLigaEntity) {

@@ -13,6 +13,8 @@ public interface LigaRepository extends JpaRepository<LigaEntity, Long> {
     @Query(value = "SELECT * FROM liga WHERE pais LIKE %?1%", nativeQuery = true)
     Page<LigaEntity> findByPais(String pais, Pageable pageable);
 
+    Page<LigaEntity> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
+
     @Modifying
     @Query(value = "ALTER TABLE liga AUTO_INCREMENT = 1", nativeQuery = true)
     void resetAutoIncrement();

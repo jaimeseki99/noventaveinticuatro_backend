@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.noventaveinticuatro.entity.ModalidadEntity;
@@ -39,8 +40,8 @@ public class ModalidadApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<ModalidadEntity>> getPage(@PageableDefault(size = 10, sort = "{id}", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok(oModalidadService.getPage(pageable));
+    public ResponseEntity<Page<ModalidadEntity>> getPage(@PageableDefault(size = 10, sort = "{id}", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(value = "filtro", required = false) String filtro) {
+        return ResponseEntity.ok(oModalidadService.getPage(pageable, filtro));
     }
 
     @PostMapping("")

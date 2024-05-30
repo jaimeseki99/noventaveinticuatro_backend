@@ -12,6 +12,8 @@ public interface EquipoRepository extends JpaRepository<EquipoEntity, Long> {
     
     Page<EquipoEntity> findByLigaId(Long liga_id, Pageable pageable);
 
+    Page<EquipoEntity> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
+
     @Modifying
     @Query(value = "ALTER TABLE equipo AUTO_INCREMENT = 1", nativeQuery = true)
     void resetAutoIncrement();

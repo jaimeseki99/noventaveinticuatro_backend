@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.noventaveinticuatro.entity.LigaEntity;
@@ -33,9 +34,9 @@ public class LigaApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<LigaEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable)  {
-        return ResponseEntity.ok(oLigaService.getPage(oPageable));
-    }
+    public ResponseEntity<Page<LigaEntity>> getPage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable oPageable, @RequestParam(value = "filtro", required = false) String filtro) {
+        return ResponseEntity.ok(oLigaService.getPage(oPageable, filtro));
+    }  
 
     @GetMapping("/random")
     public ResponseEntity<LigaEntity> getRandomLiga() {
