@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.ausiasmarch.noventaveinticuatro.bean.CaptchaBean;
 import net.ausiasmarch.noventaveinticuatro.bean.CaptchaResponseBean;
 import net.ausiasmarch.noventaveinticuatro.bean.UsuarioBean;
+import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.service.SessionService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
@@ -35,5 +36,10 @@ public class SesionController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsuarioBean usuarioBean) {
         return ResponseEntity.ok(oSessionService.login(usuarioBean));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UsuarioEntity> register(@RequestBody UsuarioBean usuarioBean) {
+        return ResponseEntity.ok(oSessionService.register(usuarioBean));
     }
 }

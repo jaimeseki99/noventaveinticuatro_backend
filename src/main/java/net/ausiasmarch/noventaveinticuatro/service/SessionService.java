@@ -95,6 +95,29 @@ public class SessionService {
         return JWTHelper.generateJWT(oUsuarioBean.getUsername());
     }
 
+    @Transactional
+    public UsuarioEntity register(UsuarioBean oUsuarioBean) {
+        if (oUsuarioRepository.findByEmail(oUsuarioBean.getEmail()).isPresent()) {
+            throw new ResourceNotFoundException("Este email ya está en uso");
+        }
+
+        if (oUsuarioRepository.findByUsername(oUsuarioBean.getUsername()).isPresent()) {
+            throw new ResourceNotFoundException("Este username ya está en uso");
+        }
+
+        UsuarioEntity nuevoUsuario = new UsuarioEntity();
+        nuevoUsuario.setNombre(oUsuarioBean.getNombre());
+        nuevoUsuario.setApellido(oUsuarioBean.getApellido());
+        nuevoUsuario.setUsername(oUsuarioBean.getUsername());
+        nuevoUsuario.setEmail(oUsuarioBean.getEmail());
+        nuevoUsuario.setDireccion(oUsuarioBean.getDireccion());
+        nuevoUsuario.setTelefono(oUsuarioBean.getTelefono());
+        nuevoUsuario.setContrasenya(oUsuarioBean.getContrasenya());
+        nuevoUsuario.setTipo(false);
+
+        return oUsuarioRepository.save(nuevoUsuario);
+    }
+
     public String getSessionUsername() {
         if (oHttpServletRequest.getAttribute("username") instanceof String) {
             return oHttpServletRequest.getAttribute("username").toString();
