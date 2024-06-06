@@ -18,6 +18,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     Optional<UsuarioEntity> findByEmail(String email);
 
+    Optional<UsuarioEntity> findByTokenContrasenya(String tokenContrasenya);
+
     @Query(value = "SELECT u.*, count co(co.id) FROM usuario u, compra co WHERE u.id = co.usuario_id GROUP BY u.id ORDER BY COUNT(u.id) desc", nativeQuery = true)
     Page<UsuarioEntity> findUsuariosMasCompras(Pageable pageable);
 

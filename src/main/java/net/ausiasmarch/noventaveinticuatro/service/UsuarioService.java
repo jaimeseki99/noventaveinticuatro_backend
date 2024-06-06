@@ -35,6 +35,10 @@ public class UsuarioService {
         return oUsuarioRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
     }
 
+    public UsuarioEntity getByEmail(String email) {
+        return oUsuarioRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
+    }
+
     public Long create (UsuarioEntity oUsuarioEntity) {
         oSessionService.onlyAdmins();
         oUsuarioEntity.setId(null);

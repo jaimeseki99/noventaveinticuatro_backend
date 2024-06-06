@@ -56,6 +56,9 @@ public class UsuarioEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "contrasenya")
     private String contrasenya = "7fc01059913987bd360c1f37d2ae1ff5c4a055473ccb0a7a6ab4bf97967a3821";
+    private String tokenContrasenya;
+
+   
 
     @NotNull
     private boolean tipo = false;
@@ -116,14 +119,20 @@ public class UsuarioEntity {
         this.telefono = telefono;
     }
 
-   
-
     public String getContrasenya() {
         return contrasenya;
     }
 
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
+    }
+
+    public String getTokenContrasenya() {
+        return tokenContrasenya;
+    }
+
+    public void setTokenContrasenya(String tokenContrasenya) {
+        this.tokenContrasenya = tokenContrasenya;
     }
 
     public boolean isTipo() {
