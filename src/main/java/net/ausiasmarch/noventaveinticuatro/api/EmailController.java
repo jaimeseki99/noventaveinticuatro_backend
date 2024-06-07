@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 
+import net.ausiasmarch.noventaveinticuatro.dto.ChangePasswordDTO;
 import net.ausiasmarch.noventaveinticuatro.dto.EmailValuesDTO;
 import net.ausiasmarch.noventaveinticuatro.entity.UsuarioEntity;
 import net.ausiasmarch.noventaveinticuatro.repository.UsuarioRepository;
@@ -56,6 +60,24 @@ public class EmailController {
 
         return new ResponseEntity(null, HttpStatus.OK);
         
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity("Compruebe los datos introducidos", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!changePasswordDTO.getContrasenya().equals(changePasswordDTO.getConfirmarContrasenya())) {
+            return new ResponseEntity("Las contraseñas no coinciden", HttpStatus.BAD_REQUEST);
+        }
+
+        UsuarioEntity usuarioEntity = oUsuarioService.getByTokenContrasenya(changePasswordDTO.getTokenContrasenya());
+        usuarioEntity.setContrasenya(changePasswordDTO.getContrasenya());
+        usuarioEntity.setTokenContrasenya(null);
+        oUsuarioRepository.save(usuarioEntity);
+
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
 }

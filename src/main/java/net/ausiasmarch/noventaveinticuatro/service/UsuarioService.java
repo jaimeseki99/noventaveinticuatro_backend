@@ -39,6 +39,10 @@ public class UsuarioService {
         return oUsuarioRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
     }
 
+    public UsuarioEntity getByTokenContrasenya(String tokenContrasenya) {
+        return oUsuarioRepository.findByTokenContrasenya(tokenContrasenya).orElseThrow(() -> new ResourceNotFoundException("Error: Usuario no encontrado."));
+    }
+
     public Long create (UsuarioEntity oUsuarioEntity) {
         oSessionService.onlyAdmins();
         oUsuarioEntity.setId(null);
