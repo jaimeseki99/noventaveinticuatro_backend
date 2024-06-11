@@ -10,10 +10,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "detalle_compra")
 public class DetalleCompraEntity {
+
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +45,12 @@ public class DetalleCompraEntity {
     private boolean descuento;
 
     private double porcentajeDescuento;
+
+    @Size(max = 15)
+    private String nombre;
+
+
+    private int dorsal;
 
     public Long getId() {
         return id;
@@ -107,12 +116,28 @@ public class DetalleCompraEntity {
         this.porcentajeDescuento = porcentajeDescuento;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDorsal() {
+        return dorsal;
+    }
+
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
+    }
+
     public DetalleCompraEntity() {
 
     }
 
     public DetalleCompraEntity(Long id, CompraEntity compra, CamisetaEntity camiseta, double precio, int cantidad,
-            double iva, boolean descuento, double porcentajeDescuento) {
+            double iva, boolean descuento, double porcentajeDescuento, String nombre, int dorsal) {
         this.id = id;
         this.compra = compra;
         this.camiseta = camiseta;
@@ -121,6 +146,23 @@ public class DetalleCompraEntity {
         this.iva = iva;
         this.descuento = descuento;
         this.porcentajeDescuento = porcentajeDescuento;
+        this.nombre = nombre;
+        this.dorsal = dorsal;
+    }
+
+    public DetalleCompraEntity(CompraEntity compra, CamisetaEntity camiseta,
+             double precio, int cantidad,
+             double iva, boolean descuento,
+            double porcentajeDescuento,  String nombre, int dorsal) {
+        this.compra = compra;
+        this.camiseta = camiseta;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.iva = iva;
+        this.descuento = descuento;
+        this.porcentajeDescuento = porcentajeDescuento;
+        this.nombre = nombre;
+        this.dorsal = dorsal;
     }
 
     public DetalleCompraEntity(CompraEntity compra, CamisetaEntity camiseta, double precio, int cantidad, double iva,
@@ -141,6 +183,8 @@ public class DetalleCompraEntity {
         this.cantidad = cantidad;
         this.iva = iva;
     }
+
+    
 
 
 

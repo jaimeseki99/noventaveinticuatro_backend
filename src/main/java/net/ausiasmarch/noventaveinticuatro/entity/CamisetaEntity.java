@@ -41,17 +41,9 @@ public class CamisetaEntity {
     @Size(max = 10)
     private String manga;
 
-    @Size(max = 15)
-    private String nombre;
-
-    @Min(0)
-    private int dorsal;
-
     @NotBlank
     @Size(max = 100)
     private String temporada;
-
-    
 
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
@@ -114,22 +106,6 @@ public class CamisetaEntity {
 
     public void setManga(String manga) {
         this.manga = manga;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getDorsal() {
-        return dorsal;
-    }
-
-    public void setDorsal(int dorsal) {
-        this.dorsal = dorsal;
     }
 
     public String getTemporada() {
@@ -239,7 +215,7 @@ public class CamisetaEntity {
         return detalleCompras.size();
     }
 
-    public CamisetaEntity(Long id, String titulo, String imagen,String talla, String manga, String nombre, int dorsal,
+    public CamisetaEntity(Long id, String titulo, String imagen,String talla, String manga,
             String temporada,  double precio, double iva, boolean descuento,
             double porcentajeDescuento, int stock, EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.id = id;
@@ -247,8 +223,6 @@ public class CamisetaEntity {
         this.imagen = imagen;
         this.talla = talla;
         this.manga = manga;
-        this.nombre = nombre;
-        this.dorsal = dorsal;
         this.temporada = temporada;
         this.precio = precio;
         this.iva = iva;
@@ -260,15 +234,14 @@ public class CamisetaEntity {
         this.liga = liga;
     }
 
-    public CamisetaEntity(String titulo, String imagen, String talla, String manga, String nombre, int dorsal, String temporada,
+    public CamisetaEntity(String titulo, String imagen, String talla, String manga, String temporada,
              double precio, double iva, boolean descuento, double porcentajeDescuento, int stock,
             EquipoEntity equipo, ModalidadEntity modalidad, LigaEntity liga) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.talla = talla;
         this.manga = manga;
-        this.nombre = nombre;
-        this.dorsal = dorsal;
+
         this.temporada = temporada;
         this.precio = precio;
         this.iva = iva;

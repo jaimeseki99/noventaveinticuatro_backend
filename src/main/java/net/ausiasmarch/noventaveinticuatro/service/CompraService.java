@@ -67,6 +67,10 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
+        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
+
 
         oCompraRepository.save(oCompraEntity);
 
@@ -89,13 +93,16 @@ public class CompraService {
     @Transactional
     public CompraEntity realizarCompraUnicoCarrito(CarritoEntity oCarritoEntity, UsuarioEntity oUsuarioEntity) {
 
-        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
+       oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
 
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
+        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
 
@@ -107,6 +114,8 @@ public class CompraService {
         oDetalleCompraEntity.setPrecio(oCarritoEntity.getCamiseta().getPrecio());
         oDetalleCompraEntity.setIva(oCarritoEntity.getCamiseta().getIva());
         oDetalleCompraEntity.setPorcentajeDescuento(oCarritoEntity.getCamiseta().getPorcentajeDescuento());
+        oDetalleCompraEntity.setNombre(oCarritoEntity.getNombre());
+        oDetalleCompraEntity.setDorsal(oCarritoEntity.getDorsal());
        
         oDetalleCompraRepository.save(oDetalleCompraEntity);
 
@@ -122,13 +131,16 @@ public class CompraService {
     @Transactional
     public CompraEntity realizarCompraTodosCarritos(Page<CarritoEntity> carritos, UsuarioEntity oUsuarioEntity) {
 
-        oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
+       oSessionService.onlyAdminsOUsuariosConSusDatos(oUsuarioEntity.getId());
 
         CompraEntity oCompraEntity = new CompraEntity();
 
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
+        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
         
@@ -143,6 +155,8 @@ public class CompraService {
             oDetalleCompraEntity.setPrecio(carrito.getCamiseta().getPrecio());
             oDetalleCompraEntity.setIva(carrito.getCamiseta().getIva());
             oDetalleCompraEntity.setPorcentajeDescuento(carrito.getCamiseta().getPorcentajeDescuento());
+            oDetalleCompraEntity.setNombre(carrito.getNombre());
+            oDetalleCompraEntity.setDorsal(carrito.getDorsal());
             oDetalleCompraRepository.save(oDetalleCompraEntity);
 
             // CamisetaEntity camiseta = carrito.getCamiseta();

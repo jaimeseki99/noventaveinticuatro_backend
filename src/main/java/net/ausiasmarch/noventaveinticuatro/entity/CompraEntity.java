@@ -40,11 +40,18 @@ public class CompraEntity {
     @Size(max = 100)
     private String codigoPedido;
 
-    @Min(0)
-    private Long factura_id;
-
+    @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate fechaFactura;
+    private LocalDate primeraFechaEntrega;
+
+    @NotNull
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate segundaFechaEntrega;
+
+    @NotBlank
+    private String direccion;
+
+   
 
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
@@ -87,47 +94,48 @@ public class CompraEntity {
         this.codigoPedido = codigoPedido;
     }
 
-    public Long getFactura_id() {
-        return factura_id;
-    }
-
-    public void setFactura_id(Long factura_id) {
-        this.factura_id = factura_id;
-    }
-
-    public LocalDate getFechaFactura() {
-        return fechaFactura;
-    }
-
-    public void setFechaFactura(LocalDate fechaFactura) {
-        this.fechaFactura = fechaFactura;
-    }
-
     public int getDetalleCompras() {
         return detallesCompra.size();
+    }
+
+    public LocalDate getPrimeraFechaEntrega() {
+        return primeraFechaEntrega;
+    }
+
+
+    public void setPrimeraFechaEntrega(LocalDate primeraFechaEntrega) {
+        this.primeraFechaEntrega = primeraFechaEntrega;
+    }
+
+
+    public LocalDate getSegundaFechaEntrega() {
+        return segundaFechaEntrega;
+    }
+
+
+    public void setSegundaFechaEntrega(LocalDate segundaFechaEntrega) {
+        this.segundaFechaEntrega = segundaFechaEntrega;
+    }
+
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public CompraEntity() {
         detallesCompra = new ArrayList<>();
     }
 
-    public CompraEntity(Long id, UsuarioEntity usuario, LocalDate fecha, String codigoPedido, Long factura_id,
-            LocalDate fechaFactura) {
+    public CompraEntity(Long id, UsuarioEntity usuario, LocalDate fecha, String codigoPedido) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
         this.codigoPedido = codigoPedido;
-        this.factura_id = factura_id;
-        this.fechaFactura = fechaFactura;
-    }
-
-    public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido, Long factura_id,
-            LocalDate fechaFactura) {
-        this.usuario = usuario;
-        this.fecha = fecha;
-        this.codigoPedido = codigoPedido;
-        this.factura_id = factura_id;
-        this.fechaFactura = fechaFactura;
     }
 
     public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido) {

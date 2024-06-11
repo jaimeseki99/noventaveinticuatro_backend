@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "carrito")
@@ -29,6 +30,11 @@ public class CarritoEntity {
     @NotNull
     @Min(1)
     private int cantidad;
+
+    @Size(max = 15)
+    private String nombre;
+
+    private int dorsal;
 
     public Long getId() {
         return id;
@@ -62,6 +68,23 @@ public class CarritoEntity {
         this.cantidad = cantidad;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getDorsal() {
+        return dorsal;
+    }
+
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
+    }
+
+
     public CarritoEntity() {
 
     }
@@ -77,6 +100,24 @@ public class CarritoEntity {
         this.usuario = usuario;
         this.camiseta = camiseta;
         this.cantidad = cantidad;
+    }
+
+    public CarritoEntity(Long id, UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad,
+             String nombre, int dorsal) {
+        this.id = id;
+        this.usuario = usuario;
+        this.camiseta = camiseta;
+        this.cantidad = cantidad;
+        this.nombre = nombre;
+        this.dorsal = dorsal;
+    }
+
+    public CarritoEntity(UsuarioEntity usuario, CamisetaEntity camiseta, int cantidad, String nombre, int dorsal) {
+        this.usuario = usuario;
+        this.camiseta = camiseta;
+        this.cantidad = cantidad;
+        this.nombre = nombre;
+        this.dorsal = dorsal;
     }
 
     

@@ -40,7 +40,7 @@ public class CarritoService {
     }
 
     public Page<CarritoEntity> getCarritoByUsuario(Long usuario_id, Pageable oPageable) {
-        oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
+       // oSessionService.onlyAdminsOUsuariosConSusDatos(usuario_id);
         return oCarritoRepository.findByUsuarioId(usuario_id, oPageable);
     }
 
@@ -59,7 +59,7 @@ public class CarritoService {
     public Long create(CarritoEntity oCarritoEntity) {
         oSessionService.onlyAdminsOUsuariosConSusDatos(oSessionService.getSessionUser().getId());
        
-            UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
+             UsuarioEntity oUsuarioEntity = oSessionService.getSessionUser();
 
             // UsuarioEntity oUsuarioEntity =
             // oUsuarioService.get(oCarritoEntity.getUsuario().getId());
@@ -78,6 +78,8 @@ public class CarritoService {
                 oCarritoEntity.setUsuario(oUsuarioEntity);
                 oCarritoEntity.setCamiseta(oCamisetaEntity);
                 oCamisetaService.actualizarStock(oCamisetaEntity, oCarritoEntity.getCantidad());
+                oCarritoEntity.setNombre(oCarritoEntity.getNombre());
+                oCarritoEntity.setDorsal(oCarritoEntity.getDorsal());
                 return oCarritoRepository.save(oCarritoEntity).getId();
             }
         
