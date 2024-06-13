@@ -67,10 +67,6 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
-        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
-        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
-
 
         oCompraRepository.save(oCompraEntity);
 
@@ -100,9 +96,6 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
-        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
-        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
 
@@ -138,9 +131,6 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
-        oCompraEntity.setPrimeraFechaEntrega(LocalDate.now().plusDays(2));
-        oCompraEntity.setSegundaFechaEntrega(LocalDate.now().plusDays(3));
-        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
         

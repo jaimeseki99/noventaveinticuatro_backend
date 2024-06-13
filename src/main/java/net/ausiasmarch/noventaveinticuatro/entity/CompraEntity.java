@@ -40,19 +40,6 @@ public class CompraEntity {
     @Size(max = 100)
     private String codigoPedido;
 
-    @NotNull
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate primeraFechaEntrega;
-
-    @NotNull
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate segundaFechaEntrega;
-
-    @NotBlank
-    private String direccion;
-
-   
-
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
 
@@ -96,35 +83,6 @@ public class CompraEntity {
 
     public int getDetalleCompras() {
         return detallesCompra.size();
-    }
-
-    public LocalDate getPrimeraFechaEntrega() {
-        return primeraFechaEntrega;
-    }
-
-
-    public void setPrimeraFechaEntrega(LocalDate primeraFechaEntrega) {
-        this.primeraFechaEntrega = primeraFechaEntrega;
-    }
-
-
-    public LocalDate getSegundaFechaEntrega() {
-        return segundaFechaEntrega;
-    }
-
-
-    public void setSegundaFechaEntrega(LocalDate segundaFechaEntrega) {
-        this.segundaFechaEntrega = segundaFechaEntrega;
-    }
-
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public CompraEntity() {

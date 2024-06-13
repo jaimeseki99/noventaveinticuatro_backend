@@ -30,7 +30,7 @@ public class LigaService {
     }
 
     public Page<LigaEntity> getPage(Pageable oPageable, String filtro) {
-        oSessionService.onlyAdminsOUsuarios();
+        // oSessionService.onlyAdminsOUsuarios();
         if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
            return oLigaRepository.findByNombreContainingIgnoreCase(filtro, oPageable);
         } else {

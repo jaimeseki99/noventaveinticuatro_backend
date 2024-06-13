@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- Base de datos: `noventaveinticuatro`
 --
 
+DROP DATABASE IF EXISTS `noventaveinticuatro`;
+
+CREATE DATABASE `noventaveinticuatro`;
+
+USE `noventaveinticuatro`;
 -- --------------------------------------------------------
 
 --
@@ -49,35 +54,35 @@ CREATE TABLE `camiseta` (
 --
 
 INSERT INTO `camiseta` (`id`, `titulo`, `imagen`, `talla`, `manga`, `temporada`, `precio`, `iva`, `descuento`, `porcentaje_descuento`, `stock`, `equipo_id`, `modalidad_id`, `liga_id`) VALUES
-(1, 'Camiseta FC Barcelona Local 2023/24', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-01-22%20a%20las%2021.10.47.png', 'M', 'Corta', '2023-2024', 79.99, 12.00, 0, 0.00, 58, 4, 3, 1),
-(2, 'Camiseta Manchester City Local 2023/24', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-01-31%20a%20las%2019.54.39.png', 'M', 'corta', '2023-2024', 89.99, 21.00, 0, 0.00, 452, 5, 2, 2),
-(3, 'Camiseta AC Milan Local Retro 2006/07', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-01-30%20a%20las%2017.33.58.png', 'M', 'corta', '2006-2007', 99.99, 25.00, 0, 0.00, 150, 6, 1, 3),
-(4, 'Camiseta Liverpool FC 3ª Equipación 2023/24', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-01-30%20a%20las%2018.40.49.png', 'L', 'corta', '2023-2024', 79.99, 18.00, 0, 0.00, 240, 7, 3, 2),
-(5, 'Camiseta Valencia Local Retro 2000/01', 'http://localhost:8085/media/valenciacamisetaretro.jpeg', 'L', 'corta', '2000-2001', 99.99, 12.00, 0, 0.00, 93, 8, 1, 1),
-(6, 'Camiseta Bayern München Local Temporada 2021-22', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-01-31%20a%20las%2020.36.15.png', 'M', 'corta', '2021-2022', 69.99, 12.00, 0, 0.00, 88, 9, 2, 4),
-(7, 'Camiseta FC Barcelona Temporada 2023-24 Visitante', 'http://localhost:8085/media/camiseta-fc-barcelona-segunda-2024.jpeg', 'L', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 1200, 4, 3, 1),
-(8, 'Camiseta FC Barcelona 3ª Equipación 2023-24', 'http://localhost:8085/media/Camisetas-2023-24-FC-Barcelona-Camiseta-2023-24-FC-Barcelona-Third-l.jpg', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 98, 4, 3, 1),
-(9, 'Camiseta Chelsea FC Local 2023-24', 'http://localhost:8085/media/Chelsea_first_kit.avif', 'M', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 32, 12, 2, 2),
-(10, 'Camiseta Chelsea FC Visitante 2023-24', 'http://localhost:8085/media/chelsea-nike-away-stadium-shirt-2023-24_ss5_p-13387528+pv-2+u-upq1pbaahzoj48nuzvzg+v-s7cqtze85c6zafhjca24.avif', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 53, 12, 3, 2),
-(11, 'Camiseta Manchester City Visitante 2023-24', 'http://localhost:8085/media/camiseta-puma-manchester-city-segunda-equipacion-2023-2024-white-aubergine-0.jpg', 'L', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 99, 5, 2, 2),
-(12, 'Camiseta Manchester City Visitante 2021-22', 'http://localhost:8085/media/puma-manchester-city-fc-segunda-equipacion-21-22.jpg', 'M', 'Corta', '2021-2022', 69.99, 19.00, 0, 0.00, 95, 5, 1, 2),
-(13, 'Camiseta Manchester City Visitante 2022-23', 'http://localhost:8085/media/mancity2023segundakit.jpg', 'M', 'Corta', '2022-2023', 74.99, 20.00, 0, 0.00, 101, 5, 3, 2),
-(14, 'Camiseta Bayer 04 Local 2023-24', 'http://localhost:8085/media/BayerLeverkusenCamiseta.jpeg', 'M', 'Corta', '2023-2024', 79.99, 14.00, 0, 0.00, 997, 21, 3, 4),
-(15, 'Camiseta Bayer 04 Visitante 2023-24', 'http://localhost:8085/media/BayerLeverkusenCamiseta2.webp', 'M', 'Corta', '2023-2024', 79.99, 14.00, 0, 0.00, 990, 21, 3, 4),
-(16, 'Camiseta Real Madrid Local 2023-24', 'http://localhost:8085/media/realmadrid20232024primera.jpeg', 'M', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 150, 10, 2, 1),
-(17, 'Camiseta Real Madrid Visitante 2023-24', 'http://localhost:8085/media/realmadrid20232024visitante.avif', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 199, 10, 3, 1),
-(18, 'Camiseta Atlético de Madrid Local 2022-23', 'http://localhost:8085/media/primera-equipacion-match-atletico-de-madrid-2022-23-camiseta-de-futbol-dri-fit-adv-gFKndr.png', 'L', 'Corta', '2022-2023', 89.99, 21.00, 0, 0.00, 100, 11, 2, 1),
-(19, 'Camiseta Atlético Madrid Visitante 2023-24', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-02-22%20a%20las%201.29.54.png', 'XS', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 500, 11, 3, 1),
-(20, 'Camiseta Manchester United 3ª 2023-24', 'http://localhost:8085/media/camiseta_man_u_2023_24.webp', 'XL', 'Corta', '2023-2024', 79.99, 17.00, 0, 0.00, 100, 16, 3, 2),
-(21, 'Camiseta Tottenham Local 2023-24', 'http://localhost:8085/media/camiseta-nike-tottenham-primera-equipacion-2023-2024-nino-whitebinary-blue-full-sponsor-0.webp', 'S', 'Corta', '2023-2024', 99.99, 16.00, 0, 0.00, 100, 14, 2, 2),
-(22, 'Camiseta Boston Celtics City Edition 2023-24', 'http://localhost:8085/media/BostonCityEdition.jpeg', 'L', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 1000, 17, 4, 5),
-(23, 'Camiseta Boston Celtics Statement Version 2023-24', 'http://localhost:8085/media/BostonStatementEdition.webp', 'L', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 99, 17, 4, 5),
-(24, 'Camiseta Lakers Statement Version 2023-24', 'http://localhost:8085/media/anthony-davis-los-angeles-lakers-statement-edition-swingman-jersey-22-23-junior.jpg', 'XL', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 100, 18, 4, 5),
-(25, 'Camiseta Borussia Dortmund Local 2022-23', 'http://localhost:8085/media/camiseta_borussia_dortmund_2023.avif', 'M', 'Corta', '2022-2023', 74.99, 18.00, 0, 0.00, 138, 19, 3, 4),
-(26, 'Camiseta RB Leipzig Local 2023-24', 'http://localhost:8085/media/2324-RB-Leipzig-Home-Jersey.jpg', 'M', 'Corta', '2023-2024', 79.99, 18.00, 0, 0.00, 256, 20, 3, 4),
-(27, 'Camiseta Arsenal FC Local Retro 2010-11', 'http://localhost:8085/media/2010-11-arsenal-nike-home-shir-60061-2.jpg', 'M', 'Corta', '2010-2011', 109.99, 17.00, 0, 0.00, 50, 13, 1, 2),
-(28, 'Camiseta Liverpool FC Local 2023-24', 'http://localhost:8085/media/camiseta-nike-liverpool-fc-primera-equipacion-2023-2024-adulto-white-green-spark-0.webp', 'L', 'Corta', '2023-2024', 99.99, 16.00, 0, 0.00, 99, 7, 2, 2),
-(30, 'hfds', 'http://localhost:8085/media/Captura%20de%20pantalla%202024-06-10%20165348.png', 'XL', 'Larga', '2023-2024', 33.33, 3.00, 1, 33.00, 33, 13, 3, 2);
+(1, 'Camiseta FC Barcelona Local 2023/24', '/initial/media/Captura%20de%20pantalla%202024-01-22%20a%20las%2021.10.47.png', 'M', 'Corta', '2023-2024', 79.99, 12.00, 0, 0.00, 58, 4, 3, 1),
+(2, 'Camiseta Manchester City Local 2023/24', '/initial/media/Captura%20de%20pantalla%202024-01-31%20a%20las%2019.54.39.png', 'M', 'corta', '2023-2024', 89.99, 21.00, 0, 0.00, 452, 5, 2, 2),
+(3, 'Camiseta AC Milan Local Retro 2006/07', '/initial/media/Captura%20de%20pantalla%202024-01-30%20a%20las%2017.33.58.png', 'M', 'corta', '2006-2007', 99.99, 25.00, 0, 0.00, 150, 6, 1, 3),
+(4, 'Camiseta Liverpool FC 3ª Equipación 2023/24', '/initial/media/Captura%20de%20pantalla%202024-01-30%20a%20las%2018.40.49.png', 'L', 'corta', '2023-2024', 79.99, 18.00, 0, 0.00, 240, 7, 3, 2),
+(5, 'Camiseta Valencia Local Retro 2000/01', '/initial/media/valenciacamisetaretro.jpeg', 'L', 'corta', '2000-2001', 99.99, 12.00, 0, 0.00, 93, 8, 1, 1),
+(6, 'Camiseta Bayern München Local Temporada 2021-22', '/initial/media/Captura%20de%20pantalla%202024-01-31%20a%20las%2020.36.15.png', 'M', 'corta', '2021-2022', 69.99, 12.00, 0, 0.00, 88, 9, 2, 4),
+(7, 'Camiseta FC Barcelona Temporada 2023-24 Visitante', '/initial/media/camiseta-fc-barcelona-segunda-2024.jpeg', 'L', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 1200, 4, 3, 1),
+(8, 'Camiseta FC Barcelona 3ª Equipación 2023-24', '/initial/media/Camisetas-2023-24-FC-Barcelona-Camiseta-2023-24-FC-Barcelona-Third-l.jpg', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 98, 4, 3, 1),
+(9, 'Camiseta Chelsea FC Local 2023-24', '/initial/media/Chelsea_first_kit.avif', 'M', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 32, 12, 2, 2),
+(10, 'Camiseta Chelsea FC Visitante 2023-24', '/initial/media/chelsea-nike-away-stadium-shirt-2023-24_ss5_p-13387528+pv-2+u-upq1pbaahzoj48nuzvzg+v-s7cqtze85c6zafhjca24.avif', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 53, 12, 3, 2),
+(11, 'Camiseta Manchester City Visitante 2023-24', '/initial/media/camiseta-puma-manchester-city-segunda-equipacion-2023-2024-white-aubergine-0.jpg', 'L', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 99, 5, 2, 2),
+(12, 'Camiseta Manchester City Visitante 2021-22', '/initial/media/puma-manchester-city-fc-segunda-equipacion-21-22.jpg', 'M', 'Corta', '2021-2022', 69.99, 19.00, 0, 0.00, 95, 5, 1, 2),
+(13, 'Camiseta Manchester City Visitante 2022-23', '/initial/media/mancity2023segundakit.jpg', 'M', 'Corta', '2022-2023', 74.99, 20.00, 0, 0.00, 101, 5, 3, 2),
+(14, 'Camiseta Bayer 04 Local 2023-24', '/initial/media/BayerLeverkusenCamiseta.jpeg', 'M', 'Corta', '2023-2024', 79.99, 14.00, 0, 0.00, 997, 21, 3, 4),
+(15, 'Camiseta Bayer 04 Visitante 2023-24', '/initial/media/BayerLeverkusenCamiseta2.webp', 'M', 'Corta', '2023-2024', 79.99, 14.00, 0, 0.00, 990, 21, 3, 4),
+(16, 'Camiseta Real Madrid Local 2023-24', '/initial/media/realmadrid20232024primera.jpeg', 'M', 'Corta', '2023-2024', 99.99, 21.00, 0, 0.00, 150, 10, 2, 1),
+(17, 'Camiseta Real Madrid Visitante 2023-24', '/initial/media/realmadrid20232024visitante.avif', 'M', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 199, 10, 3, 1),
+(18, 'Camiseta Atlético de Madrid Local 2022-23', '/initial/media/primera-equipacion-match-atletico-de-madrid-2022-23-camiseta-de-futbol-dri-fit-adv-gFKndr.png', 'L', 'Corta', '2022-2023', 89.99, 21.00, 0, 0.00, 100, 11, 2, 1),
+(19, 'Camiseta Atlético Madrid Visitante 2023-24', '/initial/media/Captura%20de%20pantalla%202024-02-22%20a%20las%201.29.54.png', 'XS', 'Corta', '2023-2024', 79.99, 21.00, 0, 0.00, 500, 11, 3, 1),
+(20, 'Camiseta Manchester United 3ª 2023-24', '/initial/media/camiseta_man_u_2023_24.webp', 'XL', 'Corta', '2023-2024', 79.99, 17.00, 0, 0.00, 100, 16, 3, 2),
+(21, 'Camiseta Tottenham Local 2023-24', '/initial/media/camiseta-nike-tottenham-primera-equipacion-2023-2024-nino-whitebinary-blue-full-sponsor-0.webp', 'S', 'Corta', '2023-2024', 99.99, 16.00, 0, 0.00, 100, 14, 2, 2),
+(22, 'Camiseta Boston Celtics City Edition 2023-24', '/initial/media/BostonCityEdition.jpeg', 'L', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 1000, 17, 4, 5),
+(23, 'Camiseta Boston Celtics Statement Version 2023-24', '/initial/media/BostonStatementEdition.webp', 'L', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 99, 17, 4, 5),
+(24, 'Camiseta Lakers Statement Version 2023-24', '/initial/media/anthony-davis-los-angeles-lakers-statement-edition-swingman-jersey-22-23-junior.jpg', 'XL', 'Sin Mangas', '2023-2024', 109.99, 23.00, 0, 0.00, 100, 18, 4, 5),
+(25, 'Camiseta Borussia Dortmund Local 2022-23', '/initial/media/camiseta_borussia_dortmund_2023.avif', 'M', 'Corta', '2022-2023', 74.99, 18.00, 0, 0.00, 138, 19, 3, 4),
+(26, 'Camiseta RB Leipzig Local 2023-24', '/initial/media/2324-RB-Leipzig-Home-Jersey.jpg', 'M', 'Corta', '2023-2024', 79.99, 18.00, 0, 0.00, 256, 20, 3, 4),
+(27, 'Camiseta Arsenal FC Local Retro 2010-11', '/initial/media/2010-11-arsenal-nike-home-shir-60061-2.jpg', 'M', 'Corta', '2010-2011', 109.99, 17.00, 0, 0.00, 50, 13, 1, 2),
+(28, 'Camiseta Liverpool FC Local 2023-24', '/initial/media/camiseta-nike-liverpool-fc-primera-equipacion-2023-2024-adulto-white-green-spark-0.webp', 'L', 'Corta', '2023-2024', 99.99, 16.00, 0, 0.00, 99, 7, 2, 2),
+(30, 'hfds', '/initial/media/Captura%20de%20pantalla%202024-06-10%20165348.png', 'XL', 'Larga', '2023-2024', 33.33, 3.00, 1, 33.00, 33, 13, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -190,18 +195,12 @@ CREATE TABLE `compra` (
   `id` bigint NOT NULL,
   `usuario_id` bigint NOT NULL,
   `fecha` datetime NOT NULL,
-  `codigo_pedido` varchar(256) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL,
-  `primera_fecha_entrega` datetime NOT NULL,
-  `segunda_fecha_entrega` datetime NOT NULL,
-  `direccion` varchar(1000) COLLATE utf16_bin NOT NULL
+  `codigo_pedido` varchar(256) CHARACTER SET utf16 COLLATE utf16_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
---
--- Volcado de datos para la tabla `compra`
---
 
-INSERT INTO `compra` (`id`, `usuario_id`, `fecha`, `codigo_pedido`, `primera_fecha_entrega`, `segunda_fecha_entrega`, `direccion`) VALUES
-(101, 2, '2024-06-11 00:00:00', '20240611173de9', '2024-06-13 00:00:00', '2024-06-14 00:00:00', 'C/ La Piruleta, 666');
+
+
 
 -- --------------------------------------------------------
 
@@ -222,12 +221,9 @@ CREATE TABLE `detalle_compra` (
   `dorsal` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
---
--- Volcado de datos para la tabla `detalle_compra`
---
 
-INSERT INTO `detalle_compra` (`id`, `compra_id`, `camiseta_id`, `precio`, `cantidad`, `iva`, `descuento`, `porcentaje_descuento`, `nombre`, `dorsal`) VALUES
-(120, 101, 4, 79.99, 1, 18.00, 0, 0.00, NULL, 0);
+
+
 
 -- --------------------------------------------------------
 
@@ -247,24 +243,24 @@ CREATE TABLE `equipo` (
 --
 
 INSERT INTO `equipo` (`id`, `nombre`, `imagen`, `liga_id`) VALUES
-(4, 'FC Barcelona', 'http://localhost:8085/media/fc-barcelona-logo-on-transparent-background-free-vector.jpg', 1),
-(5, 'Manchester City', 'http://localhost:8085/media/manchester-city-logo-vector_618941-176.avif', 2),
-(6, 'AC Milan', 'http://localhost:8085/media/980_acmilan.jpg', 3),
-(7, 'Liverpool FC', 'http://localhost:8085/media/Liverpool_FC.svg.png', 2),
-(8, 'Valencia CF', 'http://localhost:8085/media/valenciacf.jpeg', 1),
-(9, 'FC Bayern München', 'http://localhost:8085/media/bayernmunchen.png', 4),
-(10, 'Real Madrid CF', 'http://localhost:8085/media/real-madrid-escudo-significado-corona-sin-cruz.webp', 1),
-(11, 'Atlético de Madrid', 'http://localhost:8085/media/escudo-atletico-madrid-significado-historia.webp', 1),
-(12, 'Chelsea FC', 'http://localhost:8085/media/chelsea-escudo.png', 2),
-(13, 'Arsenal FC', 'http://localhost:8085/media/arsenal-escudo.jpeg', 2),
-(14, 'Tottenham Hotspur', 'http://localhost:8085/media/tottenhamescudo.png', 2),
-(15, 'FC Internazionale Milano ', 'http://localhost:8085/media/FC_Internazionale_Milano_2021ok.jpg', 3),
-(16, 'Manchester United', 'http://localhost:8085/media/manunitedescudo.png', 2),
-(17, 'Boston Celtics', 'http://localhost:8085/media/yyy1024px-Boston_Celtics.jpg', 5),
-(18, 'Los Angeles Lakers', 'http://localhost:8085/media/Los_Angeles_Lakers_logo.svg.png', 5),
-(19, 'Borussia Dortmund', 'http://localhost:8085/media/Borussia_Dortmund_logo.svg.png', 4),
-(20, 'RB Leipzig', 'http://localhost:8085/media/rbleipzigescudo.jpeg', 4),
-(21, 'Bayer 04 Leverkusen', 'http://localhost:8085/media/Bayer_04_Leverkusen_logo.svg.png', 4);
+(4, 'FC Barcelona', '/initial/media/fc-barcelona-logo-on-transparent-background-free-vector.jpg', 1),
+(5, 'Manchester City', '/initial/media/manchester-city-logo-vector_618941-176.avif', 2),
+(6, 'AC Milan', '/initial/media/980_acmilan.jpg', 3),
+(7, 'Liverpool FC', '/initial/media/Liverpool_FC.svg.png', 2),
+(8, 'Valencia CF', '/initial/media/valenciacf.jpeg', 1),
+(9, 'FC Bayern München', '/initial/media/bayernmunchen.png', 4),
+(10, 'Real Madrid CF', '/initial/media/real-madrid-escudo-significado-corona-sin-cruz.webp', 1),
+(11, 'Atlético de Madrid', '/initial/media/escudo-atletico-madrid-significado-historia.webp', 1),
+(12, 'Chelsea FC', '/initial/media/chelsea-escudo.png', 2),
+(13, 'Arsenal FC', '/initial/media/arsenal-escudo.jpeg', 2),
+(14, 'Tottenham Hotspur', '/initial/media/tottenhamescudo.png', 2),
+(15, 'FC Internazionale Milano ', '/initial/media/FC_Internazionale_Milano_2021ok.jpg', 3),
+(16, 'Manchester United', '/initial/media/manunitedescudo.png', 2),
+(17, 'Boston Celtics', '/initial/media/yyy1024px-Boston_Celtics.jpg', 5),
+(18, 'Los Angeles Lakers', '/initial/media/Los_Angeles_Lakers_logo.svg.png', 5),
+(19, 'Borussia Dortmund', '/initial/media/Borussia_Dortmund_logo.svg.png', 4),
+(20, 'RB Leipzig', '/initial/media/rbleipzigescudo.jpeg', 4),
+(21, 'Bayer 04 Leverkusen', '/initial/media/Bayer_04_Leverkusen_logo.svg.png', 4);
 
 -- --------------------------------------------------------
 
@@ -285,12 +281,12 @@ CREATE TABLE `liga` (
 --
 
 INSERT INTO `liga` (`id`, `nombre`, `pais`, `deporte`, `imagen`) VALUES
-(1, 'LaLiga EA Sports', 'España', 'Fútbol', 'http://localhost:8085/media/laligalogo.jpeg'),
-(2, 'Premier League', 'Inglaterra', 'Fútbol', 'http://localhost:8085/media/5a78219590785167909a9df0b82a7a5b0ece8f8d.webp'),
-(3, 'Serie A', 'Italia', 'Fútbol', 'http://localhost:8085/media/Italian-Serie-A-Logo.png'),
-(4, 'Bundesliga', 'Alemania', 'Fútbol', 'http://localhost:8085/media/Bundesliga_logo_(2017).svg.png'),
-(5, 'NBA', 'Estados Unidos', 'Baloncesto', 'http://localhost:8085/media/nba-logo_2x.png'),
-(6, 'Ligue 1 Uber Eats', 'Francia', 'Fútbol', 'http://localhost:8085/media/Ligue1_Uber_Eats_logo.png');
+(1, 'LaLiga EA Sports', 'España', 'Fútbol', '/initial/media/laligalogo.jpeg'),
+(2, 'Premier League', 'Inglaterra', 'Fútbol', '/initial/media/5a78219590785167909a9df0b82a7a5b0ece8f8d.webp'),
+(3, 'Serie A', 'Italia', 'Fútbol', '/initial/media/Italian-Serie-A-Logo.png'),
+(4, 'Bundesliga', 'Alemania', 'Fútbol', '/initial/media/Bundesliga_logo_(2017).svg.png'),
+(5, 'NBA', 'Estados Unidos', 'Baloncesto', '/initial/media/nba-logo_2x.png'),
+(6, 'Ligue 1 Uber Eats', 'Francia', 'Fútbol', '/initial/media/Ligue1_Uber_Eats_logo.png');
 
 -- --------------------------------------------------------
 
@@ -309,12 +305,12 @@ CREATE TABLE `modalidad` (
 --
 
 INSERT INTO `modalidad` (`id`, `nombre`, `imagen`) VALUES
-(1, 'Versión Retro', 'http://localhost:8085/media/850697_71e242d2371549a7baf5e299d7a336eb~mv2.webp'),
-(2, 'Versión Jugador', 'http://localhost:8085/media/f.elconfidencial.com_original_9ef_43c_97e_9ef43c97e95f47883dc33eea68b1d7a7.jpg'),
-(3, 'Versión Fan', 'http://localhost:8085/media/futbolpasiones.jpg'),
-(4, 'Baloncesto', 'http://localhost:8085/media/michaeljordantrophy.jpeg'),
-(5, 'Versión Mujer', 'http://localhost:8085/media/Mapi-Leon-izquierda-jugadora-de-la-seleccion-femenina-de-futbol-durante-la-Eurocopa-2022.-AFP7-VIA-EUROPA-PRESS-e1667819055563.jpg'),
-(6, 'Versión Niño', 'http://localhost:8085/media/niniombappe.webp');
+(1, 'Versión Retro', '/initial/media/850697_71e242d2371549a7baf5e299d7a336eb~mv2.webp'),
+(2, 'Versión Jugador', '/initial/media/f.elconfidencial.com_original_9ef_43c_97e_9ef43c97e95f47883dc33eea68b1d7a7.jpg'),
+(3, 'Versión Fan', '/initial/media/futbolpasiones.jpg'),
+(4, 'Baloncesto', '/initial/media/michaeljordantrophy.jpeg'),
+(5, 'Versión Mujer', '/initial/media/Mapi-Leon-izquierda-jugadora-de-la-seleccion-femenina-de-futbol-durante-la-Eurocopa-2022.-AFP7-VIA-EUROPA-PRESS-e1667819055563.jpg'),
+(6, 'Versión Niño', '/initial/media/niniombappe.webp');
 
 -- --------------------------------------------------------
 

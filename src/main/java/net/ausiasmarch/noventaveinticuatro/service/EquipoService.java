@@ -64,7 +64,7 @@ public class EquipoService {
     }
 
     public Page<EquipoEntity> getPage(Pageable oPageable, Long liga_id, String filtro) {
-        oSessionService.onlyAdminsOUsuarios();
+        // oSessionService.onlyAdminsOUsuarios();
 
         if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
             return oEquipoRepository.findByNombreContainingIgnoreCase(filtro, oPageable);

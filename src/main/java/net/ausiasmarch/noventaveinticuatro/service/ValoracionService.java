@@ -118,7 +118,7 @@ public class ValoracionService {
     }
 
     public Page<ValoracionEntity> getPageByCamisetaId(Long camiseta_id, Pageable oPageable) {
-        oSessionService.onlyAdminsOUsuarios();
+        //oSessionService.onlyAdminsOUsuarios();
         return oValoracionRepository.findByCamisetaId(camiseta_id, oPageable);
     }
 

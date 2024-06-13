@@ -60,7 +60,7 @@ public class ModalidadService {
     }
 
     public Page<ModalidadEntity> getPage(Pageable oPageable, String filtro) {
-        oSessionService.onlyAdminsOUsuarios();
+        // oSessionService.onlyAdminsOUsuarios();
         if (filtro != null && !filtro.isEmpty() && !filtro.trim().isEmpty()) {
             return oModalidadRepository.findByNombreContainingIgnoreCase(filtro, oPageable);
         } else {
