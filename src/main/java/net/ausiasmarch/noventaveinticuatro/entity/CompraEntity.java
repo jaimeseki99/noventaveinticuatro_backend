@@ -40,6 +40,15 @@ public class CompraEntity {
     @Size(max = 100)
     private String codigoPedido;
 
+    @NotNull
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaEntrega;
+
+    @NotBlank
+    private String direccion;
+
+   
+
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompraEntity> detallesCompra;
 
@@ -81,6 +90,25 @@ public class CompraEntity {
         this.codigoPedido = codigoPedido;
     }
 
+    public LocalDate getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+
+    public void setFechaEntrega(LocalDate fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     public int getDetalleCompras() {
         return detallesCompra.size();
     }
@@ -89,17 +117,23 @@ public class CompraEntity {
         detallesCompra = new ArrayList<>();
     }
 
-    public CompraEntity(Long id, UsuarioEntity usuario, LocalDate fecha, String codigoPedido) {
+    public CompraEntity(Long id, UsuarioEntity usuario, LocalDate fecha, String codigoPedido, LocalDate fechaEntrega,
+            String direccion) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
         this.codigoPedido = codigoPedido;
+        this.fechaEntrega = fechaEntrega;
+        this.direccion = direccion;
     }
 
-    public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido) {
+    public CompraEntity(UsuarioEntity usuario, LocalDate fecha, String codigoPedido, LocalDate fechaEntrega,
+            String direccion) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.codigoPedido = codigoPedido;
+        this.fechaEntrega = fechaEntrega;
+        this.direccion = direccion;
     }
 
 }

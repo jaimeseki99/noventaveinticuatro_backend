@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -67,6 +68,8 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
 
@@ -96,6 +99,8 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
 
@@ -131,6 +136,8 @@ public class CompraService {
         oCompraEntity.setUsuario(oUsuarioEntity);
         oCompraEntity.setFecha(LocalDate.now());
         oCompraEntity.setCodigoPedido(generarCodigoPedido());
+        oCompraEntity.setFechaEntrega(LocalDate.now().plusDays(3));
+        oCompraEntity.setDireccion(oUsuarioEntity.getDireccion());
 
         oCompraRepository.save(oCompraEntity);
         
@@ -237,7 +244,9 @@ public class CompraService {
             UsuarioEntity usuario = oUsuarioService.getOneRandom();
             LocalDate fecha = LocalDate.now();
             String codigoPedido = generarCodigoPedido();
-            oCompraRepository.save(new CompraEntity(usuario, fecha, codigoPedido));
+            LocalDate fechaEntrega = LocalDate.now().plusDays(3);
+            String direccion = usuario.getDireccion();
+            oCompraRepository.save(new CompraEntity(usuario, fecha, codigoPedido, fechaEntrega, direccion));
         }
         return oCompraRepository.count();
     }
